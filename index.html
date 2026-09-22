@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Creator Newsroom, a desk simulation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#f1f2ef; --card:#ffffff; --ink:#16181d; --ink2:#454a54; --mute:#6f7480; --line:#d8dad4; --line2:#e8e9e4;
+    --red:#b03a1b; --red-bg:#f8e6e0; --blue:#2b5ba6; --blue-bg:#e3eaf6;
+    --green:#2f7a3d; --green-bg:#e2f0e4; --amber:#9a6a12; --amber-bg:#f7ecd2;
+    --serif:'Source Serif 4', Georgia, 'Times New Roman', serif; --sans:Inter, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5}
+  a{color:var(--blue)}
+  button{font:inherit;cursor:pointer}
+  .btn{border:1px solid var(--ink);background:var(--ink);color:#fff;border-radius:6px;padding:8px 14px;font-weight:600;font-size:14px}
+  .btn:hover{background:#2b2f37}
+  .btn.secondary{background:transparent;color:var(--ink);border-color:var(--line)}
+  .btn.secondary:hover{background:#fff}
+  .btn.red{background:var(--red);border-color:var(--red)}
+  .btn.red:hover{background:#8f2e14}
+  .btn.small{padding:5px 10px;font-size:13px}
+  .btn:disabled{opacity:.45;cursor:default}
+  button:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+  /* top bar */
+  .top{position:sticky;top:0;z-index:5;background:var(--ink);color:#fff;display:flex;align-items:center;gap:20px;padding:10px 22px;flex-wrap:wrap}
+  .top .mast{font-family:var(--serif);font-size:22px;font-weight:600;letter-spacing:-.2px}
+  .top .brand{color:#b9bcc5;font-size:14px}
+  .top .spacer{flex:1}
+  .top .day{display:flex;align-items:center;gap:12px;font-size:14px;color:#dfe1e6}
+  .top .day strong{font-family:var(--serif);font-size:26px;font-weight:600;color:#fff;line-height:1}
+  .top .btn{background:#fff;color:var(--ink);border-color:#fff}
+  .top .btn:hover{background:#e6e7ea}
+  .top .btn.secondary{background:transparent;color:#dfe1e6;border-color:#565b66}
+  .top .btn.secondary:hover{background:#2b2f37}
+  .sim{font-size:12px;color:#b9bcc5;border:1px solid #565b66;border-radius:999px;padding:2px 9px}
+
+  /* layout */
+  .wrap{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 56px)}
+  nav{border-right:1px solid var(--line);padding:18px 12px;background:#eaebe7}
+  nav button{display:block;width:100%;text-align:left;background:none;border:0;border-radius:6px;padding:9px 12px;color:var(--ink2);font-size:14px;font-weight:500}
+  nav button:hover{background:#fff}
+  nav button.on{background:#fff;color:var(--ink);font-weight:600;box-shadow:inset 0 0 0 1px var(--line)}
+  nav .count{float:right;background:var(--red);color:#fff;border-radius:999px;font-size:11px;padding:0 7px;line-height:18px;margin-top:2px}
+  nav .group{font-size:12px;color:var(--mute);padding:14px 12px 4px}
+  main{padding:26px 30px 60px;max-width:1240px}
+  h1{font-family:var(--serif);font-weight:600;font-size:30px;letter-spacing:-.3px;margin:0 0 6px}
+  h2{font-family:var(--serif);font-weight:600;font-size:20px;margin:0 0 10px}
+  h3{font-size:15px;font-weight:600;margin:0 0 4px}
+  .lead{color:var(--ink2);max-width:72ch;margin:0 0 22px}
+  .muted{color:var(--mute)}
+  .small{font-size:13px}
+  .row{display:flex;gap:16px;flex-wrap:wrap}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px 18px}
+  .card.flat{background:transparent}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px 18px}
+  .stat .n{font-family:var(--serif);font-size:44px;font-weight:600;line-height:1.05;letter-spacing:-.5px}
+  .stat .l{color:var(--ink2);font-size:13px;margin-top:6px}
+  .tag{display:inline-block;font-size:12px;border-radius:4px;padding:1px 7px;font-weight:600;white-space:nowrap}
+  .tag.if{background:var(--blue-bg);color:var(--blue)}
+  .tag.bp{background:#ece6f7;color:#5b3d9e}
+  .tag.gr{background:var(--green-bg);color:var(--green)}
+  .tag.am{background:var(--amber-bg);color:var(--amber)}
+  .tag.rd{background:var(--red-bg);color:var(--red)}
+  .tag.nt{background:var(--line2);color:var(--ink2)}
+  .tag.bl{background:var(--blue-bg);color:var(--blue)}
+  .sim-note{font-size:12px;color:var(--mute);border-left:2px solid var(--line);padding-left:8px;margin-top:10px}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th{text-align:left;font-weight:600;color:var(--ink2);font-size:13px;border-bottom:1px solid var(--line);padding:8px 10px}
+  td{padding:9px 10px;border-bottom:1px solid var(--line2);vertical-align:top}
+  tr:last-child td{border-bottom:0}
+  .bar{height:12px;background:var(--line2);border-radius:999px;overflow:hidden}
+  .bar > i{display:block;height:100%;background:var(--red);border-radius:999px}
+  .bar.blue > i{background:var(--blue)}
+  .bar.grey > i{background:#9a9ea8}
+  textarea{width:100%;min-height:150px;font:inherit;font-size:14px;line-height:1.5;padding:12px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink)}
+  mark{border-radius:3px;padding:0 2px}
+  mark.rd{background:#f5c9bd}
+  mark.am{background:#f3e0a8}
+  pre.brief{white-space:pre-wrap;font:inherit;font-size:14px;line-height:1.55;background:#fafaf8;border:1px solid var(--line2);border-radius:6px;padding:14px;margin:8px 0 0}
+  .piece{border:1px solid var(--line);border-radius:8px;background:#fff;padding:16px 18px;margin-bottom:12px}
+  .piece header{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;flex-wrap:wrap}
+  .piece .title{font-family:var(--serif);font-size:19px;font-weight:600}
+  .steps{display:flex;gap:6px;margin:12px 0 10px;flex-wrap:wrap}
+  .steps span{font-size:12px;padding:3px 9px;border-radius:999px;background:var(--line2);color:var(--mute)}
+  .steps span.done{background:var(--ink);color:#fff}
+  .steps span.now{background:var(--red);color:#fff}
+  .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+  details summary{cursor:pointer;color:var(--blue);font-size:14px;margin-top:8px}
+  .trend{display:grid;grid-template-columns:1fr auto;gap:12px;align-items:start;padding:14px 0;border-bottom:1px solid var(--line2)}
+  .trend:last-child{border-bottom:0}
+  .trend .t{font-family:var(--serif);font-size:18px;font-weight:600}
+  .trend.faded{opacity:.45}
+  .mom{font-family:var(--serif);font-size:30px;font-weight:600;line-height:1;text-align:right}
+  .mom small{display:block;font-family:var(--sans);font-size:12px;color:var(--mute);font-weight:400;margin-top:2px}
+  .log{font-size:13px;color:var(--ink2);max-height:420px;overflow:auto}
+  .log div{padding:6px 0;border-bottom:1px solid var(--line2)}
+  .log b{color:var(--ink)}
+  .empty{border:1px dashed var(--line);border-radius:8px;padding:22px;color:var(--mute);text-align:center}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:8px;font-size:14px;opacity:0;transition:opacity .2s;pointer-events:none;z-index:9}
+  .toast.show{opacity:1}
+  .kv{display:grid;grid-template-columns:150px 1fr;gap:4px 12px;font-size:14px}
+  .kv dt{color:var(--mute)} .kv dd{margin:0}
+  @media (max-width:900px){
+    .wrap{grid-template-columns:1fr}
+    nav{border-right:0;border-bottom:1px solid var(--line);display:flex;gap:4px;overflow:auto;padding:8px}
+    nav button{width:auto;white-space:nowrap} nav .group{display:none} nav .count{float:none;margin-left:6px}
+    .grid2,.grid3{grid-template-columns:1fr}
+    main{padding:18px 16px 60px}
+  }
+  @media (prefers-reduced-motion:reduce){.toast{transition:none}}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="mast">The Creator Newsroom</div>
+  <div class="brand" id="brandLine"></div>
+  <span class="sim">Simulation, fictional data</span>
+  <div class="spacer"></div>
+  <div class="day">Day <strong id="dayNum">1</strong>
+    <button class="btn" onclick="advanceDay()">Advance one day</button>
+    <button class="btn secondary" onclick="resetAll()">Reset</button>
+  </div>
+</div>
+<div class="wrap">
+  <nav id="nav"></nav>
+  <main id="main"></main>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ===================== DATA (edit freely; everything is fictional) ===================== */
+const DATA = {
+  brand: { name: "Kestrel Running", product: "Kestrel Aero 3", category: "running shoes and apparel" },
+  amberAllowance: 8,
+  oldProcessDays: 39,
+  legalTurnaround: 3,
+  beats: {
+    gear: "Gear reviews", beginner: "Beginner running", marathon: "Marathon training", trail: "Trail",
+    community: "Run clubs and community", womens: "Women's running", recovery: "Injury and recovery", shorts: "Shorts and comedy"
+  },
+  trends: [
+    { id:"t1", appears:1, decay:5, momentum:88, source:"if", signal:"Searches for 'carbon plate shoes everyday running' up 140% week on week", title:"Are carbon-plate shoes for everyday runners?", beat:"gear", angle:"An honest answer on when a plated shoe makes sense and when the Aero 3 is the better daily choice." },
+    { id:"t2", appears:1, decay:4, momentum:74, source:"bp", signal:"Brand Pulse: 'Is the Aero 3 wide enough?' is the most common question about the brand this week", title:"Fit questions about the Aero 3", beat:"womens", angle:"Show the fit on real feet, including the wide option, without defensive language." },
+    { id:"t3", appears:2, decay:6, momentum:81, source:"if", signal:"'How many running shoes do I need' trending in the category", title:"How many shoes should you rotate?", beat:"beginner", angle:"A two-pair rotation for new runners; the Aero 3 as the easy-day pair." },
+    { id:"t4", appears:2, decay:3, momentum:92, source:"bp", signal:"Brand Pulse: mentions of Kestrel alongside 'NYC marathon' rising ahead of race week", title:"Race week in New York", beat:"marathon", angle:"A race-week checklist from a marathoner; the brand appears in the shakeout run." },
+    { id:"t5", appears:3, decay:4, momentum:69, source:"if", signal:"'Run club' searches at a two-year high in the 18 to 34 audience", title:"Run clubs as the new night out", beat:"community", angle:"A night with a real club; the brand is the shoes on the floor, not the subject." },
+    { id:"t6", appears:4, decay:5, momentum:77, source:"bp", signal:"Brand Pulse: 'outsole wear' complaints about the previous model rising in comments", title:"Durability questions about last year's model", beat:"gear", angle:"Address the wear question directly with the Aero 3's revised outsole; show the mileage." },
+    { id:"t7", appears:5, decay:4, momentum:83, source:"if", signal:"'Zone 2 running' searches up sharply after a podcast episode", title:"Is zone 2 running overrated?", beat:"recovery", angle:"A physio's view on easy running; the Aero 3 as the shoe for the slow miles." },
+    { id:"t8", appears:6, decay:6, momentum:71, source:"if", signal:"'Winter running layers' beginning to rise as temperatures drop", title:"Layering for the first cold runs", beat:"womens", angle:"A practical layering guide with the brand's apparel line." },
+    { id:"t9", appears:7, decay:3, momentum:90, source:"if", signal:"A comedy Short about 'runners who talk about running' is being copied across the platform", title:"Runners who only talk about running", beat:"shorts", angle:"Join the format rather than explain it; the brand gets one visual beat." },
+    { id:"t10", appears:8, decay:5, momentum:76, source:"bp", signal:"Brand Pulse: 'trail version' requests appearing under Kestrel videos", title:"Can the Aero 3 handle trails?", beat:"trail", angle:"A fair test on mixed terrain; say where it stops being the right shoe." },
+    { id:"t11", appears:9, decay:5, momentum:79, source:"if", signal:"'Couch to 5K January' searches starting to build early", title:"January 5K plans are starting early", beat:"beginner", angle:"An eight-week plan from a beginner coach; the Aero 3 as the first real running shoe." },
+    { id:"t12", appears:11, decay:4, momentum:85, source:"bp", signal:"Brand Pulse: brand lift among 25 to 34 women up after the fit video", title:"Follow-up: the fit conversation is working", beat:"womens", angle:"A second piece from the same correspondent answering the comment thread." },
+  ],
+  bench: [
+    { id:"c1", name:"Marisol Reyes", handle:"@marisolruns", beat:"gear", subs:"312k", turnaround:2, perf:1.3, video:6500, short:1800 },
+    { id:"c2", name:"Deshawn Cole", handle:"@colecadence", beat:"gear", subs:"148k", turnaround:2, perf:1.0, video:4200, short:1200 },
+    { id:"c3", name:"Priya Natarajan", handle:"@priyafirst5k", beat:"beginner", subs:"96k", turnaround:3, perf:1.1, video:3200, short:900 },
+    { id:"c4", name:"Owen Fitzgerald", handle:"@owenstartsrunning", beat:"beginner", subs:"61k", turnaround:2, perf:0.9, video:2400, short:700 },
+    { id:"c5", name:"Hannah Berg", handle:"@bergmarathon", beat:"marathon", subs:"224k", turnaround:3, perf:1.2, video:5800, short:1500 },
+    { id:"c6", name:"Tomas Herrera", handle:"@herreralongrun", beat:"marathon", subs:"133k", turnaround:2, perf:1.0, video:4000, short:1100 },
+    { id:"c7", name:"June Okafor", handle:"@juneofftrail", beat:"trail", subs:"88k", turnaround:3, perf:1.1, video:3000, short:850 },
+    { id:"c8", name:"Callum Reid", handle:"@reidridge", beat:"trail", subs:"52k", turnaround:2, perf:0.8, video:2000, short:600 },
+    { id:"c9", name:"Bea Lindqvist", handle:"@bearunsclub", beat:"community", subs:"177k", turnaround:2, perf:1.4, video:4800, short:1400 },
+    { id:"c10", name:"Ravi Menon", handle:"@ravi.runs.nyc", beat:"community", subs:"104k", turnaround:2, perf:1.1, video:3400, short:950 },
+    { id:"c11", name:"Nadia Krol", handle:"@nadiapaces", beat:"womens", subs:"265k", turnaround:2, perf:1.3, video:6000, short:1700 },
+    { id:"c12", name:"Elise Fontaine", handle:"@elisefontaine", beat:"womens", subs:"119k", turnaround:3, perf:1.0, video:3800, short:1000 },
+    { id:"c13", name:"Dr. Sam Whitlock", handle:"@whitlockphysio", beat:"recovery", subs:"142k", turnaround:3, perf:1.2, video:4400, short:1200 },
+    { id:"c14", name:"Ines Duarte", handle:"@inesmoveswell", beat:"recovery", subs:"73k", turnaround:2, perf:0.9, video:2600, short:750 },
+    { id:"c15", name:"Kofi Mensah", handle:"@kofidoesbits", beat:"shorts", subs:"402k", turnaround:2, perf:1.4, video:5200, short:2400 },
+    { id:"c16", name:"Lena Sato", handle:"@lenasatoruns", beat:"shorts", subs:"188k", turnaround:2, perf:1.1, video:3600, short:1600 },
+  ],
+  claims: {
+    red: [
+      { re:/prevent(s|ing)? (injur(y|ies)|shin splints|plantar)/i, label:"Health claim", detail:"Injury prevention is a medical claim. Legal must review." },
+      { re:/injury[- ]free/i, label:"Health claim", detail:"Implies a medical outcome." },
+      { re:/\b(cure|cures|cured|heals?|treats?)\b/i, label:"Health claim", detail:"Treatment language is a medical claim." },
+      { re:/clinically proven|medically proven|doctor[- ]recommended|physio[- ]approved/i, label:"Unsubstantiated endorsement", detail:"Needs documented substantiation and legal sign-off." },
+      { re:/guarantee(d|s)?\b/i, label:"Guarantee", detail:"Guarantees create liability. Legal must review." },
+      { re:/\b(cheapest|lowest price|price match)\b/i, label:"Pricing claim", detail:"Comparative pricing claims are checked by legal." },
+      { re:/giveaway|sweepstake|win a pair/i, label:"Promotion", detail:"Giveaways have their own rules and are not in the agreement." },
+    ],
+    amber: [
+      { re:/\b(best|greatest|perfect)\b/i, label:"Superlative", detail:"Reword as an opinion ('my favourite') or cut." },
+      { re:/\b(fastest|lightest|#1|number one|revolutionary|game[- ]changing)\b/i, label:"Superlative", detail:"Needs an opinion frame or a source." },
+      { re:/\d+\s?%\s?(faster|lighter|more|better|softer|longer)/i, label:"Performance figure", detail:"A number needs a source from the product team." },
+      { re:/\b(Stridewell|Vantage Athletic|Aerolite)\b/, label:"Competitor named", detail:"Competitor mentions are amber under the agreement." },
+      { re:/(discount|promo) code|\d+\s?% off/i, label:"Commercial terms", detail:"Offers must match what the agreement allows." },
+    ],
+    disclosure: { re:/#ad\b|#sponsored\b|paid partnership/i, label:"Disclosure missing", detail:"Add #ad in the first line and say it aloud." }
+  },
+  // Sample drafts the correspondents 'submit'. Index order is shuffled per piece.
+  drafts: [
+    "#ad Quick one before Sunday's long run. I've been rotating the Kestrel Aero 3 into my easy days for six weeks, and the thing I keep noticing is how quiet the heel is on pavement. It is not a race shoe and it is not pretending to be. If you're building up to a spring half, this is the pair I'd put on for the boring miles. Link in the description.",
+    "#ad Let's talk about the best daily trainer I've run in this year. The Kestrel Aero 3 has replaced two other pairs in my rotation, mostly because the fit is finally right for a wide forefoot. I'll show you the wide version on my actual feet, then we go run.",
+    "#ad Something I get asked constantly: how many pairs do you really need? Two. One for easy days, one for the hard ones. The Aero 3 is my easy-day pair. The foam is 12% softer than last year's model and you can feel it in the first kilometre.",
+    "Race week in New York. Here's everything I'm doing between now and Sunday, from the shakeout run to what I eat the night before. I'm wearing the Kestrel Aero 3 for the shakeout, which is the shoe I've done most of my easy miles in this block.",
+    "#ad The rocker geometry on the Aero 3 prevents injury by taking the load off your calves, which is why I've had no niggles this block. If you've been dealing with shin splints, this is the shoe I'd try first.",
+    "#ad Zone 2 is overrated, and I'll explain why as a physio. Easy running matters, the heart-rate obsession doesn't. I run my easy days in the Kestrel Aero 3 because it's soft without being sloppy. That's the whole review.",
+    "#ad I'm guaranteed to take a minute off your 5K with this shoe. Stridewell can't touch it. Kestrel sent the Aero 3 and I've been running in nothing else. Use my discount code for 20% off.",
+    "#ad I took the Aero 3 onto the ridge trail to see where a road shoe stops making sense. Honest answer: it's fine on packed dirt, it's out of its depth on wet rock. Watch to the end for where I'd switch to a proper trail shoe.",
+    "#ad We went to a Thursday night run club in Brooklyn to find out why everyone is suddenly joining one. I'm in the Kestrel Aero 3, which you'll see for about two seconds because this video is about the people. Aerolite were handing out flyers outside, which was funny.",
+  ],
+};
+
+/* ===================== STATE ===================== */
+const KEY = "creator-newsroom-sim-v1";
+let state = null;
+let screen = "meeting";
+
+function freshState(){
+  return { day:1, pieces:[], amberUsed:0, redLogged:0, log:[], seq:0 };
+}
+function load(){
+  try { const s = localStorage.getItem(KEY); if (s) { state = JSON.parse(s); return; } } catch(e){}
+  state = freshState();
+}
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){} }
+function logIt(text){ state.log.unshift({ day: state.day, text }); if (state.log.length > 80) state.log.length = 80; }
+
+/* ===================== HELPERS ===================== */
+const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const trendById = id => DATA.trends.find(t => t.id === id);
+const creatorById = id => DATA.bench.find(c => c.id === id);
+const fmt = n => n.toLocaleString("en-US");
+const money = n => "$" + n.toLocaleString("en-US");
+function momentumNow(t){ if (state.day < t.appears) return null; return Math.max(0, t.momentum - (state.day - t.appears) * t.decay); }
+function toast(msg){ const el = document.getElementById("toast"); el.textContent = msg; el.classList.add("show"); clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove("show"), 2200); }
+function seeded(n){ const x = Math.sin(n * 9301 + 49297) * 233280; return x - Math.floor(x); }
+
+/* ===================== STANDARDS CHECK (simulates the Gemini first read) ===================== */
+function checkDraft(text){
+  const hits = [];
+  DATA.claims.red.forEach(r => { const m = text.match(r.re); if (m) hits.push({ lane:"red", label:r.label, detail:r.detail, match:m[0] }); });
+  DATA.claims.amber.forEach(r => { const m = text.match(r.re); if (m) hits.push({ lane:"amber", label:r.label, detail:r.detail, match:m[0] }); });
+  if (!DATA.claims.disclosure.re.test(text)) hits.push({ lane:"amber", label:DATA.claims.disclosure.label, detail:DATA.claims.disclosure.detail, match:null });
+  const lane = hits.some(h => h.lane === "red") ? "red" : hits.length ? "amber" : "green";
+  return { lane, hits };
+}
+function highlight(text, hits){
+  let out = esc(text);
+  hits.filter(h => h.match).forEach(h => {
+    const m = esc(h.match).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    out = out.replace(new RegExp(m, "i"), x => `<mark class="${h.lane === "red" ? "rd" : "am"}">${x}</mark>`);
+  });
+  return out;
+}
+
+/* ===================== DESK ACTIONS ===================== */
+function bestCorrespondent(beat){
+  const busy = new Set(state.pieces.filter(p => ["assigned","amber","legal"].includes(p.status)).map(p => p.creatorId));
+  const cands = DATA.bench.filter(c => c.beat === beat).sort((a,b) => b.perf - a.perf);
+  return cands.find(c => !busy.has(c.id)) || cands[0];
+}
+function makeBrief(t, c, due){
+  const mustNot = "No health or injury claims. No performance figures without a source. No superlatives. No competitor names. No offers beyond the agreement.";
+  return `Brief for ${c.name} (${c.handle})\n` +
+    `Piece: ${t.title}\n` +
+    `Why now: ${t.signal}. Seen on day ${t.appears}, momentum ${momentumNow(t)} today.\n` +
+    `Angle: ${t.angle}\n` +
+    `Say: ${DATA.brand.product} by name once, in your own words. Show it in use.\n` +
+    `Do not say: ${mustNot}\n` +
+    `Deliverable: one integration of 60 to 90 seconds inside a regular upload, plus one Short.\n` +
+    `Disclosure: #ad in the first line of the description and spoken on camera.\n` +
+    `Rate card (Q4 agreement): integration ${money(c.video)}, Short ${money(c.short)}. Boost rights already included.\n` +
+    `Draft due: day ${due}.`;
+}
+function commission(trendId){
+  const t = trendById(trendId);
+  if (state.pieces.some(p => p.trendId === trendId)) { toast("Already commissioned"); return; }
+  const c = bestCorrespondent(t.beat);
+  const due = state.day + c.turnaround;
+  state.seq += 1;
+  const p = { id:"p" + state.seq, n: state.seq, trendId, creatorId:c.id, commissionedDay: state.day, draftDueDay: due, status:"assigned",
+    brief: makeBrief(t, c, due), draft:null, check:null, publishDay:null, liveDay:null, readDay:null, metrics:null, boosted:false, legalReturnDay:null, history:[`Day ${state.day}: commissioned and assigned to ${c.name}`] };
+  state.pieces.unshift(p);
+  logIt(`Commissioned "${t.title}" to <b>${c.name}</b>. Brief drafted from the style guide. Draft due day ${due}.`);
+  save(); render(); toast("Commissioned. Brief sent to " + c.name);
+}
+function resolveAmber(pid, choice){
+  const p = state.pieces.find(x => x.id === pid); const t = trendById(p.trendId);
+  if (choice === "legal") {
+    p.status = "legal"; p.legalReturnDay = state.day + DATA.legalTurnaround; state.redLogged += 1;
+    p.history.push(`Day ${state.day}: editor escalated to legal; back on day ${p.legalReturnDay}`);
+    logIt(`Editor escalated "${t.title}" to legal. Logged.`); save(); render(); return;
+  }
+  state.amberUsed += 1;
+  const extra = choice === "change" ? 1 : 0;
+  p.status = "cleared"; p.publishDay = state.day + 1 + extra;
+  p.history.push(`Day ${state.day}: editor ${choice === "change" ? "asked for one change" : "approved as submitted"} (amber ${state.amberUsed} of ${DATA.amberAllowance})`);
+  logIt(`Amber decision on "${t.title}": ${choice === "change" ? "one change requested" : "approved"}. Publishes day ${p.publishDay}.`);
+  save(); render();
+}
+function killPiece(pid){
+  const p = state.pieces.find(x => x.id === pid); const t = trendById(p.trendId);
+  p.status = "killed"; p.history.push(`Day ${state.day}: piece killed`);
+  logIt(`Killed "${t.title}". The kill fee in the agreement applies.`); save(); render();
+}
+function boost(pid){
+  const p = state.pieces.find(x => x.id === pid); const t = trendById(p.trendId);
+  p.boosted = true; p.status = "boosted"; p.metrics.views = Math.round(p.metrics.views * 3.2); p.metrics.lift = +(p.metrics.lift * 1.8).toFixed(1);
+  p.history.push(`Day ${state.day}: boosted through Creator Partnerships Boost`);
+  logIt(`Boosted "${t.title}" as a Shorts and in-stream ad.`); save(); render(); toast("Boosted");
+}
+
+/* ===================== THE CLOCK ===================== */
+function advanceDay(){
+  state.day += 1;
+  const d = state.day;
+  state.pieces.forEach(p => {
+    const t = trendById(p.trendId), c = creatorById(p.creatorId);
+    if (p.status === "assigned" && d >= p.draftDueDay) {
+      const order = [0, 1, 4, 7, 2, 3, 5, 6, 8]; // green, amber, red, green, amber, amber, green, red, amber
+      p.draft = DATA.drafts[order[(p.n - 1) % order.length]];
+      p.check = checkDraft(p.draft);
+      p.history.push(`Day ${d}: draft submitted by ${c.name}; first read: ${p.check.lane}`);
+      if (p.check.lane === "green") { p.status = "cleared"; p.publishDay = d + 1; logIt(`"${t.title}" cleared on first read. Publishes day ${p.publishDay}.`); }
+      else if (p.check.lane === "amber") { p.status = "amber"; p.amberSince = d; logIt(`"${t.title}" flagged amber (${p.check.hits.map(h => h.label).join(", ")}). Editor decision due within 24 hours.`); }
+      else { p.status = "legal"; p.legalReturnDay = d + DATA.legalTurnaround; state.redLogged += 1; logIt(`"${t.title}" flagged red (${p.check.hits.filter(h => h.lane === "red").map(h => h.label).join(", ")}). Sent to legal, back day ${p.legalReturnDay}.`); }
+    }
+    if (p.status === "legal" && d >= p.legalReturnDay) {
+      p.status = "cleared"; p.publishDay = d + 1; p.history.push(`Day ${d}: legal returned the piece with changes`);
+      logIt(`Legal returned "${t.title}" with changes. Publishes day ${p.publishDay}.`);
+    }
+    if (p.status === "cleared" && d >= p.publishDay) {
+      p.status = "live"; p.liveDay = d; p.readDay = d + 2; p.history.push(`Day ${d}: live`);
+      logIt(`"${t.title}" is live. Trend-to-live: ${d - t.appears} days.`);
+    }
+    if ((p.status === "live" || p.status === "boosted") && !p.metrics && d >= p.readDay) {
+      const base = parseInt(c.subs) * 1000 * 0.18;
+      const mom = Math.max(0.35, (momentumNow(t) || 20) / 100);
+      const r = 0.7 + seeded(p.n) * 0.8;
+      p.metrics = { views: Math.round(base * c.perf * mom * r), watch: Math.round(38 + seeded(p.n + 7) * 30), lift: +(0.6 + seeded(p.n + 3) * 2.4).toFixed(1) };
+      p.history.push(`Day ${d}: 48-hour read available`);
+      logIt(`48-hour read on "${t.title}": ${fmt(p.metrics.views)} views, ${p.metrics.watch}% watched, brand lift +${p.metrics.lift} pts.`);
+    }
+  });
+  DATA.trends.filter(t => t.appears === d).forEach(t => logIt(`New on the trend board: "${t.title}" (${t.source === "if" ? "Insights Finder" : "Brand Pulse"}).`));
+  save(); render();
+}
+function resetAll(){ if (!confirm("Reset the simulation to day 1?")) return; state = freshState(); save(); screen = "meeting"; render(); }
+
+/* ===================== RENDER ===================== */
+const NAV = [
+  ["meeting", "Morning meeting"], ["desk", "The desk"], ["standards", "Standards"], ["bench", "The bench"], ["dashboard", "Dashboard"], ["about", "What is simulated"]
+];
+function render(){
+  document.getElementById("dayNum").textContent = state.day;
+  document.getElementById("brandLine").textContent = DATA.brand.name + ", creator desk";
+  const pending = state.pieces.filter(p => p.status === "amber").length + state.pieces.filter(p => (p.status === "live") && p.metrics && !p.boosted).length;
+  document.getElementById("nav").innerHTML = `<div class="group">Desk</div>` + NAV.map(([id, label]) =>
+    `<button class="${screen === id ? "on" : ""}" onclick="go('${id}')">${label}${id === "desk" && pending ? `<span class="count">${pending}</span>` : ""}</button>`).join("");
+  const views = { meeting, desk, standards, bench, dashboard, about };
+  document.getElementById("main").innerHTML = views[screen]();
+}
+function go(id){ screen = id; render(); window.scrollTo(0,0); }
+
+function laneTag(l){ return l === "green" ? `<span class="tag gr">Green</span>` : l === "amber" ? `<span class="tag am">Amber</span>` : `<span class="tag rd">Red</span>`; }
+function srcTag(s){ return s === "if" ? `<span class="tag if">Insights Finder</span>` : `<span class="tag bp">Brand Pulse</span>`; }
+
+function meeting(){
+  const visible = DATA.trends.filter(t => state.day >= t.appears).sort((a,b) => (momentumNow(b)||0) - (momentumNow(a)||0));
+  const rows = visible.map(t => {
+    const m = momentumNow(t); const done = state.pieces.find(p => p.trendId === t.id); const faded = m < 25;
+    return `<div class="trend ${faded ? "faded" : ""}">
+      <div>
+        <div class="t">${esc(t.title)}</div>
+        <div class="small muted" style="margin:3px 0 6px">${srcTag(t.source)} <span class="tag nt">${DATA.beats[t.beat]}</span> seen day ${t.appears}</div>
+        <div class="small">${esc(t.signal)}.</div>
+        <div class="actions">${done ? `<span class="tag bl">Commissioned, piece ${done.n}</span>` : faded ? `<span class="tag nt">Faded, too late to cover</span>` : `<button class="btn small" onclick="commission('${t.id}')">Commission</button>`}</div>
+      </div>
+      <div class="mom">${m}<small>momentum</small></div>
+    </div>`;
+  }).join("");
+  return `<h1>Morning meeting, day ${state.day}</h1>
+  <p class="lead">Ten minutes. The board shows what is rising in the category and what people are asking about the brand. The editor picks what to cover today; everything else waits. Momentum falls every day a trend is not covered.</p>
+  <div class="grid2" style="grid-template-columns:1.6fr 1fr">
+    <div class="card">${rows || `<div class="empty">Nothing on the board yet. Advance a day.</div>`}</div>
+    <div>
+      <div class="card"><h2>How a commission works</h2>
+        <p class="small">Commission sends the trend to the correspondent on that beat with the best recent performance who is not already on a piece. A brief is drafted from the style guide, the rate card applies, and the draft is due in two or three days. No outreach, no negotiation, no sign-off meeting.</p>
+        <div class="sim-note">Simulated: in the real desk, the board is fed by Insights Finder and Brand Pulse, and the brief is drafted by Gemini from the NotebookLM style guide. Here both are scripted.</div>
+      </div>
+      <div class="card" style="margin-top:16px"><h2>Desk log</h2><div class="log">${state.log.slice(0,12).map(l => `<div>Day ${l.day}: ${l.text}</div>`).join("") || `<div class="muted">Nothing yet.</div>`}</div></div>
+    </div>
+  </div>`;
+}
+
+const STEPS = ["Commissioned", "Draft", "First read", "Cleared", "Live", "Boosted"];
+function stepIndex(p){ return { assigned:1, amber:2, legal:2, cleared:3, live:4, boosted:5, killed:2 }[p.status]; }
+function pieceCard(p){
+  const t = trendById(p.trendId), c = creatorById(p.creatorId);
+  const idx = stepIndex(p);
+  const steps = STEPS.map((s, i) => `<span class="${i < idx ? "done" : i === idx ? "now" : ""}">${s}</span>`).join("");
+  let status = "", actions = "";
+  if (p.status === "assigned") status = `<span class="tag nt">Waiting for draft, due day ${p.draftDueDay}</span>`;
+  if (p.status === "amber") {
+    const late = state.day > p.amberSince + 1;
+    status = `${laneTag("amber")} ${late ? `<span class="tag rd">24-hour decision window missed</span>` : `<span class="tag nt">Editor decision due by day ${p.amberSince + 1}</span>`}`;
+    actions = `<button class="btn small" onclick="resolveAmber('${p.id}','approve')">Approve as submitted</button>
+      <button class="btn small secondary" onclick="resolveAmber('${p.id}','change')">Ask for one change (+1 day)</button>
+      <button class="btn small secondary" onclick="resolveAmber('${p.id}','legal')">Send to legal</button>
+      <button class="btn small secondary" onclick="killPiece('${p.id}')">Kill</button>`;
+  }
+  if (p.status === "legal") status = `${laneTag("red")} <span class="tag nt">With legal, back day ${p.legalReturnDay}</span>`;
+  if (p.status === "cleared") status = `${laneTag("green")} <span class="tag nt">Publishes day ${p.publishDay}</span>`;
+  if (p.status === "live" || p.status === "boosted") {
+    status = `<span class="tag bl">Live since day ${p.liveDay}</span> <span class="tag nt">Trend-to-live ${p.liveDay - t.appears} days</span>${p.boosted ? ` <span class="tag rd">Boosted</span>` : ""}`;
+    if (p.metrics) {
+      status += `<div class="small" style="margin-top:8px">48-hour read: <b>${fmt(p.metrics.views)}</b> views, ${p.metrics.watch}% average watched, brand lift <b>+${p.metrics.lift} pts</b></div>`;
+      if (!p.boosted) actions = `<button class="btn small red" onclick="boost('${p.id}')">Boost through Creator Partnerships</button>`;
+    } else status += `<div class="small muted" style="margin-top:8px">48-hour read available day ${p.readDay}</div>`;
+  }
+  if (p.status === "killed") status = `<span class="tag nt">Killed</span>`;
+  const check = p.check ? `<details><summary>First read against the standards</summary>
+      <div style="margin-top:8px">${laneTag(p.check.lane)} ${p.check.hits.length ? "" : `<span class="small muted">Nothing flagged. Disclosure present.</span>`}</div>
+      ${p.check.hits.length ? `<ul class="small" style="margin:8px 0 0;padding-left:18px">${p.check.hits.map(h => `<li><b>${h.label}</b>${h.match ? ` ("${esc(h.match)}")` : ""}: ${h.detail}</li>`).join("")}</ul>` : ""}
+      <pre class="brief">${highlight(p.draft, p.check.hits)}</pre></details>` : "";
+  return `<div class="piece">
+    <header><div><div class="title">${esc(t.title)}</div><div class="small muted">Piece ${p.n}, ${c.name} (${c.handle}), ${DATA.beats[c.beat]}. Commissioned day ${p.commissionedDay}.</div></div><div>${status}</div></header>
+    <div class="steps">${steps}</div>
+    <div class="actions">${actions}</div>
+    <details><summary>Brief</summary><pre class="brief">${esc(p.brief)}</pre></details>
+    ${check}
+    <details><summary>History</summary><ul class="small" style="margin:8px 0 0;padding-left:18px">${p.history.map(h => `<li>${esc(h)}</li>`).join("")}</ul>
+      <div class="small muted" style="margin-top:6px">Old process, for comparison: the same piece would go live on day ${p.commissionedDay + DATA.oldProcessDays}.</div></details>
+  </div>`;
+}
+function desk(){
+  const open = state.pieces.filter(p => !["killed"].includes(p.status));
+  const needs = open.filter(p => p.status === "amber");
+  return `<h1>The desk</h1>
+  <p class="lead">Every piece in flight, from commission to boost. Amber pieces need a decision from the editor within 24 hours. Red pieces are with legal. Everything else moves on its own when you advance the day.</p>
+  ${needs.length ? `<div class="card" style="border-color:var(--amber);background:var(--amber-bg);margin-bottom:16px"><b>${needs.length} amber ${needs.length === 1 ? "piece needs" : "pieces need"} an editor decision.</b> Amber used this month: ${state.amberUsed} of ${DATA.amberAllowance}.</div>` : ""}
+  ${open.length ? open.map(pieceCard).join("") : `<div class="empty">No pieces yet. Go to the morning meeting and commission something.</div>`}
+  ${state.pieces.some(p => p.status === "killed") ? `<details><summary>Killed pieces</summary>${state.pieces.filter(p => p.status === "killed").map(pieceCard).join("")}</details>` : ""}`;
+}
+
+function standards(){
+  const rules = l => DATA.claims[l].map(r => `<tr><td>${r.label}</td><td class="muted">${r.detail}</td></tr>`).join("");
+  return `<h1>Standards</h1>
+  <p class="lead">The style guide, the claims register and the disclosure rule. Legal signs this page once a quarter. Every draft gets a first read against it, which sorts the piece into a lane; only the amber and red lanes involve a person.</p>
+  <div class="grid2">
+    <div>
+      <div class="card"><h2>Test a script</h2>
+        <p class="small muted">Paste a draft, or edit the sample, and run the first read. This is the check every correspondent's draft goes through.</p>
+        <textarea id="testText">#ad The Kestrel Aero 3 is the best shoe for beginners because the rocker prevents injury. It's 15% lighter than the Stridewell Glide and I'm guaranteed to love it. Use my promo code for 20% off.</textarea>
+        <div class="actions"><button class="btn" onclick="runTest()">Run the first read</button></div>
+        <div id="testOut" style="margin-top:12px"></div>
+      </div>
+    </div>
+    <div>
+      <div class="card"><h2>The three lanes</h2>
+        <div class="kv"><dt>${laneTag("green")}</dt><dd>Inside the standards. Cleared by the desk the same day; publishes the next.</dd>
+        <dt>${laneTag("amber")}</dt><dd>A flagged claim, a superlative, a competitor, a missing disclosure. The editor decides within 24 hours. Capped at ${DATA.amberAllowance} a month.</dd>
+        <dt>${laneTag("red")}</dt><dd>Health claims, guarantees, pricing, promotions. Always to legal, always logged. Back in ${DATA.legalTurnaround} days.</dd></div>
+        <div class="sim-note">Simulated: the real first read is Gemini reading the draft against the NotebookLM standards. Here it is a rule list, which is enough to show where the human decisions sit.</div>
+      </div>
+      <div class="card" style="margin-top:16px"><h2>Claims register</h2>
+        <table><tr><th>Red, to legal</th><th></th></tr>${rules("red")}</table>
+        <table style="margin-top:12px"><tr><th>Amber, to the editor</th><th></th></tr>${rules("amber")}<tr><td>${DATA.claims.disclosure.label}</td><td class="muted">${DATA.claims.disclosure.detail}</td></tr></table>
+      </div>
+    </div>
+  </div>`;
+}
+function runTest(){
+  const text = document.getElementById("testText").value;
+  const r = checkDraft(text);
+  document.getElementById("testOut").innerHTML = `<div>${laneTag(r.lane)} <span class="small muted">${r.lane === "green" ? "Cleared. Would publish tomorrow." : r.lane === "amber" ? "To the editor. Decision within 24 hours." : "To legal. Logged."}</span></div>
+    ${r.hits.length ? `<ul class="small" style="margin:8px 0 0;padding-left:18px">${r.hits.map(h => `<li><b>${h.label}</b>${h.match ? ` ("${esc(h.match)}")` : ""}: ${h.detail}</li>`).join("")}</ul>` : ""}
+    <pre class="brief">${highlight(text, r.hits)}</pre>`;
+}
+
+function bench(){
+  const busy = new Set(state.pieces.filter(p => ["assigned","amber","legal"].includes(p.status)).map(p => p.creatorId));
+  const rows = DATA.bench.map(c => {
+    const done = state.pieces.filter(p => p.creatorId === c.id && p.liveDay).length;
+    return `<tr><td><b>${esc(c.name)}</b><div class="small muted">${c.handle}</div></td><td>${DATA.beats[c.beat]}</td><td>${c.subs}</td><td>${c.perf.toFixed(1)}</td><td>${c.turnaround} days</td><td>${money(c.video)} / ${money(c.short)}</td><td>${busy.has(c.id) ? `<span class="tag am">On a piece</span>` : `<span class="tag gr">Available</span>`}${done ? ` <span class="tag nt">${done} live</span>` : ""}</td></tr>`;
+  }).join("");
+  return `<h1>The bench</h1>
+  <p class="lead">Sixteen correspondents on a quarterly retainer, two per beat, chosen through Creator Partnerships and contracted once. When the desk commissions, the brief goes to the available correspondent on that beat with the best recent performance.</p>
+  <div class="card"><table><tr><th>Correspondent</th><th>Beat</th><th>Subscribers</th><th>Performance index</th><th>Turnaround</th><th>Rate card (integration / Short)</th><th>Status</th></tr>${rows}</table></div>
+  <div class="grid3" style="margin-top:16px">
+    <div class="card"><h3>Contracted once</h3><p class="small">One Q4 agreement per correspondent: a monthly minimum, the rate card above, and pre-priced options for an extra video, a usage extension and Boost rights. An extra wave is a notice, not a renegotiation.</p></div>
+    <div class="card"><h3>Refreshed each quarter</h3><p class="small">The performance index is recomputed from the 48-hour reads. Correspondents whose pieces move the numbers stay; the bench is rebalanced by beat.</p></div>
+    <div class="card"><h3>Onboarded to the standards</h3><p class="small">Every correspondent receives the style guide and claims register at signing, so drafts arrive closer to clearable. The amber rate is a bench-quality metric too.</p><div class="sim-note">Simulated: names, subscriber counts, rates and the index are invented. In the real desk the bench comes from a Creator Partnerships search.</div></div>
+  </div>`;
+}
+
+function dashboard(){
+  const live = state.pieces.filter(p => p.liveDay);
+  const ttl = live.map(p => p.liveDay - trendById(p.trendId).appears);
+  const ctl = live.map(p => p.liveDay - p.commissionedDay);
+  const avg = a => a.length ? (a.reduce((x,y) => x+y, 0) / a.length) : null;
+  const avgTtl = avg(ttl), avgCtl = avg(ctl);
+  const boosted = state.pieces.filter(p => p.boosted).length;
+  const withRead = state.pieces.filter(p => p.metrics);
+  const views = withRead.reduce((s,p) => s + p.metrics.views, 0);
+  const newW = avgCtl ? Math.max(4, Math.round(avgCtl / DATA.oldProcessDays * 100)) : 0;
+  const rows = live.sort((a,b) => a.liveDay - b.liveDay).map(p => { const t = trendById(p.trendId); return `<tr><td>${esc(t.title)}</td><td>${creatorById(p.creatorId).name}</td><td>${t.appears}</td><td>${p.commissionedDay}</td><td>${p.liveDay}</td><td><b>${p.liveDay - t.appears}</b></td><td>${p.liveDay - p.commissionedDay}</td><td>${p.check ? laneTag(p.check.lane) : ""}</td><td>${p.metrics ? fmt(p.metrics.views) : "<span class='muted'>pending</span>"}${p.boosted ? " (boosted)" : ""}</td></tr>`; }).join("");
+  return `<h1>Dashboard</h1>
+  <p class="lead">The number the desk is held to is trend-to-live: days from a trend appearing on the board to a correspondent's video being up. The old process is shown alongside for the same pieces.</p>
+  <div class="grid3">
+    <div class="stat"><div class="n">${avgTtl === null ? "–" : avgTtl.toFixed(1)}</div><div class="l">Average trend-to-live, in days${avgTtl === null ? " (no piece live yet)" : ""}</div></div>
+    <div class="stat"><div class="n">${avgCtl === null ? "–" : avgCtl.toFixed(1)}</div><div class="l">Average commission-to-live, in days. Old process: ${DATA.oldProcessDays}.</div></div>
+    <div class="stat"><div class="n">${live.length}</div><div class="l">Pieces live, ${boosted} boosted</div></div>
+    <div class="stat"><div class="n">${state.amberUsed} <span class="muted" style="font-size:22px">/ ${DATA.amberAllowance}</span></div><div class="l">Amber decisions used this month</div></div>
+    <div class="stat"><div class="n">${state.redLogged}</div><div class="l">Pieces sent to legal and logged</div></div>
+    <div class="stat"><div class="n">${views ? fmt(views) : "–"}</div><div class="l">Views across pieces with a 48-hour read</div></div>
+  </div>
+  <div class="card" style="margin-top:16px"><h2>Commission to live, old process against this desk</h2>
+    <div class="small muted" style="margin-bottom:6px">Old process, typical: ${DATA.oldProcessDays} days</div><div class="bar grey"><i style="width:100%"></i></div>
+    <div class="small muted" style="margin:12px 0 6px">This desk, average so far: ${avgCtl === null ? "no piece live yet" : avgCtl.toFixed(1) + " days"}</div><div class="bar"><i style="width:${newW}%"></i></div>
+    <div class="sim-note">The old-process figure is an illustrative timeline from 2026 industry reporting, not a benchmark. The desk figure is whatever this simulation produced.</div>
+  </div>
+  <div class="card" style="margin-top:16px"><h2>Pieces live</h2>
+    ${rows ? `<table><tr><th>Piece</th><th>Correspondent</th><th>Trend seen</th><th>Commissioned</th><th>Live</th><th>Trend-to-live</th><th>Commission-to-live</th><th>First read</th><th>Views</th></tr>${rows}</table>` : `<div class="empty">Nothing live yet. Commission a piece and advance the day a few times.</div>`}
+  </div>`;
+}
+
+function about(){
+  return `<h1>What is simulated</h1>
+  <p class="lead">This site was built for the NYU SPS and Google Marketing Accelerator Hackathon, Track 3, as a companion to the Creator Newsroom submission. It shows what a morning on the desk feels like and where the old sign-off steps disappear. It is a process demonstration, not a product.</p>
+  <div class="grid2">
+    <div class="card"><h2>Fictional throughout</h2><p class="small">Kestrel Running, the Aero 3, every correspondent, every trend, every rate and every number on the dashboard are invented. No real creator or brand is depicted. The old-process timeline of ${DATA.oldProcessDays} days is an illustrative figure from 2026 industry reporting.</p></div>
+    <div class="card"><h2>Where Google products sit in the real desk</h2>
+      <div class="kv"><dt>Trend board</dt><dd>Insights Finder and Brand Pulse. Here: a scripted list with decaying momentum.</dd>
+      <dt>Bench</dt><dd>YouTube Creator Partnerships search. Here: sixteen invented correspondents.</dd>
+      <dt>Brief</dt><dd>Gemini drafting from the NotebookLM style guide. Here: a template filled from the trend and the correspondent.</dd>
+      <dt>First read</dt><dd>Gemini reading the draft against the claims register. Here: a rule list with the same three lanes.</dd>
+      <dt>48-hour read</dt><dd>Creator Partnerships reporting and Brand Pulse. Here: generated figures.</dd>
+      <dt>Boost</dt><dd>Creator Partnerships Boost. Here: a multiplier.</dd></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:16px"><h2>A two-minute walkthrough</h2>
+    <ol class="small" style="padding-left:20px;margin:0">
+      <li>On the morning meeting, commission the two trends with the highest momentum.</li>
+      <li>Advance the day two or three times. Drafts arrive and get a first read.</li>
+      <li>On the desk, decide any amber pieces. Watch a red one go to legal and come back.</li>
+      <li>Advance until pieces are live and have a 48-hour read, then boost the strongest.</li>
+      <li>Open the dashboard and compare trend-to-live with the old process bar.</li>
+      <li>On standards, paste your own script and run the first read.</li>
+    </ol>
+    <p class="small muted" style="margin-top:12px">Progress is kept in this browser only. Reset clears it.</p>
+  </div>`;
+}
+
+/* ===================== BOOT ===================== */
+load(); render();
+</script>
+</body>
+</html>
