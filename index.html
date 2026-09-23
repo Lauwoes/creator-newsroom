@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Creator Newsroom, a desk simulation</title>
+<title>The Creator Newsroom, a desk simulation on real data</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
 <style>
@@ -39,6 +39,8 @@
   .top .btn.secondary{background:transparent;color:#dfe1e6;border-color:#565b66}
   .top .btn.secondary:hover{background:#2b2f37}
   .sim{font-size:12px;color:#b9bcc5;border:1px solid #565b66;border-radius:999px;padding:2px 9px}
+  .sim.live{color:#bfe3c6;border-color:#3f7a4a}
+  .sim.snap{color:#f3e0a8;border-color:#8a6a2a}
 
   /* layout */
   .wrap{display:grid;grid-template-columns:220px 1fr;min-height:calc(100vh - 56px)}
@@ -48,7 +50,8 @@
   nav button.on{background:#fff;color:var(--ink);font-weight:600;box-shadow:inset 0 0 0 1px var(--line)}
   nav .count{float:right;background:var(--red);color:#fff;border-radius:999px;font-size:11px;padding:0 7px;line-height:18px;margin-top:2px}
   nav .group{font-size:12px;color:var(--mute);padding:14px 12px 4px}
-  main{padding:26px 30px 60px;max-width:1240px}
+  main{padding:26px 30px 60px;max-width:1240px;min-width:0}
+  .wrap > *, .card, .grid2 > *, .grid3 > *{min-width:0}
   h1{font-family:var(--serif);font-weight:600;font-size:30px;letter-spacing:-.3px;margin:0 0 6px}
   h2{font-family:var(--serif);font-weight:600;font-size:20px;margin:0 0 10px}
   h3{font-size:15px;font-weight:600;margin:0 0 4px}
@@ -57,6 +60,7 @@
   .small{font-size:13px}
   .row{display:flex;gap:16px;flex-wrap:wrap}
   .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .grid2.wide{grid-template-columns:1.6fr 1fr}
   .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
   .card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:16px 18px}
   .card.flat{background:transparent}
@@ -64,22 +68,28 @@
   .stat .n{font-family:var(--serif);font-size:44px;font-weight:600;line-height:1.05;letter-spacing:-.5px}
   .stat .l{color:var(--ink2);font-size:13px;margin-top:6px}
   .tag{display:inline-block;font-size:12px;border-radius:4px;padding:1px 7px;font-weight:600;white-space:nowrap}
-  .tag.if{background:var(--blue-bg);color:var(--blue)}
-  .tag.bp{background:#ece6f7;color:#5b3d9e}
+  .tag.gt{background:var(--blue-bg);color:var(--blue)}
+  .tag.wm{background:#ece6f7;color:#5b3d9e}
+  .tag.yt{background:#fbe3e3;color:#a12626}
   .tag.gr{background:var(--green-bg);color:var(--green)}
   .tag.am{background:var(--amber-bg);color:var(--amber)}
   .tag.rd{background:var(--red-bg);color:var(--red)}
   .tag.nt{background:var(--line2);color:var(--ink2)}
   .tag.bl{background:var(--blue-bg);color:var(--blue)}
+  .tag.est{background:#fff;border:1px dashed var(--line);color:var(--mute);font-weight:500}
   .sim-note{font-size:12px;color:var(--mute);border-left:2px solid var(--line);padding-left:8px;margin-top:10px}
+  .src{font-size:12px;color:var(--mute);margin-top:4px}
+  .src a{color:var(--mute)}
   table{width:100%;border-collapse:collapse;font-size:14px}
   th{text-align:left;font-weight:600;color:var(--ink2);font-size:13px;border-bottom:1px solid var(--line);padding:8px 10px}
   td{padding:9px 10px;border-bottom:1px solid var(--line2);vertical-align:top}
   tr:last-child td{border-bottom:0}
+  .tablewrap{overflow-x:auto}
   .bar{height:12px;background:var(--line2);border-radius:999px;overflow:hidden}
   .bar > i{display:block;height:100%;background:var(--red);border-radius:999px}
   .bar.blue > i{background:var(--blue)}
   .bar.grey > i{background:#9a9ea8}
+  .bar.green > i{background:var(--green)}
   textarea{width:100%;min-height:150px;font:inherit;font-size:14px;line-height:1.5;padding:12px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink)}
   mark{border-radius:3px;padding:0 2px}
   mark.rd{background:#f5c9bd}
@@ -108,12 +118,20 @@
   .toast.show{opacity:1}
   .kv{display:grid;grid-template-columns:150px 1fr;gap:4px 12px;font-size:14px}
   .kv dt{color:var(--mute)} .kv dd{margin:0}
+  .wave{border:1px solid var(--line);border-radius:8px;padding:14px 16px;background:#fff}
+  .wave .w{font-family:var(--serif);font-size:18px;font-weight:600}
+  .wave ul{margin:8px 0 0;padding-left:18px;font-size:13px}
+  ul.tight{margin:6px 0 0;padding-left:18px}
+  ul.tight li{margin-bottom:4px}
   @media (max-width:900px){
+    .top{position:static;gap:8px 12px;padding:10px 16px}
+    .top .brand{display:none}
     .wrap{grid-template-columns:1fr}
     nav{border-right:0;border-bottom:1px solid var(--line);display:flex;gap:4px;overflow:auto;padding:8px}
     nav button{width:auto;white-space:nowrap} nav .group{display:none} nav .count{float:none;margin-left:6px}
-    .grid2,.grid3{grid-template-columns:1fr}
+    .grid2,.grid3,.grid2.wide{grid-template-columns:1fr}
     main{padding:18px 16px 60px}
+    .kv{grid-template-columns:110px 1fr}
   }
   @media (prefers-reduced-motion:reduce){.toast{transition:none}}
 </style>
@@ -122,7 +140,8 @@
 <div class="top">
   <div class="mast">The Creator Newsroom</div>
   <div class="brand" id="brandLine"></div>
-  <span class="sim">Simulation, fictional data</span>
+  <span class="sim">Simulation on real data</span>
+  <span class="sim" id="dataInd">Data: loading</span>
   <div class="spacer"></div>
   <div class="day">Day <strong id="dayNum">1</strong>
     <button class="btn" onclick="advanceDay()">Advance one day</button>
@@ -136,83 +155,169 @@
 <div class="toast" id="toast"></div>
 
 <script>
-/* ===================== DATA (edit freely; everything is fictional) ===================== */
+/* ===================== SNAPSHOT (real data, embedded fallback; generated from data/live.json) ===================== */
+const SNAPSHOT = /*SNAP*/{"schemaVersion":1,"generatedAt":"2026-09-23T00:21:09Z","generator":"scripts/fetch_data.py","embeddedSnapshot":true,"benchNote":"Illustrative bench of 16 real public YouTube channels found through public YouTube search (not through YouTube Creator Partnerships). No channel has any known relationship with Brooks. Rates, fees and turnaround are not public and are not in this file.","summary":{"creators":16,"creatorsStale":0,"trends":50,"trendsStale":0,"sourcesOk":["youtube_rss","youtube_pages","wikimedia","mediawiki","google_trends"],"sourcesPartial":[],"sourcesFailed":[]},"sources":[{"id":"youtube_rss","name":"YouTube channel RSS feeds","url":"https://www.youtube.com/feeds/videos.xml","status":"ok","ok":19,"failed":0,"lastSuccess":"2026-09-23T00:21:09Z","note":"Latest 15 uploads per channel with public view counts. Server-side only (no CORS)."},{"id":"youtube_pages","name":"YouTube channel pages (public subscriber count)","url":"https://www.youtube.com/","status":"ok","ok":16,"failed":0,"lastSuccess":"2026-09-23T00:21:09Z","note":"Subscriber text read from the channel page header; the channel ID on the page must match."},{"id":"wikimedia","name":"Wikimedia Pageviews REST API","url":"https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/","status":"ok","ok":25,"failed":0,"lastSuccess":"2026-09-23T00:21:09Z","note":"English Wikipedia daily pageviews, agent=user. Also callable from a browser with a plain fetch()."},{"id":"mediawiki","name":"MediaWiki Action API (article title check)","url":"https://en.wikipedia.org/w/api.php","status":"ok","ok":1,"failed":0,"lastSuccess":"2026-09-23T00:21:09Z","note":"Flags configured article titles that were renamed or deleted."},{"id":"google_trends","name":"Google Trends (unofficial web endpoints)","url":"https://trends.google.com/trends/explore","status":"ok","ok":11,"failed":0,"lastSuccess":"2026-09-23T00:21:09Z","note":"Best effort: rate-limited (HTTP 429) and untested from GitHub Actions IPs. Last good values are kept and marked stale on failure."}],"creators":[{"id":"kofuzi","beat":"gear","name":"kofuzi","handle":"@kofuzi","channelId":"UCe43pe3w4L6w3tNMRkWiJBA","url":"https://www.youtube.com/@kofuzi","flags":["Reviews shoes from many brands, competitors included, so exclusivity terms would not fit."],"medianViews15":27948,"uploads30d":13,"uploads30dIsFloor":false,"shortsInLast15":0,"daysSinceLastUpload":0.6,"feedStale":false,"subscribers":242000,"subscribersText":"242K subscribers","subscribersCapturedAt":"2026-09-23T00:21:09Z","subscribersStale":false,"stale":false,"lastSuccess":"2026-09-23T00:21:09Z"},{"id":"doctorsofrunning","beat":"gear","name":"Doctors of Running","handle":"@DoctorsofRunning","channelId":"UCpUtRsyAx5rluUDmF4k_gHw","url":"https://www.youtube.com/@DoctorsofRunning","flags":["Reviews shoes from many brands, competitors included, so exclusivity terms would not fit."],"medianViews15":8590,"uploads30d":13,"uploads30dIsFloor":false,"shortsInLast15":2,"daysSinceLastUpload":0.6,"feedStale":false,"subscribers":50200,"subscribersText":"50.2K subscribers","subscribersCapturedAt":"2026-09-23T00:21:09Z","subscribersStale":false,"stale":false,"lastSuccess":"2026-09-23T00:21:09Z"},{"id":"keltieoconnor","beat":"beginner","name":"Keltie O'Connor","handle":"@KeltieOConnor","channelId":"UC9zEqIwv7yPQ8IlzNYpB_Aw","url":"https://www.youtube.com/@KeltieOConnor","flags":["General fitness and lifestyle channel, not a dedicated running channel. In the beginner beat for its reach to people who do not run yet; do not call it a running creator."],"medianViews15":87826,"uploads30d":10,"uploads30dIsFloor":false,"shortsInLast15":8,"daysSinceLastUpload":0.1,"feedStale":false,"subscribers":773000,"subscribersText":"773K subscribers","subscribersCapturedAt":"2026-09-23T00:21:09Z","subscribersStale":false,"stale":false,"lastSuccess":"2026-09-23T00:21:09Z"},{"id":"nk-medani","beat":"beginner","name":"NK Medani","handle":"@nk.medani","channelId":"UCNhvxFNlvV3RwR7f3TdAunA","url":"https://www.youtube.com/@nk.medani","flags":[],"medianViews15":5340,"uploads30d":4,"uploads30dIsFloor":false,"shortsInLast15":0,"daysSinceLastUpload":2.2,"feedStale":false,"subscribers":25300,"subscribersText":"25.3K subscribers","subscribersCapturedAt":"2026-09-23T00:21:09Z","subscribersStale":false,"stale":false,"lastSuccess":"2026-09-23T00:21:09Z"},{"id":"philybowden","beat":"marathon","name":"Phily Bowden","handle":"@PhilyBowden","channelId":"UCzCCsm1ry8no4j-gS6TgySQ","url":"https://www.youtube.com/@PhilyBowden","flags":[],"medianViews15":106803,"uploads30d":8,"uploads30dIsFloor":false,"shortsInLast15":9,"daysSinceLastUpload":2.3,"feedStale":false,"subscribers":224000,"subscribersText":"224K subscribers","subscribersCapturedAt":"2026-09-23T00:21:09Z","subscribersStale":false,"stale":false,"lastSuccess":"2026-09-23T00:21:09Z"},{"id":"benisrunning","beat":"marathon","name":"Ben Is Running","handle":"@BenIsRunning","channelId":"UC-vlZFFRyWKx-d3LpoAhNfg","url":"https://www.youtube.com/@BenIsRunning","flags":[],"medianViews15":46543,"uploads30d":5,"uploads30dIsFloor":false,"shortsInLast15":3,"daysSinceLastUpload":2.4,"feedStale":false,"subscribers":158000,"subscribersText":"158K subscribers","subscribersCapturedAt":"2026-09-23T00:21:09Z","subscribersStale":false,"stale":false,"lastSuccess":"2026-09-23T00:21:09Z"},{"id":"jeffpelletier","beat":"trail","name":"Jeff Pelletier","handle":"@JeffPelletier","channelId":"UCNKMpnM_Yvf6E-Hhf9btYqA","url":"https://www.youtube.com/@JeffPelletier","flags":[],"medianViews15":36177,"uploads30d":3,"uploads30dIsFloor":false,"shortsInLast15":6,"daysSinceLastUpload":9.2,"feedStale":false,"subscribers":174000,"subscribersText":"174K subscribers","subscribersCapturedAt":"2026-09-23T00:21:09Z","subscribersStale":false,"stale":false,"lastSuccess":"2026-09-23T00:21:09Z"},{"id":"run4adventure","beat":"trail","name":"Run4Adventure","handle":"@Run4Adventure","channelId":"UCGMbTnk82pK0vmITB5LtiPw","url":"https://www.youtube.com/@Run4Adventure","flags":["A 2026-08-27 livestream title says 'powered by SCOTT Running' (SCOTT sells trail shoes). Relationship unverified.","Reviews shoes from many brands, competitors included, so exclusivity terms would not fit."],"medianViews15":8617,"uploads30d":7,"uploads30dIsFloor":false,"shortsInLast15":4,"daysSinceLastUpload":2.3,"feedStale":false,"subscribers":69900,"subscribersText":"69.9K subscribers","subscribersCapturedAt":"2026-09-23T00:21:09Z","subscribersStale":false,"stale":false,"lastSuccess":"2026-09-23T00:21:09Z"},{"id":"noahanderson14","beat":"community","name":"Noah Anderson","handle":"@noahanderson14","channelId":"UC3B5F11oEtOwI-jXpwT0kHg","url":"https://www.youtube.com/@noahanderson14","flags":[],"medianViews15":92677,"uploads30d":15,"uploads30dIsFloor":true,"shortsInLast15":10,"daysSinceLastUpload":1.0,"feedStale":false,"subscribers":515000,"subscribersText":"515K subscribers","subscribersCapturedAt":"2026-09-23T00:21:09Z","subscribersStale":false,"stale":false,"lastSuccess":"2026-09-23T00:21:09Z"},{"id":"crownmyrun","beat":"community","name":"Crown my Run","handle":"@CrownMyRun","channelId":"UCV9Gjy-Ec1cWMaR_J0KSFXg","url":"https://www.youtube.com/@CrownMyRun","flags":["Below the 20k-subscriber floor (14.7K on 2026-09-22). Kept because no active run-club or parkrun channel between 20k and 200k was found; nearest 20k+ swap is Flora Beverley (@FloraBeverley)."],"medianViews15":7802,"uploads30d":4,"uploads30dIsFloor":false,"shortsInLast15":6,"daysSinceLastUpload":1.3,"feedStale":false,"subscribers":14700,"subscribersText":"14.7K subscribers","subscribersCapturedAt":"2026-09-23T00:21:09Z","subscribersStale":false,"stale":false,"lastSuccess":"2026-09-23T00:21:09Z"},{"id":"allie-ostrander","beat":"womens","name":"Allie Ostrander","handle":"@allie_ostrander","channelId":"UCn5hg2riwFTCNif80JbaA8A","url":"https://www.youtube.com/@allie_ostrander","flags":[],"medianViews15":129713,"uploads30d":9,"uploads30dIsFloor":false,"shortsInLast15":8,"daysSinceLastUpload":5.2,"feedStale":false,"subscribers":136000,"subscribersText":"136K subscribers","subscribersCapturedAt":"2026-09-23T00:21:09Z","subscribersStale":false,"stale":false,"lastSuccess":"2026-09-23T00:21:09Z"},{"id":"hannahtrenches","beat":"womens","name":"Hannah Trenches","handle":"@hannahtrenches","channelId":"UCMbAwEnxe3yIJq06H8Ft5rg","url":"https://www.youtube.com/@hannahtrenches","flags":["A 2026-09-10 title promotes a Gymshark discount code (apparel, not footwear)."],"medianViews15":20395,"uploads30d":15,"uploads30dIsFloor":true,"shortsInLast15":11,"daysSinceLastUpload":0.3,"feedStale":false,"subscribers":26600,"subscribersText":"26.6K subscribers","subscribersCapturedAt":"2026-09-23T00:21:09Z","subscribersStale":false,"stale":false,"lastSuccess":"2026-09-23T00:21:09Z"},{"id":"jamesdunne","beat":"recovery","name":"James Dunne","handle":"@JamesDunne","channelId":"UCEBjuHm_Z6hz8Q6C_dm8bSg","url":"https://www.youtube.com/@JamesDunne","flags":[],"medianViews15":136011,"uploads30d":2,"uploads30dIsFloor":false,"shortsInLast15":0,"daysSinceLastUpload":25.8,"feedStale":false,"subscribers":311000,"subscribersText":"311K subscribers","subscribersCapturedAt":"2026-09-23T00:21:09Z","subscribersStale":false,"stale":false,"lastSuccess":"2026-09-23T00:21:09Z"},{"id":"runbetterwithash","beat":"recovery","name":"Run Better with Ash","handle":"@RunBetterwithAsh","channelId":"UCB2zycIY_qMKZjlE98zO4gg","url":"https://www.youtube.com/@RunBetterwithAsh","flags":[],"medianViews15":7927,"uploads30d":13,"uploads30dIsFloor":false,"shortsInLast15":0,"daysSinceLastUpload":1.4,"feedStale":false,"subscribers":186000,"subscribersText":"186K subscribers","subscribersCapturedAt":"2026-09-23T00:21:09Z","subscribersStale":false,"stale":false,"lastSuccess":"2026-09-23T00:21:09Z"},{"id":"andirenay","beat":"shorts","name":"Andi Renay","handle":"@andirenay","channelId":"UCuchAnfKNzuKQ0T6pBQqurQ","url":"https://www.youtube.com/@andirenay","flags":["Channel description says she is 21 and runs at FAU: a current college athlete, so any paid deal must follow her school's and the NCAA's NIL rules."],"medianViews15":29230,"uploads30d":15,"uploads30dIsFloor":true,"shortsInLast15":15,"daysSinceLastUpload":0.1,"feedStale":false,"subscribers":128000,"subscribersText":"128K subscribers","subscribersCapturedAt":"2026-09-23T00:21:09Z","subscribersStale":false,"stale":false,"lastSuccess":"2026-09-23T00:21:09Z"},{"id":"thefashionjogger","beat":"shorts","name":"The Fashion Jogger","handle":"@TheFashionJogger","channelId":"UC6khvHxqs_5VySwJ6amtG8Q","url":"https://www.youtube.com/@TheFashionJogger","flags":["A 2026-09-21 title tags @nikerunning and @nike on a Nike Alphafly 4 video. Any Nike relationship is unverified."],"medianViews15":86668,"uploads30d":15,"uploads30dIsFloor":true,"shortsInLast15":15,"daysSinceLastUpload":1.2,"feedStale":false,"subscribers":1610000,"subscribersText":"1.61M subscribers","subscribersCapturedAt":"2026-09-23T00:21:09Z","subscribersStale":false,"stale":false,"lastSuccess":"2026-09-23T00:21:09Z"}],"trends":[{"id":"wm-hyrox","topic":"Hyrox (fitness racing)","signal_text":"English Wikipedia views of the 'Hyrox' article: 148,027 in the 7 days to 21 Sep, up 242.3% on the previous 7 days (43,244). Busiest day in the last 28: 17 Sep (31,291 views).","metric":"English Wikipedia pageviews (agent=user), sum of the last 7 complete days","value":148027,"change_pct":242.3,"window":"2026-09-15 to 2026-09-21 vs 2026-09-08 to 2026-09-14","source_name":"Wikimedia Pageviews REST API","source_url":"https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Hyrox/daily/20260721/20260922","captured":"2026-09-23T00:21:09Z","stale":false,"lastSuccess":"2026-09-23T00:21:09Z","article":"Hyrox","articleUrl":"https://en.wikipedia.org/wiki/Hyrox","note":"Research on 2026-09-22 found the September 2026 spike was driven by a controversy (a red-list example, not a brief). Check the cause of any spike before briefing.","caveats":[]},{"id":"wm-half-marathon","topic":"Half marathon","signal_text":"English Wikipedia views of the 'Half marathon' article: 5,369 in the 7 days to 21 Sep, up 55.1% on the previous 7 days (3,461). Busiest day in the last 28: 20 Sep (2,297 views).","metric":"English Wikipedia pageviews (agent=user), sum of the last 7 complete days","value":5369,"change_pct":55.1,"window":"2026-09-15 to 2026-09-21 vs 2026-09-08 to 2026-09-14","source_name":"Wikimedia Pageviews REST API","source_url":"https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Half_marathon/daily/20260721/20260922","captured":"2026-09-23T00:21:09Z","stale":false,"lastSuccess":"2026-09-23T00:21:09Z","article":"Half_marathon","articleUrl":"https://en.wikipedia.org/wiki/Half_marathon","note":null,"caveats":[]},{"id":"wm-nyc-marathon","topic":"New York City Marathon","signal_text":"English Wikipedia views of the 'New York City Marathon' article: 1,608 in the 7 days to 21 Sep, down 46.1% on the previous 7 days (2,985). Busiest day in the last 28: 10 Sep (1,245 views).","metric":"English Wikipedia pageviews (agent=user), sum of the last 7 complete days","value":1608,"change_pct":-46.1,"window":"2026-09-15 to 2026-09-21 vs 2026-09-08 to 2026-09-14","source_name":"Wikimedia Pageviews REST API","source_url":"https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/New_York_City_Marathon/daily/20260721/20260922","captured":"2026-09-23T00:21:09Z","stale":false,"lastSuccess":"2026-09-23T00:21:09Z","article":"New_York_City_Marathon","articleUrl":"https://en.wikipedia.org/wiki/New_York_City_Marathon","note":null,"caveats":[]},{"id":"wm-strava","topic":"Strava","signal_text":"English Wikipedia views of the 'Strava' article: 3,535 in the 7 days to 21 Sep, up 47.2% on the previous 7 days (2,401). Busiest day in the last 28: 17 Sep (633 views).","metric":"English Wikipedia pageviews (agent=user), sum of the last 7 complete days","value":3535,"change_pct":47.2,"window":"2026-09-15 to 2026-09-21 vs 2026-09-08 to 2026-09-14","source_name":"Wikimedia Pageviews REST API","source_url":"https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Strava/daily/20260721/20260922","captured":"2026-09-23T00:21:09Z","stale":false,"lastSuccess":"2026-09-23T00:21:09Z","article":"Strava","articleUrl":"https://en.wikipedia.org/wiki/Strava","note":null,"caveats":[]},{"id":"wm-plantar-fasciitis","topic":"Plantar fasciitis (health topic: claims register applies)","signal_text":"English Wikipedia views of the 'Plantar fasciitis' article: 3,803 in the 7 days to 21 Sep, up 4.8% on the previous 7 days (3,630). Busiest day in the last 28: 31 Aug (690 views).","metric":"English Wikipedia pageviews (agent=user), sum of the last 7 complete days","value":3803,"change_pct":4.8,"window":"2026-09-15 to 2026-09-21 vs 2026-09-08 to 2026-09-14","source_name":"Wikimedia Pageviews REST API","source_url":"https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Plantar_fasciitis/daily/20260721/20260922","captured":"2026-09-23T00:21:09Z","stale":false,"lastSuccess":"2026-09-23T00:21:09Z","article":"Plantar_fasciitis","articleUrl":"https://en.wikipedia.org/wiki/Plantar_fasciitis","note":null,"caveats":[]},{"id":"gt-trail-running-shoes","topic":"Trail running shoes","signal_text":"US Google search interest for 'trail running shoes' summed to 194 over the 7 complete days to 22 Sep, up 59.0% on the previous 7 days (122). Daily index 0-100, relative to the peak of its 3-month chart. Today's partial value is 14 (provisional).","metric":"Google Trends US search interest (0-100 index, 3-month chart), sum of the last 7 complete days","value":194,"change_pct":59.0,"window":"2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15","source_name":"Google Trends (unofficial web endpoints, best effort)","source_url":"https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=trail%20running%20shoes","captured":"2026-09-23T00:21:09Z","stale":false,"lastSuccess":"2026-09-23T00:21:09Z","caveats":["Index values are relative to the peak of this chart only; do not compare them with other charts."],"keyword":"trail running shoes","partialToday":{"date":"2026-09-23","value":14}},{"id":"gt-run-club","topic":"Run clubs","signal_text":"US Google search interest for 'run club' summed to 305 over the 7 complete days to 22 Sep, down 9.5% on the previous 7 days (337). Daily index 0-100, relative to the peak of its 3-month chart. Today's partial value is 77 (provisional).","metric":"Google Trends US search interest (0-100 index, 3-month chart), sum of the last 7 complete days","value":305,"change_pct":-9.5,"window":"2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15","source_name":"Google Trends (unofficial web endpoints, best effort)","source_url":"https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=run%20club","captured":"2026-09-23T00:21:09Z","stale":false,"lastSuccess":"2026-09-23T00:21:09Z","caveats":["Index values are relative to the peak of this chart only; do not compare them with other charts."],"keyword":"run club","partialToday":{"date":"2026-09-23","value":77}},{"id":"gt-couch-to-5k","topic":"Couch to 5K","signal_text":"US Google search interest for 'couch to 5k' summed to 303 over the 7 complete days to 22 Sep, down 5.9% on the previous 7 days (322). Daily index 0-100, relative to the peak of its 3-month chart.","metric":"Google Trends US search interest (0-100 index, 3-month chart), sum of the last 7 complete days","value":303,"change_pct":-5.9,"window":"2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15","source_name":"Google Trends (unofficial web endpoints, best effort)","source_url":"https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=couch%20to%205k","captured":"2026-09-23T00:21:09Z","stale":false,"lastSuccess":"2026-09-23T00:21:09Z","caveats":["Index values are relative to the peak of this chart only; do not compare them with other charts."],"keyword":"couch to 5k","partialToday":{"date":"2026-09-23","value":0}},{"id":"gt-zone-2-running","topic":"Zone 2 running","signal_text":"US Google search interest for 'zone 2 running' summed to 217 over the 7 complete days to 22 Sep, down 6.9% on the previous 7 days (233). Daily index 0-100, relative to the peak of its 3-month chart.","metric":"Google Trends US search interest (0-100 index, 3-month chart), sum of the last 7 complete days","value":217,"change_pct":-6.9,"window":"2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15","source_name":"Google Trends (unofficial web endpoints, best effort)","source_url":"https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=zone%202%20running","captured":"2026-09-23T00:21:09Z","stale":false,"lastSuccess":"2026-09-23T00:21:09Z","caveats":["Index values are relative to the peak of this chart only; do not compare them with other charts."],"keyword":"zone 2 running","partialToday":{"date":"2026-09-23","value":0}},{"id":"gt-berlin-marathon","topic":"Berlin Marathon","signal_text":"US Google search interest for 'berlin marathon' summed to 417 over the 7 complete days to 22 Sep, up 39.0% on the previous 7 days (300). Daily index 0-100, relative to the peak of its 3-month chart. Today's partial value is 100 (provisional).","metric":"Google Trends US search interest (0-100 index, 3-month chart), sum of the last 7 complete days","value":417,"change_pct":39.0,"window":"2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15","source_name":"Google Trends (unofficial web endpoints, best effort)","source_url":"https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=berlin%20marathon","captured":"2026-09-23T00:21:09Z","stale":false,"lastSuccess":"2026-09-23T00:21:09Z","caveats":["Index values are relative to the peak of this chart only; do not compare them with other charts."],"keyword":"berlin marathon","partialToday":{"date":"2026-09-23","value":100}},{"id":"gt-chicago-marathon","topic":"Chicago Marathon","signal_text":"US Google search interest for 'chicago marathon' summed to 549 over the 7 complete days to 22 Sep, up 17.1% on the previous 7 days (469). Daily index 0-100, relative to the peak of its 3-month chart. Today's partial value is 100 (provisional).","metric":"Google Trends US search interest (0-100 index, 3-month chart), sum of the last 7 complete days","value":549,"change_pct":17.1,"window":"2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15","source_name":"Google Trends (unofficial web endpoints, best effort)","source_url":"https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=chicago%20marathon","captured":"2026-09-23T00:21:09Z","stale":false,"lastSuccess":"2026-09-23T00:21:09Z","caveats":["Index values are relative to the peak of this chart only; do not compare them with other charts."],"keyword":"chicago marathon","partialToday":{"date":"2026-09-23","value":100}},{"id":"gt-nyc-marathon","topic":"New York City Marathon","signal_text":"US Google search interest for 'nyc marathon' summed to 356 over the 7 complete days to 22 Sep, up 5.3% on the previous 7 days (338). Daily index 0-100, relative to the peak of its 3-month chart. Today's partial value is 100 (provisional).","metric":"Google Trends US search interest (0-100 index, 3-month chart), sum of the last 7 complete days","value":356,"change_pct":5.3,"window":"2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15","source_name":"Google Trends (unofficial web endpoints, best effort)","source_url":"https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=nyc%20marathon","captured":"2026-09-23T00:21:09Z","stale":false,"lastSuccess":"2026-09-23T00:21:09Z","caveats":["Index values are relative to the peak of this chart only; do not compare them with other charts."],"keyword":"nyc marathon","partialToday":{"date":"2026-09-23","value":100}},{"id":"gt-shoes-ghost-18","topic":"Brooks Ghost 18","signal_text":"US Google search interest for 'ghost 18' summed to 393 over the 7 complete days to 22 Sep, up 1.8% on the previous 7 days (386). Daily index 0-100, relative to the peak of its 1-month five-shoe comparison chart.","metric":"Google Trends US search interest (0-100 index, 1-month five-shoe comparison chart), sum of the last 7 complete days","value":393,"change_pct":1.8,"window":"2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15","source_name":"Google Trends (unofficial web endpoints, best effort)","source_url":"https://trends.google.com/trends/explore?date=today%201-m&geo=US&q=ghost%2018%2Chyperion%20elite%206%2Cclifton%2011%2Calphafly%204%2Cadios%20pro%205","captured":"2026-09-23T00:21:09Z","stale":false,"lastSuccess":"2026-09-23T00:21:09Z","caveats":["Index values are relative to the peak of this chart only; do not compare them with other charts.","The bare keyword 'ghost 18' can also catch searches unrelated to the shoe; read it as an upper bound."],"keyword":"ghost 18","partialToday":{"date":"2026-09-23","value":0}},{"id":"gt-shoes-alphafly-4","topic":"Nike Alphafly 4 (competitor)","signal_text":"US Google search interest for 'alphafly 4' summed to 312 over the 7 complete days to 22 Sep, up 403.2% on the previous 7 days (62). Daily index 0-100, relative to the peak of its 1-month five-shoe comparison chart.","metric":"Google Trends US search interest (0-100 index, 1-month five-shoe comparison chart), sum of the last 7 complete days","value":312,"change_pct":403.2,"window":"2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15","source_name":"Google Trends (unofficial web endpoints, best effort)","source_url":"https://trends.google.com/trends/explore?date=today%201-m&geo=US&q=ghost%2018%2Chyperion%20elite%206%2Cclifton%2011%2Calphafly%204%2Cadios%20pro%205","captured":"2026-09-23T00:21:09Z","stale":false,"lastSuccess":"2026-09-23T00:21:09Z","caveats":["Index values are relative to the peak of this chart only; do not compare them with other charts."],"keyword":"alphafly 4","partialToday":{"date":"2026-09-23","value":0}},{"id":"gt-shoes-adios-pro-5","topic":"adidas Adios Pro 5 (competitor)","signal_text":"US Google search interest for 'adios pro 5' summed to 173 over the 7 complete days to 22 Sep, up 179.0% on the previous 7 days (62). Daily index 0-100, relative to the peak of its 1-month five-shoe comparison chart. Today's partial value is 86 (provisional).","metric":"Google Trends US search interest (0-100 index, 1-month five-shoe comparison chart), sum of the last 7 complete days","value":173,"change_pct":179.0,"window":"2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15","source_name":"Google Trends (unofficial web endpoints, best effort)","source_url":"https://trends.google.com/trends/explore?date=today%201-m&geo=US&q=ghost%2018%2Chyperion%20elite%206%2Cclifton%2011%2Calphafly%204%2Cadios%20pro%205","captured":"2026-09-23T00:21:09Z","stale":false,"lastSuccess":"2026-09-23T00:21:09Z","caveats":["Index values are relative to the peak of this chart only; do not compare them with other charts."],"keyword":"adios pro 5","partialToday":{"date":"2026-09-23","value":86}},{"id":"yt-bench-fastest-short","topic":"Fastest-moving bench Short this week","signal_text":"'#fitness #runner #halfmarathon #run #running #workout #athlete #trend #funny #jokes #gym' by Andi Renay (shorts beat) has 1,318,284 views (RSS) 4.2 days after publishing, about 310,585 a day: the fastest of 25 bench Shorts published in the last 7 days and at least 24 hours old.","metric":"YouTube views (RSS) per day since publish","value":310585,"change_pct":null,"window":"Short uploads published 2026-09-16 to 2026-09-23, at least 24 hours old","source_name":"YouTube channel RSS feed (Andi Renay)","source_url":"https://www.youtube.com/shorts/vRSTHtZ7jXI","captured":"2026-09-23T00:21:09Z","stale":false,"lastSuccess":"2026-09-23T00:21:09Z","caveats":[]},{"id":"yt-kw-alphafly-4","topic":"Nike Alphafly 4 launch (competitor)","signal_text":"3 uploads in the last 14 days from 2 tracked channels (1 from the bench, 2 from watch channels) match this topic in the title, with 281,411 views in total (RSS). Most viewed: 'Nike Alphafly 4 Debut Overview' by Believe in the Run, 119,510 views.","metric":"YouTube views (RSS) summed over matching uploads published in the last 14 days","value":281411,"change_pct":null,"window":"uploads published 2026-09-09 to 2026-09-23","source_name":"YouTube channel RSS feeds (16 bench + 3 watch channels: Believe in the Run, The Run Testers, Ben Parkes)","source_url":"https://www.youtube.com/shorts/fW6KzP6tMFM","captured":"2026-09-23T00:21:09Z","stale":false,"lastSuccess":"2026-09-23T00:21:09Z","caveats":["Keyword match on video titles; a match does not mean the video is about the brand or product.","The feed holds only each channel's latest 15 uploads; Andi Renay, The Run Testers posted more than that in 14 days, so their counts are floors."]},{"id":"yt-kw-adios-pro-5","topic":"adidas Adios Pro 5 launch (competitor)","signal_text":"5 uploads in the last 14 days from 4 tracked channels (2 from the bench, 3 from watch channels) match this topic in the title, with 158,210 views in total (RSS). Most viewed: 'adidas Adios Pro 5' by kofuzi, 76,010 views.","metric":"YouTube views (RSS) summed over matching uploads published in the last 14 days","value":158210,"change_pct":null,"window":"uploads published 2026-09-09 to 2026-09-23","source_name":"YouTube channel RSS feeds (16 bench + 3 watch channels: Believe in the Run, The Run Testers, Ben Parkes)","source_url":"https://www.youtube.com/watch?v=Rb1Lg1gOPnA","captured":"2026-09-23T00:21:09Z","stale":false,"lastSuccess":"2026-09-23T00:21:09Z","caveats":["Keyword match on video titles; a match does not mean the video is about the brand or product.","The feed holds only each channel's latest 15 uploads; Andi Renay, The Run Testers posted more than that in 14 days, so their counts are floors."]},{"id":"yt-kw-berlin-marathon","topic":"Berlin Marathon on YouTube","signal_text":"6 uploads in the last 14 days from 2 tracked channels (6 from the bench, 0 from watch channels) match this topic in the title, with 119,406 views in total (RSS). Most viewed: 'Balancing Shoe Testing with Marathon Training - Berlin Marathon Training Week 8, Chasing Ghosts S2' by kofuzi, 30,275 views.","metric":"YouTube views (RSS) summed over matching uploads published in the last 14 days","value":119406,"change_pct":null,"window":"uploads published 2026-09-09 to 2026-09-23","source_name":"YouTube channel RSS feeds (16 bench + 3 watch channels: Believe in the Run, The Run Testers, Ben Parkes)","source_url":"https://www.youtube.com/watch?v=2vT74Juv3vQ","captured":"2026-09-23T00:21:09Z","stale":false,"lastSuccess":"2026-09-23T00:21:09Z","caveats":["Keyword match on video titles; a match does not mean the video is about the brand or product.","The feed holds only each channel's latest 15 uploads; Andi Renay, The Run Testers posted more than that in 14 days, so their counts are floors."]},{"id":"yt-kw-beginner","topic":"Beginner running","signal_text":"3 uploads in the last 14 days from 3 tracked channels (3 from the bench, 0 from watch channels) match this topic in the title, with 211,056 views in total (RSS). Most viewed: 'Carbon vs Normal Shoes... Are they ACTUALLY faster for BEGINNERS? *5K All Out In Each*' by Ben Is Running, 103,329 views.","metric":"YouTube views (RSS) summed over matching uploads published in the last 14 days","value":211056,"change_pct":null,"window":"uploads published 2026-09-09 to 2026-09-23","source_name":"YouTube channel RSS feeds (16 bench + 3 watch channels: Believe in the Run, The Run Testers, Ben Parkes)","source_url":"https://www.youtube.com/watch?v=fJ8l1ehTKo4","captured":"2026-09-23T00:21:09Z","stale":false,"lastSuccess":"2026-09-23T00:21:09Z","caveats":["Keyword match on video titles; a match does not mean the video is about the brand or product.","The feed holds only each channel's latest 15 uploads; Andi Renay, The Run Testers posted more than that in 14 days, so their counts are floors."]},{"id":"yt-kw-trail-ultra","topic":"Trail and ultra","signal_text":"1 upload in the last 14 days from 1 tracked channel (1 from the bench, 0 from watch channels) matches this topic in the title, with 10,459 views in total (RSS). Most viewed: 'Trail running shoe OF THE YEAR? | INOV8 TRAILFLY PRO First Run Review | Run4Adventure' by Run4Adventure, 10,459 views.","metric":"YouTube views (RSS) summed over matching uploads published in the last 14 days","value":10459,"change_pct":null,"window":"uploads published 2026-09-09 to 2026-09-23","source_name":"YouTube channel RSS feeds (16 bench + 3 watch channels: Believe in the Run, The Run Testers, Ben Parkes)","source_url":"https://www.youtube.com/watch?v=ql3Y02Rz5jo","captured":"2026-09-23T00:21:09Z","stale":false,"lastSuccess":"2026-09-23T00:21:09Z","caveats":["Keyword match on video titles; a match does not mean the video is about the brand or product.","The feed holds only each channel's latest 15 uploads; Andi Renay, The Run Testers posted more than that in 14 days, so their counts are floors."]},{"id":"yt-kw-injury-recovery","topic":"Injury, pain and recovery (health topic: claims register applies)","signal_text":"5 uploads in the last 14 days from 2 tracked channels (5 from the bench, 0 from watch channels) match this topic in the title, with 39,389 views in total (RSS). Most viewed: 'Recovery Stretch to Reset and Feel Good After Running' by Run Better with Ash, 10,628 views.","metric":"YouTube views (RSS) summed over matching uploads published in the last 14 days","value":39389,"change_pct":null,"window":"uploads published 2026-09-09 to 2026-09-23","source_name":"YouTube channel RSS feeds (16 bench + 3 watch channels: Believe in the Run, The Run Testers, Ben Parkes)","source_url":"https://www.youtube.com/watch?v=kv7pT8zTprk","captured":"2026-09-23T00:21:09Z","stale":false,"lastSuccess":"2026-09-23T00:21:09Z","caveats":["Keyword match on video titles; a match does not mean the video is about the brand or product.","The feed holds only each channel's latest 15 uploads; Andi Renay, The Run Testers posted more than that in 14 days, so their counts are floors."]}]}/*SNAP*/;
+
+/* ===================== DATA (the desk's own settings and the trend board; sources inline) ===================== */
 const DATA = {
-  brand: { name: "Kestrel Running", product: "Kestrel Aero 3", category: "running shoes and apparel" },
-  amberAllowance: 8,
-  oldProcessDays: 39,
-  legalTurnaround: 3,
+  brand: {
+    name: "Brooks Running", site: "https://www.brooksrunning.com/en_us/",
+    product: "Brooks Ghost 18", short: "Ghost 18", price: 150,
+    productUrl: "https://www.brooksrunning.com/en_us/mens/shoes/road-running-shoes/ghost-18/110493.html",
+    widths: "Narrow, Medium, Wide and Extra Wide (men's page)",
+    racer: "Hyperion Elite 6", racerUrl: "https://www.brooksrunning.com/en_us/featured/unisex-running-shoes/hyperion-elite-6/100054.html",
+    trail: "Cascadia 20", trailUrl: "https://www.brooksrunning.com/en_us/mens/shoes/trail-shoes/cascadia-20/110489.html",
+    hybrid: "Ghost Trail",
+    newProduct: "Ghost Amp",
+    verified: "22 Sep 2026",
+    note: "Brooks is a real brand chosen for this prototype. It is not involved in the project and has not seen it. Products and prices were read from brooksrunning.com on 22 Sep 2026."
+  },
+  // The desk's own terms. These are the pilot's working targets from the deck, not facts about any creator.
+  desk: { amberAllowance: 8, legalTurnaround: 3, draftDays: 3, pilotTargetDays: 7 },
   beats: {
     gear: "Gear reviews", beginner: "Beginner running", marathon: "Marathon training", trail: "Trail",
     community: "Run clubs and community", womens: "Women's running", recovery: "Injury and recovery", shorts: "Shorts and comedy"
   },
-  trends: [
-    { id:"t1", appears:1, decay:5, momentum:88, source:"if", signal:"Searches for 'carbon plate shoes everyday running' up 140% week on week", title:"Are carbon-plate shoes for everyday runners?", beat:"gear", angle:"An honest answer on when a plated shoe makes sense and when the Aero 3 is the better daily choice." },
-    { id:"t2", appears:1, decay:4, momentum:74, source:"bp", signal:"Brand Pulse: 'Is the Aero 3 wide enough?' is the most common question about the brand this week", title:"Fit questions about the Aero 3", beat:"womens", angle:"Show the fit on real feet, including the wide option, without defensive language." },
-    { id:"t3", appears:2, decay:6, momentum:81, source:"if", signal:"'How many running shoes do I need' trending in the category", title:"How many shoes should you rotate?", beat:"beginner", angle:"A two-pair rotation for new runners; the Aero 3 as the easy-day pair." },
-    { id:"t4", appears:2, decay:3, momentum:92, source:"bp", signal:"Brand Pulse: mentions of Kestrel alongside 'NYC marathon' rising ahead of race week", title:"Race week in New York", beat:"marathon", angle:"A race-week checklist from a marathoner; the brand appears in the shakeout run." },
-    { id:"t5", appears:3, decay:4, momentum:69, source:"if", signal:"'Run club' searches at a two-year high in the 18 to 34 audience", title:"Run clubs as the new night out", beat:"community", angle:"A night with a real club; the brand is the shoes on the floor, not the subject." },
-    { id:"t6", appears:4, decay:5, momentum:77, source:"bp", signal:"Brand Pulse: 'outsole wear' complaints about the previous model rising in comments", title:"Durability questions about last year's model", beat:"gear", angle:"Address the wear question directly with the Aero 3's revised outsole; show the mileage." },
-    { id:"t7", appears:5, decay:4, momentum:83, source:"if", signal:"'Zone 2 running' searches up sharply after a podcast episode", title:"Is zone 2 running overrated?", beat:"recovery", angle:"A physio's view on easy running; the Aero 3 as the shoe for the slow miles." },
-    { id:"t8", appears:6, decay:6, momentum:71, source:"if", signal:"'Winter running layers' beginning to rise as temperatures drop", title:"Layering for the first cold runs", beat:"womens", angle:"A practical layering guide with the brand's apparel line." },
-    { id:"t9", appears:7, decay:3, momentum:90, source:"if", signal:"A comedy Short about 'runners who talk about running' is being copied across the platform", title:"Runners who only talk about running", beat:"shorts", angle:"Join the format rather than explain it; the brand gets one visual beat." },
-    { id:"t10", appears:8, decay:5, momentum:76, source:"bp", signal:"Brand Pulse: 'trail version' requests appearing under Kestrel videos", title:"Can the Aero 3 handle trails?", beat:"trail", angle:"A fair test on mixed terrain; say where it stops being the right shoe." },
-    { id:"t11", appears:9, decay:5, momentum:79, source:"if", signal:"'Couch to 5K January' searches starting to build early", title:"January 5K plans are starting early", beat:"beginner", angle:"An eight-week plan from a beginner coach; the Aero 3 as the first real running shoe." },
-    { id:"t12", appears:11, decay:4, momentum:85, source:"bp", signal:"Brand Pulse: brand lift among 25 to 34 women up after the fit video", title:"Follow-up: the fit conversation is working", beat:"womens", angle:"A second piece from the same correspondent answering the comment thread." },
-  ],
-  bench: [
-    { id:"c1", name:"Marisol Reyes", handle:"@marisolruns", beat:"gear", subs:"312k", turnaround:2, perf:1.3, video:6500, short:1800 },
-    { id:"c2", name:"Deshawn Cole", handle:"@colecadence", beat:"gear", subs:"148k", turnaround:2, perf:1.0, video:4200, short:1200 },
-    { id:"c3", name:"Priya Natarajan", handle:"@priyafirst5k", beat:"beginner", subs:"96k", turnaround:3, perf:1.1, video:3200, short:900 },
-    { id:"c4", name:"Owen Fitzgerald", handle:"@owenstartsrunning", beat:"beginner", subs:"61k", turnaround:2, perf:0.9, video:2400, short:700 },
-    { id:"c5", name:"Hannah Berg", handle:"@bergmarathon", beat:"marathon", subs:"224k", turnaround:3, perf:1.2, video:5800, short:1500 },
-    { id:"c6", name:"Tomas Herrera", handle:"@herreralongrun", beat:"marathon", subs:"133k", turnaround:2, perf:1.0, video:4000, short:1100 },
-    { id:"c7", name:"June Okafor", handle:"@juneofftrail", beat:"trail", subs:"88k", turnaround:3, perf:1.1, video:3000, short:850 },
-    { id:"c8", name:"Callum Reid", handle:"@reidridge", beat:"trail", subs:"52k", turnaround:2, perf:0.8, video:2000, short:600 },
-    { id:"c9", name:"Bea Lindqvist", handle:"@bearunsclub", beat:"community", subs:"177k", turnaround:2, perf:1.4, video:4800, short:1400 },
-    { id:"c10", name:"Ravi Menon", handle:"@ravi.runs.nyc", beat:"community", subs:"104k", turnaround:2, perf:1.1, video:3400, short:950 },
-    { id:"c11", name:"Nadia Krol", handle:"@nadiapaces", beat:"womens", subs:"265k", turnaround:2, perf:1.3, video:6000, short:1700 },
-    { id:"c12", name:"Elise Fontaine", handle:"@elisefontaine", beat:"womens", subs:"119k", turnaround:3, perf:1.0, video:3800, short:1000 },
-    { id:"c13", name:"Dr. Sam Whitlock", handle:"@whitlockphysio", beat:"recovery", subs:"142k", turnaround:3, perf:1.2, video:4400, short:1200 },
-    { id:"c14", name:"Ines Duarte", handle:"@inesmoveswell", beat:"recovery", subs:"73k", turnaround:2, perf:0.9, video:2600, short:750 },
-    { id:"c15", name:"Kofi Mensah", handle:"@kofidoesbits", beat:"shorts", subs:"402k", turnaround:2, perf:1.4, video:5200, short:2400 },
-    { id:"c16", name:"Lena Sato", handle:"@lenasatoruns", beat:"shorts", subs:"188k", turnaround:2, perf:1.1, video:3600, short:1600 },
+  // Sourced figures used on the dashboard. Every entry names its source.
+  facts: {
+    brief15x: { n: "1.5×", text: "Creator marketing spend is growing 1.5 times faster than overall marketing budgets.", source: "Hackathon brief (NYU SPS × Google, 2026). No public source found for this figure." },
+    brief15pct: { n: "15%", text: "Share of surveyed marketers rated high performers in creator marketing.", source: "Hackathon brief (NYU SPS × Google, 2026). No public source found for this figure." },
+    iab: { n: "4×", text: "US creator ad spend grew 26% in 2025, about four times the growth of the total media industry (5.7%).", source: "IAB, 20 Nov 2025", url: "https://www.iab.com/news/creator-economy-ad-spend-to-reach-37-billion-in-2025-growing-4x-faster-than-total-media-industry-according-to-iab/" },
+    timeline: { text: "Typical today: 2 to 6 weeks from first contact to a live sponsored video; 8 to 12 weeks where enterprise legal review is involved. Deals close in under two weeks only when the relationship exists, the rate is already agreed and the brief is tight.", source: "Creators Agency, Mar 2026", url: "https://creatorsagency.co/blog/youtube-brand-deal-timeline-pitch-to-payment" },
+    slow: { text: "Brands with slow, disorganised approvals fall down creators' priority lists over time.", source: "Creators Agency, Mar 2026", url: "https://creatorsagency.co/blog/how-to-activate-youtube-creator-deal-correctly" },
+    oldDays: 39,
+    oldStages: [["Brief", 6], ["Discovery", 7], ["Contract", 7], ["Script approval", 8], ["Production", 7], ["Final review", 4]],
+    oldNote: "The 39-day split is the team's illustrative timeline for a mid-size brand working through an agency. It is a team estimate, not measured data. Published ranges exist only for two stages: contract 7 to 21 days, script review 5 to 7 business days and about 10 with legal (Creators Agency, Mar 2026)."
+  },
+  // The trend board. Each card points at a real signal in the live data (see SNAPSHOT / data/live.json).
+  // 'appears' and 'decay' are simulation mechanics: the day a card is revealed and how fast its momentum falls.
+  board: [
+    { id:"b1", live:"gt-shoes-alphafly-4", also:"yt-kw-alphafly-4", appears:1, decay:5, beat:"gear", title:"Nike Alphafly 4 launch: super-shoe week", angle:"Respond, don't chase. An honest piece on when a $275 carbon racer (the Hyperion Elite 6) makes sense and when the Ghost 18 is the better daily choice. Competitor names go amber." },
+    { id:"b2", live:"wm-hyrox", appears:1, decay:4, beat:"community", redList:true, title:"Hyrox: a spike the desk does not brief", angle:"The numbers are large but the September spike was controversy-driven (checked 22 Sep). The red list says: check the cause before briefing, and do not attach the brand to it." },
+    { id:"b3", live:"gt-berlin-marathon", also:"yt-kw-berlin-marathon", appears:1, decay:6, beat:"marathon", title:"Berlin Marathon week (race day 27 Sep)", angle:"Two bench correspondents are racing Berlin this week (their own training series). A race-week piece: the shakeout in the Ghost 18, the racer for Sunday. No race marks; Brooks is not a race partner." },
+    { id:"b4", live:"gt-shoes-adios-pro-5", also:"yt-kw-adios-pro-5", appears:2, decay:5, beat:"gear", title:"adidas Adios Pro 5 launch", angle:"Second competitor racer in a week. One comparison piece from the gear beat is enough; the bench reviewers already cover it. Competitor names go amber." },
+    { id:"b5", live:"gt-trail-running-shoes", also:"yt-kw-trail-ultra", appears:2, decay:5, beat:"trail", title:"Trail running shoes: seasonal rebound", angle:"A fair test of where a road shoe stops making sense: the Ghost Trail on packed dirt, the Cascadia 20 when it gets technical. Say where each stops being the right shoe." },
+    { id:"b6", live:"gt-shoes-ghost-18", appears:2, decay:4, beat:"womens", title:"Ghost 18 fit: is the forefoot too low?", angle:"Reviews on 22 May (Doctors of Running) and 24 Jun 2026 (RunToTheFinish) call the forefoot low-volume and the shoe polarising. Show the fit on real feet across all four widths, without defensive language.", extra:"Review sources: doctorsofrunning.com/brooks-ghost-18-review-2026 and runtothefinish.com/brooks-ghost-18-review (accessed 22 Sep 2026)." },
+    { id:"b7", live:"gt-run-club", also:"wm-strava", appears:3, decay:4, beat:"community", title:"Run clubs: searches softening, Strava attention up", angle:"A night with a real club; the brand is the shoes on the floor, not the subject. Brooks Run Club reports 2 million members (Retail Dive, 10 Feb 2026), which is context, not a claim for the script." },
+    { id:"b8", live:"gt-chicago-marathon", appears:3, decay:5, beat:"marathon", title:"Chicago Marathon build-up (race day 11 Oct)", angle:"Corral and finisher-jacket searches are rising three weeks out. A taper-week checklist from a marathoner. No race marks." },
+    { id:"b9", live:"gt-couch-to-5k", also:"yt-kw-beginner", appears:4, decay:6, beat:"beginner", title:"Couch to 5K and beginner questions", angle:"An eight-week plan for a first 5K; the Ghost 18 as the first real running shoe, with the four widths shown. No injury language." },
+    { id:"b10", live:"wm-half-marathon", appears:4, decay:5, beat:"marathon", title:"Half marathon interest up after the world record", angle:"Attention on the half after the World Road Running Championships (20 Sep). A 'first half marathon' piece; the brand appears in the long run." },
+    { id:"b11", live:"yt-bench-fastest-short", appears:5, decay:4, beat:"shorts", title:"A bench Short is moving at 300k views a day", angle:"Join the format rather than explain it; the brand gets one visual beat. The desk asks for one Short in the same style." },
+    { id:"b12", live:"gt-nyc-marathon", also:"wm-nyc-marathon", appears:5, decay:5, beat:"marathon", title:"NYC Marathon: course-change news (race day 1 Nov)", angle:"Search interest hit its three-month peak on 22 Sep after the course change was announced. A race-week checklist is the wave 2 anchor. Brooks is not an NYRR partner: no marks, no implied official status." },
+    { id:"b13", live:"gt-zone-2-running", appears:6, decay:4, beat:"recovery", title:"Zone 2 running explainers", angle:"A physio's view on easy running; the Ghost 18 as the shoe for the slow miles. Any health claim goes to legal, so the script talks about pace, not injury." },
+    { id:"b14", live:"wm-plantar-fasciitis", also:"yt-kw-injury-recovery", appears:7, decay:4, beat:"recovery", title:"Plantar fasciitis: a health topic", angle:"People are reading about heel pain. The desk can commission a recovery piece, but any line that says a shoe prevents or treats it is a health claim and goes red. This card exists to show the red lane." },
   ],
   claims: {
     red: [
-      { re:/prevent(s|ing)? (injur(y|ies)|shin splints|plantar)/i, label:"Health claim", detail:"Injury prevention is a medical claim. Legal must review." },
-      { re:/injury[- ]free/i, label:"Health claim", detail:"Implies a medical outcome." },
-      { re:/\b(cure|cures|cured|heals?|treats?)\b/i, label:"Health claim", detail:"Treatment language is a medical claim." },
+      { re:/prevent(s|ing)? (injur(y|ies)|shin splints|plantar|heel pain)/i, label:"Health claim", detail:"Injury prevention is a health claim. The FTC expects health-benefit claims to be substantiated, and toning-shoe cases cost Reebok $25M and Skechers $40M. Legal must review." },
+      { re:/injury[- ]free|pain[- ]free/i, label:"Health claim", detail:"Implies a medical outcome." },
+      { re:/\b(cure|cures|cured|heals?|treats?|fix(es)? (my|your) (knee|shin|heel|plantar))\b/i, label:"Health claim", detail:"Treatment language is a medical claim." },
       { re:/clinically proven|medically proven|doctor[- ]recommended|physio[- ]approved/i, label:"Unsubstantiated endorsement", detail:"Needs documented substantiation and legal sign-off." },
       { re:/guarantee(d|s)?\b/i, label:"Guarantee", detail:"Guarantees create liability. Legal must review." },
       { re:/\b(cheapest|lowest price|price match)\b/i, label:"Pricing claim", detail:"Comparative pricing claims are checked by legal." },
       { re:/giveaway|sweepstake|win a pair/i, label:"Promotion", detail:"Giveaways have their own rules and are not in the agreement." },
+      { re:/\bGhost Amp\b/i, label:"New product", detail:"The Ghost Amp is a new product (previewed for fall 2026). New products always go to legal." },
+      { re:/official (shoe|partner|sponsor)|partner of the (nyc|new york city|chicago|berlin|boston) marathon/i, label:"Implied race partnership", detail:"Brooks is not a partner of these races. Implying official status is a legal matter." },
     ],
     amber: [
       { re:/\b(best|greatest|perfect)\b/i, label:"Superlative", detail:"Reword as an opinion ('my favourite') or cut." },
       { re:/\b(fastest|lightest|#1|number one|revolutionary|game[- ]changing)\b/i, label:"Superlative", detail:"Needs an opinion frame or a source." },
       { re:/\d+\s?%\s?(faster|lighter|more|better|softer|longer)/i, label:"Performance figure", detail:"A number needs a source from the product team." },
-      { re:/\b(Stridewell|Vantage Athletic|Aerolite)\b/, label:"Competitor named", detail:"Competitor mentions are amber under the agreement." },
+      { re:/\b(HOKA|Hoka|Clifton|Saucony|Ride 19|ASICS|Asics|Novablast|Nike|Pegasus|Alphafly|New Balance|880v15|adidas|Adidas|Adios Pro)\b/, label:"Competitor named", detail:"Competitor mentions are amber under the agreement. The list is the daily trainers and racers that compete with the Ghost 18 (checked on the brands' sites, 22 Sep 2026)." },
       { re:/(discount|promo) code|\d+\s?% off/i, label:"Commercial terms", detail:"Offers must match what the agreement allows." },
     ],
-    disclosure: { re:/#ad\b|#sponsored\b|paid partnership/i, label:"Disclosure missing", detail:"Add #ad in the first line and say it aloud." }
+    disclosure: { re:/#ad\b|#sponsored\b|paid partnership|\bthis video is sponsored\b/i, label:"Disclosure missing", detail:"The FTC says the disclosure belongs in the video itself, spoken and on screen, near the start; the description alone is not enough (FTC Endorsement Guides FAQ, 2023)." }
   },
-  // Sample drafts the correspondents 'submit'. Index order is shuffled per piece.
+  // Desk test scripts. They are used by the simulation to exercise the three lanes.
+  // They are NOT written by, said by or attributed to any correspondent on the bench.
   drafts: [
-    "#ad Quick one before Sunday's long run. I've been rotating the Kestrel Aero 3 into my easy days for six weeks, and the thing I keep noticing is how quiet the heel is on pavement. It is not a race shoe and it is not pretending to be. If you're building up to a spring half, this is the pair I'd put on for the boring miles. Link in the description.",
-    "#ad Let's talk about the best daily trainer I've run in this year. The Kestrel Aero 3 has replaced two other pairs in my rotation, mostly because the fit is finally right for a wide forefoot. I'll show you the wide version on my actual feet, then we go run.",
-    "#ad Something I get asked constantly: how many pairs do you really need? Two. One for easy days, one for the hard ones. The Aero 3 is my easy-day pair. The foam is 12% softer than last year's model and you can feel it in the first kilometre.",
-    "Race week in New York. Here's everything I'm doing between now and Sunday, from the shakeout run to what I eat the night before. I'm wearing the Kestrel Aero 3 for the shakeout, which is the shoe I've done most of my easy miles in this block.",
-    "#ad The rocker geometry on the Aero 3 prevents injury by taking the load off your calves, which is why I've had no niggles this block. If you've been dealing with shin splints, this is the shoe I'd try first.",
-    "#ad Zone 2 is overrated, and I'll explain why as a physio. Easy running matters, the heart-rate obsession doesn't. I run my easy days in the Kestrel Aero 3 because it's soft without being sloppy. That's the whole review.",
-    "#ad I'm guaranteed to take a minute off your 5K with this shoe. Stridewell can't touch it. Kestrel sent the Aero 3 and I've been running in nothing else. Use my discount code for 20% off.",
-    "#ad I took the Aero 3 onto the ridge trail to see where a road shoe stops making sense. Honest answer: it's fine on packed dirt, it's out of its depth on wet rock. Watch to the end for where I'd switch to a proper trail shoe.",
-    "#ad We went to a Thursday night run club in Brooklyn to find out why everyone is suddenly joining one. I'm in the Kestrel Aero 3, which you'll see for about two seconds because this video is about the people. Aerolite were handing out flyers outside, which was funny.",
+    "#ad Quick one before Sunday's long run. I've been rotating the Brooks Ghost 18 into my easy days for six weeks, and the thing I keep noticing is how quiet the heel is on pavement. It is not a race shoe and it is not pretending to be. If you're building up to a spring half, this is the pair I'd put on for the boring miles. Link in the description.",
+    "#ad Let's talk about the best daily trainer I've run in this year. The Brooks Ghost 18 has replaced two other pairs in my rotation, mostly because the fit is finally right for a wide forefoot. I'll show you the wide version on my actual feet, then we go run.",
+    "#ad Something I get asked constantly: how many pairs do you really need? Two. One for easy days, one for the hard ones. The Ghost 18 is my easy-day pair. I've run 12% more miles this block than last and my legs feel fine.",
+    "Race week in New York. Here's everything I'm doing between now and Sunday, from the shakeout run to what I eat the night before. I'm wearing the Brooks Ghost 18 for the shakeout, which is the shoe I've done most of my easy miles in this block.",
+    "#ad The rocker geometry on the Ghost 18 prevents injury by taking the load off your calves, which is why I've had no niggles this block. If you've been dealing with shin splints, this is the shoe I'd try first.",
+    "#ad Zone 2 is overrated, and I'll explain why as a physio. Easy running matters, the heart-rate obsession doesn't. I run my easy days in the Brooks Ghost 18 because it's soft without being sloppy. That's the whole review.",
+    "#ad I'm guaranteed to take a minute off your 5K with this shoe. Saucony can't touch it. Brooks sent the Ghost 18 and I've been running in nothing else. Use my discount code for 20% off.",
+    "#ad I took the Ghost Trail onto the ridge to see where a road shoe stops making sense. Honest answer: it's fine on packed dirt, it's out of its depth on wet rock. Watch to the end for where I'd switch to the Cascadia 20.",
+    "#ad We went to a Thursday night run club in Brooklyn to find out why everyone is suddenly joining one. I'm in the Brooks Ghost 18, which you'll see for about two seconds because this video is about the people. HOKA were handing out flyers outside, which was funny.",
+  ],
+  // Real race dates, each read from the official race site on 22 Sep 2026.
+  calendar: [
+    { d:"2026-09-27", e:"BMW Berlin Marathon", u:"https://www.bmw-berlin-marathon.com/en/" },
+    { d:"2026-10-04", e:"Twin Cities Marathon", u:"https://www.tcmevents.org/" },
+    { d:"2026-10-11", e:"Bank of America Chicago Marathon", u:"https://www.chicagomarathon.com/" },
+    { d:"2026-10-25", e:"Marine Corps Marathon", u:"https://www.marinemarathon.com/" },
+    { d:"2026-11-01", e:"TCS New York City Marathon", u:"https://www.nyrr.org/tcsnycmarathon" },
+    { d:"2026-11-07", e:"Indianapolis Monumental Marathon", u:"https://www.monumentalmarathon.com/" },
+    { d:"2026-11-21", e:"JFK 50 Mile", u:"https://www.jfk50mile.org/" },
+    { d:"2026-11-22", e:"Philadelphia Marathon", u:"https://www.philadelphiamarathon.com/races/marathon" },
+    { d:"2026-11-26", e:"Thanksgiving: Manchester Road Race, Dallas YMCA Turkey Trot", u:"https://www.manchesterroadrace.com/" },
+    { d:"2026-12-06", e:"California International Marathon", u:"https://www.runcim.org/" },
+  ],
+  // Google products in the pilot desk, with the names Google uses in Sept 2026 (checked on official pages, 22 Sep 2026).
+  products: [
+    ["Trend board", "Google Trends (daily); Insights Finder trending insights and the brand pulse report (weekly and monthly depth)", "https://support.google.com/google-ads/answer/11161206?hl=en", "Here: public stand-ins. Google Trends web data, Wikipedia pageviews and YouTube RSS, refreshed daily by a GitHub Action."],
+    ["Bench", "YouTube Creator Partnerships in Google Ads (search across Partner Program creators; Gemini-assisted matching rolling out)", "https://blog.youtube/news-and-events/youtube-creator-partnerships-newfronts-2026/", "Here: 16 real public channels found by public YouTube search, not through Creator Partnerships."],
+    ["Brief", "Gemini, drafting from the style guide held in Gemini Notebook (formerly NotebookLM, renamed 16 Jul 2026)", "https://blog.google/innovation-and-ai/products/gemini-notebook/notebooklm-gemini-notebook/", "Here: a template filled from the trend card and the correspondent's real channel data."],
+    ["First read", "Gemini reading the draft against the claims register in Gemini Notebook", "https://gemini.google/about/", "Here: a rule list with the same three lanes."],
+    ["48-hour read", "The Analytics tab in YouTube Creator Partnerships (paid and organic views and engagement) plus the creator's own YouTube Studio realtime report; the brand pulse report and Brand Lift confirm over the wave", "https://support.google.com/google-ads/answer/16901705?hl=en", "Here: a projection from the channel's real median views, labelled simulated."],
+    ["Boost", "Creator partnerships boost (formerly Partnership ads): the video runs as Shorts and in-stream ads across Google Ads campaign types", "https://support.google.com/google-ads/answer/15223349?hl=en", "Here: a multiplier, labelled simulated."],
   ],
 };
 
+/* ===================== LIVE DATA ===================== */
+let LIVE = SNAPSHOT;           // replaced by data/live.json when it loads
+let DATA_MODE = "snapshot";    // "live" once data/live.json has loaded
+let WM_REFRESHED = 0;          // Wikipedia cards refreshed in this browser
+
+function liveTrend(id){ return (LIVE.trends || []).find(t => t.id === id) || null; }
+function creatorList(){ return LIVE.creators || []; }
+
+async function loadLive(){
+  try {
+    const ctrl = new AbortController(); const to = setTimeout(() => ctrl.abort(), 6000);
+    const r = await fetch("./data/live.json", { cache: "no-store", signal: ctrl.signal });
+    clearTimeout(to);
+    if (!r.ok) throw new Error("http " + r.status);
+    const j = await r.json();
+    if (j && Array.isArray(j.creators) && j.creators.length >= 8 && Array.isArray(j.trends)) { LIVE = j; DATA_MODE = "live"; }
+  } catch (e) { /* keep the embedded snapshot */ }
+  render();
+  refreshWikipedia();
+}
+
+// Wikimedia's pageviews API allows plain browser requests (Access-Control-Allow-Origin: *).
+// Refresh the Wikipedia-backed cards with today's figures; keep the daily file's values if anything fails.
+async function refreshWikipedia(){
+  const cards = DATA.board.filter(c => c.live.startsWith("wm-")).map(c => liveTrend(c.live)).filter(t => t && t.article);
+  const end = new Date(Date.now() - 24 * 3600 * 1000); // yesterday UTC (today's total is not complete yet)
+  const start = new Date(end.getTime() - 13 * 24 * 3600 * 1000);
+  const ymd = d => d.toISOString().slice(0, 10).replace(/-/g, "");
+  const nice = d => d.toISOString().slice(0, 10);
+  for (const t of cards) {
+    try {
+      const url = `https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/${encodeURIComponent(t.article)}/daily/${ymd(start)}/${ymd(end)}`;
+      const ctrl = new AbortController(); const to = setTimeout(() => ctrl.abort(), 5000);
+      const r = await fetch(url, { signal: ctrl.signal }); clearTimeout(to);
+      if (!r.ok) continue;
+      const items = (await r.json()).items || [];
+      if (items.length < 14) continue;
+      const v = items.slice(-14).map(x => x.views);
+      const last7 = v.slice(7).reduce((a, b) => a + b, 0), prev7 = v.slice(0, 7).reduce((a, b) => a + b, 0);
+      if (prev7 < 200) continue;
+      t.value = last7; t.previousValue = prev7; t.change_pct = +((last7 / prev7 - 1) * 100).toFixed(1);
+      t.window = `${nice(new Date(end.getTime() - 6 * 24 * 3600 * 1000))} to ${nice(end)} vs the 7 days before`;
+      t.signal_text = `English Wikipedia views of the '${t.article.replace(/_/g, " ")}' article: ${fmt(last7)} in the 7 days to ${nice(end)}, ${t.change_pct >= 0 ? "up" : "down"} ${Math.abs(t.change_pct)}% on the previous 7 days (${fmt(prev7)}).`;
+      t.captured = new Date().toISOString(); t.browserRefreshed = true; t.stale = false;
+      WM_REFRESHED += 1;
+      await new Promise(res => setTimeout(res, 400));
+    } catch (e) { /* keep the file's value */ }
+  }
+  if (WM_REFRESHED) render();
+}
+
 /* ===================== STATE ===================== */
-const KEY = "creator-newsroom-sim-v1";
+const KEY = "creator-newsroom-sim-v2";
 let state = null;
 let screen = "meeting";
 
@@ -227,16 +332,47 @@ function save(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch
 function logIt(text){ state.log.unshift({ day: state.day, text }); if (state.log.length > 80) state.log.length = 80; }
 
 /* ===================== HELPERS ===================== */
-const esc = s => String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const trendById = id => DATA.trends.find(t => t.id === id);
-const creatorById = id => DATA.bench.find(c => c.id === id);
-const fmt = n => n.toLocaleString("en-US");
-const money = n => "$" + n.toLocaleString("en-US");
-function momentumNow(t){ if (state.day < t.appears) return null; return Math.max(0, t.momentum - (state.day - t.appears) * t.decay); }
+const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const cardById = id => DATA.board.find(t => t.id === id);
+const creatorById = id => creatorList().find(c => c.id === id);
+const fmt = n => (n == null || isNaN(n)) ? "–" : Number(n).toLocaleString("en-US");
+const money = n => "$" + Number(n).toLocaleString("en-US");
+const clamp = (x, lo, hi) => Math.max(lo, Math.min(hi, x));
+function fmtDate(iso){ if (!iso) return "–"; const d = new Date(iso); if (isNaN(d)) return esc(iso); return d.toLocaleString("en-GB", { day:"numeric", month:"short", year:"numeric", hour:"2-digit", minute:"2-digit", timeZone:"UTC" }) + " UTC"; }
+function fmtDay(iso){ if (!iso) return "–"; const d = new Date(iso); if (isNaN(d)) return esc(iso); return d.toLocaleString("en-GB", { day:"numeric", month:"short", timeZone:"UTC" }); }
 function toast(msg){ const el = document.getElementById("toast"); el.textContent = msg; el.classList.add("show"); clearTimeout(el._t); el._t = setTimeout(() => el.classList.remove("show"), 2200); }
 function seeded(n){ const x = Math.sin(n * 9301 + 49297) * 233280; return x - Math.floor(x); }
+function srcKind(t){ if (!t) return "nt"; const id = t.id || ""; return id.startsWith("gt-") ? "gt" : id.startsWith("wm-") ? "wm" : id.startsWith("yt-") ? "yt" : "nt"; }
+function srcTag(t){ const k = srcKind(t); const name = k === "gt" ? "Google Trends" : k === "wm" ? "Wikipedia pageviews" : k === "yt" ? "YouTube RSS" : "Source"; return `<span class="tag ${k}">${name}</span>`; }
 
-/* ===================== STANDARDS CHECK (simulates the Gemini first read) ===================== */
+// Momentum is derived from the real signal. Week-on-week change maps to 50 + change/2 (so +100% = 100, 0% = 50, -80% = 10).
+// YouTube view totals, which have no week-on-week figure, map to 50 + 20 × log10(views / 10,000) (10k = 50, 100k = 70, 1M = 90).
+function momentumBase(card){
+  const t = liveTrend(card.live);
+  if (!t) return 50;
+  if (t.change_pct != null && !isNaN(t.change_pct)) return clamp(Math.round(50 + t.change_pct / 2), 10, 100);
+  if (t.value) return clamp(Math.round(50 + 20 * Math.log10(t.value / 10000)), 15, 100);
+  return 50;
+}
+function momentumNow(card){ if (state.day < card.appears) return null; return Math.max(0, momentumBase(card) - (state.day - card.appears) * card.decay); }
+
+/* ===================== BENCH (real channels; rates and index are computed, and labelled) ===================== */
+// Rate estimate. Sources: Agentio 2026 Playbook (average CPM by views tier: under 50k views $51, 50k to 300k $28, 300k+ $22;
+// pay on first-30-day views); Creators Agency rate card 2026 (fee = normal views / 1,000 × CPM; usage rights +20% per 30 days);
+// Agentio, 3 Sep 2026 (since YouTube's 24 Aug 2026 view-count change, about 52% of new public views in Fitness are engaged views).
+// A Short is priced at half the integration, from one finance-sector Shorts benchmark (Creators Agency), so it is low confidence.
+function estimateRates(c){
+  if (!c.medianViews15) return null;
+  const engaged = Math.round(c.medianViews15 * 0.52);
+  const cpm = engaged < 50000 ? 51 : engaged < 300000 ? 28 : 22;
+  const integration = Math.round(engaged * cpm / 1000 / 10) * 10;
+  return { engaged, cpm, integration: Math.max(50, integration), short: Math.max(30, Math.round(integration * 0.5 / 10) * 10) };
+}
+function viewsPerSub(c){ return (c.medianViews15 && c.subscribers) ? c.medianViews15 / c.subscribers : null; }
+function benchMedianVps(){ const v = creatorList().map(viewsPerSub).filter(x => x != null).sort((a, b) => a - b); if (!v.length) return 1; const m = Math.floor(v.length / 2); return v.length % 2 ? v[m] : (v[m - 1] + v[m]) / 2; }
+function reachIndex(c){ const v = viewsPerSub(c); if (v == null) return null; return +(v / benchMedianVps()).toFixed(2); }
+
+/* ===================== STANDARDS CHECK (stands in for the Gemini first read) ===================== */
 function checkDraft(text){
   const hits = [];
   DATA.claims.red.forEach(r => { const m = text.match(r.re); if (m) hits.push({ lane:"red", label:r.label, detail:r.detail, match:m[0] }); });
@@ -257,58 +393,62 @@ function highlight(text, hits){
 /* ===================== DESK ACTIONS ===================== */
 function bestCorrespondent(beat){
   const busy = new Set(state.pieces.filter(p => ["assigned","amber","legal"].includes(p.status)).map(p => p.creatorId));
-  const cands = DATA.bench.filter(c => c.beat === beat).sort((a,b) => b.perf - a.perf);
+  const cands = creatorList().filter(c => c.beat === beat).sort((a,b) => (b.medianViews15 || 0) - (a.medianViews15 || 0));
   return cands.find(c => !busy.has(c.id)) || cands[0];
 }
-function makeBrief(t, c, due){
-  const mustNot = "No health or injury claims. No performance figures without a source. No superlatives. No competitor names. No offers beyond the agreement.";
+function makeBrief(card, c, due){
+  const t = liveTrend(card.live);
+  const est = estimateRates(c);
+  const mustNot = "No health or injury claims. No performance figures without a source. No superlatives. No competitor names. No race marks or implied official status. No offers beyond the agreement.";
   return `Brief for ${c.name} (${c.handle})\n` +
-    `Piece: ${t.title}\n` +
-    `Why now: ${t.signal}. Seen on day ${t.appears}, momentum ${momentumNow(t)} today.\n` +
-    `Angle: ${t.angle}\n` +
+    `Piece: ${card.title}\n` +
+    `Why now: ${t ? t.signal_text : card.title} Seen on day ${card.appears}, momentum ${momentumNow(card)} today.\n` +
+    `Angle: ${card.angle}\n` +
     `Say: ${DATA.brand.product} by name once, in your own words. Show it in use.\n` +
     `Do not say: ${mustNot}\n` +
     `Deliverable: one integration of 60 to 90 seconds inside a regular upload, plus one Short.\n` +
-    `Disclosure: #ad in the first line of the description and spoken on camera.\n` +
-    `Rate card (Q4 agreement): integration ${money(c.video)}, Short ${money(c.short)}. Boost rights already included.\n` +
-    `Draft due: day ${due}.`;
+    `Disclosure: say it on camera near the start and put #ad in the first line of the description (FTC).\n` +
+    `Rate card (modelled estimate, not ${c.name}'s rate): integration ${est ? money(est.integration) : "–"}, Short ${est ? money(est.short) : "–"}. Boost rights already included.\n` +
+    `Draft due: day ${due} (the desk's standard term: ${DATA.desk.draftDays} days).\n` +
+    `Simulation note: this brief was not sent. ${c.name} has no relationship with ${DATA.brand.name} or this project.`;
 }
-function commission(trendId){
-  const t = trendById(trendId);
-  if (state.pieces.some(p => p.trendId === trendId)) { toast("Already commissioned"); return; }
-  const c = bestCorrespondent(t.beat);
-  const due = state.day + c.turnaround;
+function commission(cardId){
+  const card = cardById(cardId);
+  if (state.pieces.some(p => p.trendId === cardId)) { toast("Already commissioned"); return; }
+  const c = bestCorrespondent(card.beat);
+  if (!c) { toast("No correspondent on that beat"); return; }
+  const due = state.day + DATA.desk.draftDays;
   state.seq += 1;
-  const p = { id:"p" + state.seq, n: state.seq, trendId, creatorId:c.id, commissionedDay: state.day, draftDueDay: due, status:"assigned",
-    brief: makeBrief(t, c, due), draft:null, check:null, publishDay:null, liveDay:null, readDay:null, metrics:null, boosted:false, legalReturnDay:null, history:[`Day ${state.day}: commissioned and assigned to ${c.name}`] };
+  const p = { id:"p" + state.seq, n: state.seq, trendId: cardId, creatorId:c.id, commissionedDay: state.day, draftDueDay: due, status:"assigned",
+    brief: makeBrief(card, c, due), draft:null, check:null, publishDay:null, liveDay:null, readDay:null, metrics:null, boosted:false, legalReturnDay:null, history:[`Day ${state.day}: commissioned and assigned to ${c.name}`] };
   state.pieces.unshift(p);
-  logIt(`Commissioned "${t.title}" to <b>${c.name}</b>. Brief drafted from the style guide. Draft due day ${due}.`);
+  logIt(`Commissioned "${esc(card.title)}" to <b>${esc(c.name)}</b>. Brief drafted from the style guide. Draft due day ${due}.`);
   save(); render(); toast("Commissioned. Brief sent to " + c.name);
 }
 function resolveAmber(pid, choice){
-  const p = state.pieces.find(x => x.id === pid); const t = trendById(p.trendId);
+  const p = state.pieces.find(x => x.id === pid); const t = cardById(p.trendId);
   if (choice === "legal") {
-    p.status = "legal"; p.legalReturnDay = state.day + DATA.legalTurnaround; state.redLogged += 1;
+    p.status = "legal"; p.legalReturnDay = state.day + DATA.desk.legalTurnaround; state.redLogged += 1;
     p.history.push(`Day ${state.day}: editor escalated to legal; back on day ${p.legalReturnDay}`);
-    logIt(`Editor escalated "${t.title}" to legal. Logged.`); save(); render(); return;
+    logIt(`Editor escalated "${esc(t.title)}" to legal. Logged.`); save(); render(); return;
   }
   state.amberUsed += 1;
   const extra = choice === "change" ? 1 : 0;
   p.status = "cleared"; p.publishDay = state.day + 1 + extra;
-  p.history.push(`Day ${state.day}: editor ${choice === "change" ? "asked for one change" : "approved as submitted"} (amber ${state.amberUsed} of ${DATA.amberAllowance})`);
-  logIt(`Amber decision on "${t.title}": ${choice === "change" ? "one change requested" : "approved"}. Publishes day ${p.publishDay}.`);
+  p.history.push(`Day ${state.day}: editor ${choice === "change" ? "asked for one change" : "approved as submitted"} (amber ${state.amberUsed} of ${DATA.desk.amberAllowance})`);
+  logIt(`Amber decision on "${esc(t.title)}": ${choice === "change" ? "one change requested" : "approved"}. Publishes day ${p.publishDay}.`);
   save(); render();
 }
 function killPiece(pid){
-  const p = state.pieces.find(x => x.id === pid); const t = trendById(p.trendId);
+  const p = state.pieces.find(x => x.id === pid); const t = cardById(p.trendId);
   p.status = "killed"; p.history.push(`Day ${state.day}: piece killed`);
-  logIt(`Killed "${t.title}". The kill fee in the agreement applies.`); save(); render();
+  logIt(`Killed "${esc(t.title)}". The kill fee in the agreement applies.`); save(); render();
 }
 function boost(pid){
-  const p = state.pieces.find(x => x.id === pid); const t = trendById(p.trendId);
-  p.boosted = true; p.status = "boosted"; p.metrics.views = Math.round(p.metrics.views * 3.2); p.metrics.lift = +(p.metrics.lift * 1.8).toFixed(1);
-  p.history.push(`Day ${state.day}: boosted through Creator Partnerships Boost`);
-  logIt(`Boosted "${t.title}" as a Shorts and in-stream ad.`); save(); render(); toast("Boosted");
+  const p = state.pieces.find(x => x.id === pid); const t = cardById(p.trendId);
+  p.boosted = true; p.status = "boosted"; p.metrics.views = Math.round(p.metrics.views * 3.2); p.metrics.engaged = Math.round(p.metrics.views * 0.52);
+  p.history.push(`Day ${state.day}: boosted through Creator partnerships boost (simulated ×3.2)`);
+  logIt(`Boosted "${esc(t.title)}" as Shorts and in-stream ads (simulated).`); save(); render(); toast("Boosted");
 }
 
 /* ===================== THE CLOCK ===================== */
@@ -316,78 +456,104 @@ function advanceDay(){
   state.day += 1;
   const d = state.day;
   state.pieces.forEach(p => {
-    const t = trendById(p.trendId), c = creatorById(p.creatorId);
+    const t = cardById(p.trendId), c = creatorById(p.creatorId);
+    if (!t || !c) return;
     if (p.status === "assigned" && d >= p.draftDueDay) {
       const order = [0, 1, 4, 7, 2, 3, 5, 6, 8]; // green, amber, red, green, amber, amber, green, red, amber
       p.draft = DATA.drafts[order[(p.n - 1) % order.length]];
       p.check = checkDraft(p.draft);
-      p.history.push(`Day ${d}: draft submitted by ${c.name}; first read: ${p.check.lane}`);
-      if (p.check.lane === "green") { p.status = "cleared"; p.publishDay = d + 1; logIt(`"${t.title}" cleared on first read. Publishes day ${p.publishDay}.`); }
-      else if (p.check.lane === "amber") { p.status = "amber"; p.amberSince = d; logIt(`"${t.title}" flagged amber (${p.check.hits.map(h => h.label).join(", ")}). Editor decision due within 24 hours.`); }
-      else { p.status = "legal"; p.legalReturnDay = d + DATA.legalTurnaround; state.redLogged += 1; logIt(`"${t.title}" flagged red (${p.check.hits.filter(h => h.lane === "red").map(h => h.label).join(", ")}). Sent to legal, back day ${p.legalReturnDay}.`); }
+      p.history.push(`Day ${d}: test script arrived (stands in for ${c.name}'s draft); first read: ${p.check.lane}`);
+      if (p.check.lane === "green") { p.status = "cleared"; p.publishDay = d + 1; logIt(`"${esc(t.title)}" cleared on first read. Publishes day ${p.publishDay}.`); }
+      else if (p.check.lane === "amber") { p.status = "amber"; p.amberSince = d; logIt(`"${esc(t.title)}" flagged amber (${p.check.hits.map(h => h.label).join(", ")}). Editor decision due within 24 hours.`); }
+      else { p.status = "legal"; p.legalReturnDay = d + DATA.desk.legalTurnaround; state.redLogged += 1; logIt(`"${esc(t.title)}" flagged red (${p.check.hits.filter(h => h.lane === "red").map(h => h.label).join(", ")}). Sent to legal, back day ${p.legalReturnDay}.`); }
     }
     if (p.status === "legal" && d >= p.legalReturnDay) {
       p.status = "cleared"; p.publishDay = d + 1; p.history.push(`Day ${d}: legal returned the piece with changes`);
-      logIt(`Legal returned "${t.title}" with changes. Publishes day ${p.publishDay}.`);
+      logIt(`Legal returned "${esc(t.title)}" with changes. Publishes day ${p.publishDay}.`);
     }
     if (p.status === "cleared" && d >= p.publishDay) {
       p.status = "live"; p.liveDay = d; p.readDay = d + 2; p.history.push(`Day ${d}: live`);
-      logIt(`"${t.title}" is live. Trend-to-live: ${d - t.appears} days.`);
+      logIt(`"${esc(t.title)}" is live. Trend-to-live: ${d - t.appears} days.`);
     }
     if ((p.status === "live" || p.status === "boosted") && !p.metrics && d >= p.readDay) {
-      const base = parseInt(c.subs) * 1000 * 0.18;
-      const mom = Math.max(0.35, (momentumNow(t) || 20) / 100);
+      // Simulated 48-hour projection: the channel's real median views (last 15 uploads, RSS) × (0.35 + 0.45 × momentum/100) × a seeded factor 0.7 to 1.5.
+      const base = c.medianViews15 || 5000;
+      const mom = Math.max(0.2, (momentumNow(t) || 20) / 100);
       const r = 0.7 + seeded(p.n) * 0.8;
-      p.metrics = { views: Math.round(base * c.perf * mom * r), watch: Math.round(38 + seeded(p.n + 7) * 30), lift: +(0.6 + seeded(p.n + 3) * 2.4).toFixed(1) };
-      p.history.push(`Day ${d}: 48-hour read available`);
-      logIt(`48-hour read on "${t.title}": ${fmt(p.metrics.views)} views, ${p.metrics.watch}% watched, brand lift +${p.metrics.lift} pts.`);
+      const views = Math.round(base * (0.35 + 0.45 * mom) * r);
+      p.metrics = { views, engaged: Math.round(views * 0.52), median: base, vsMedian: Math.round((views / base - 1) * 100) };
+      p.history.push(`Day ${d}: 48-hour read available (simulated projection)`);
+      logIt(`48-hour read on "${esc(t.title)}" (simulated): ${fmt(views)} public views, ${fmt(p.metrics.engaged)} engaged, against a channel median of ${fmt(base)}.`);
     }
   });
-  DATA.trends.filter(t => t.appears === d).forEach(t => logIt(`New on the trend board: "${t.title}" (${t.source === "if" ? "Insights Finder" : "Brand Pulse"}).`));
+  DATA.board.filter(t => t.appears === d).forEach(t => { const lt = liveTrend(t.live); logIt(`New on the trend board: "${esc(t.title)}" (${lt ? esc(lt.source_name) : "signal"}).`); });
   save(); render();
 }
 function resetAll(){ if (!confirm("Reset the simulation to day 1?")) return; state = freshState(); save(); screen = "meeting"; render(); }
 
 /* ===================== RENDER ===================== */
 const NAV = [
-  ["meeting", "Morning meeting"], ["desk", "The desk"], ["standards", "Standards"], ["bench", "The bench"], ["dashboard", "Dashboard"], ["about", "What is simulated"]
+  ["meeting", "Morning meeting"], ["desk", "The desk"], ["standards", "Standards"], ["bench", "The bench"], ["waves", "Waves and terms"], ["dashboard", "Dashboard"], ["about", "What is real"]
 ];
+function dataIndicator(){
+  const el = document.getElementById("dataInd");
+  const gen = LIVE.generatedAt;
+  const stale = (LIVE.summary && ((LIVE.summary.creatorsStale || 0) + (LIVE.summary.trendsStale || 0))) || 0;
+  const tail = (stale ? ` · ${stale} stale` : "") + (WM_REFRESHED ? ` · ${WM_REFRESHED} refreshed in browser` : "");
+  if (DATA_MODE === "live") { el.className = "sim live"; el.textContent = `Live data · ${fmtDate(gen)}` + tail; el.title = "data/live.json loaded when the page opened" + (WM_REFRESHED ? "; the Wikipedia cards were then refreshed directly from the Wikimedia API in this browser" : ""); }
+  else { el.className = "sim snap"; el.textContent = `Snapshot · ${fmtDate(gen)}` + tail; el.title = "data/live.json could not be loaded; this is the copy embedded in the page" + (WM_REFRESHED ? "; the Wikipedia cards were then refreshed directly from the Wikimedia API in this browser" : ""); }
+}
 function render(){
   document.getElementById("dayNum").textContent = state.day;
   document.getElementById("brandLine").textContent = DATA.brand.name + ", creator desk";
+  dataIndicator();
   const pending = state.pieces.filter(p => p.status === "amber").length + state.pieces.filter(p => (p.status === "live") && p.metrics && !p.boosted).length;
   document.getElementById("nav").innerHTML = `<div class="group">Desk</div>` + NAV.map(([id, label]) =>
     `<button class="${screen === id ? "on" : ""}" onclick="go('${id}')">${label}${id === "desk" && pending ? `<span class="count">${pending}</span>` : ""}</button>`).join("");
-  const views = { meeting, desk, standards, bench, dashboard, about };
+  const views = { meeting, desk, standards, bench, waves, dashboard, about };
   document.getElementById("main").innerHTML = views[screen]();
 }
 function go(id){ screen = id; render(); window.scrollTo(0,0); }
 
 function laneTag(l){ return l === "green" ? `<span class="tag gr">Green</span>` : l === "amber" ? `<span class="tag am">Amber</span>` : `<span class="tag rd">Red</span>`; }
-function srcTag(s){ return s === "if" ? `<span class="tag if">Insights Finder</span>` : `<span class="tag bp">Brand Pulse</span>`; }
+function signalLine(t){
+  if (!t) return `<div class="small muted">No live signal for this card in the data file.</div>`;
+  const when = t.browserRefreshed ? `refreshed in this browser ${fmtDate(t.captured)}` : `captured ${fmtDate(t.captured)}`;
+  return `<div class="small">${esc(t.signal_text)}</div>
+    <div class="src">${srcTag(t)} <a href="${esc(t.source_url)}" target="_blank" rel="noopener">source</a>, ${when}${t.stale ? `, <span class="tag am">stale</span> last good value from ${fmtDay(t.lastSuccess)}` : ""}${t.caveats && t.caveats.length ? ` <span title="${esc(t.caveats.join(" "))}">(caveat)</span>` : ""}</div>`;
+}
 
 function meeting(){
-  const visible = DATA.trends.filter(t => state.day >= t.appears).sort((a,b) => (momentumNow(b)||0) - (momentumNow(a)||0));
-  const rows = visible.map(t => {
-    const m = momentumNow(t); const done = state.pieces.find(p => p.trendId === t.id); const faded = m < 25;
+  const visible = DATA.board.filter(t => state.day >= t.appears).sort((a,b) => (momentumNow(b)||0) - (momentumNow(a)||0));
+  const rows = visible.map(card => {
+    const m = momentumNow(card); const done = state.pieces.find(p => p.trendId === card.id); const faded = m < 25;
+    const t = liveTrend(card.live), also = card.also ? liveTrend(card.also) : null;
+    let action;
+    if (card.redList) action = `<span class="tag rd">Red list: not briefed</span> <span class="small muted">The editor checks the cause and passes.</span>`;
+    else if (done) action = `<span class="tag bl">Commissioned, piece ${done.n}</span>`;
+    else if (faded) action = `<span class="tag nt">Faded, too late to cover</span>`;
+    else action = `<button class="btn small" onclick="commission('${card.id}')">Commission</button>`;
     return `<div class="trend ${faded ? "faded" : ""}">
       <div>
-        <div class="t">${esc(t.title)}</div>
-        <div class="small muted" style="margin:3px 0 6px">${srcTag(t.source)} <span class="tag nt">${DATA.beats[t.beat]}</span> seen day ${t.appears}</div>
-        <div class="small">${esc(t.signal)}.</div>
-        <div class="actions">${done ? `<span class="tag bl">Commissioned, piece ${done.n}</span>` : faded ? `<span class="tag nt">Faded, too late to cover</span>` : `<button class="btn small" onclick="commission('${t.id}')">Commission</button>`}</div>
+        <div class="t">${esc(card.title)}</div>
+        <div class="small muted" style="margin:3px 0 6px"><span class="tag nt">${DATA.beats[card.beat]}</span> seen day ${card.appears}</div>
+        ${signalLine(t)}
+        ${also ? `<div class="small" style="margin-top:6px">${esc(also.signal_text)}</div><div class="src">${srcTag(also)} <a href="${esc(also.source_url)}" target="_blank" rel="noopener">source</a>, captured ${fmtDate(also.captured)}</div>` : ""}
+        <div class="small" style="margin-top:6px"><b>Angle:</b> ${esc(card.angle)}</div>
+        ${card.extra ? `<div class="src">${esc(card.extra)}</div>` : ""}
+        <div class="actions">${action}</div>
       </div>
       <div class="mom">${m}<small>momentum</small></div>
     </div>`;
   }).join("");
   return `<h1>Morning meeting, day ${state.day}</h1>
-  <p class="lead">Ten minutes. The board shows what is rising in the category and what people are asking about the brand. The editor picks what to cover today; everything else waits. Momentum falls every day a trend is not covered.</p>
-  <div class="grid2" style="grid-template-columns:1.6fr 1fr">
+  <p class="lead">Ten minutes. The editor, the producer and the analyst look at what is rising in the category and what people are asking about the brand, and pick what to cover today; everything else waits. Every signal on the board is real and links to its source. Momentum falls every day a trend is not covered.</p>
+  <div class="grid2 wide">
     <div class="card">${rows || `<div class="empty">Nothing on the board yet. Advance a day.</div>`}</div>
     <div>
       <div class="card"><h2>How a commission works</h2>
-        <p class="small">Commission sends the trend to the correspondent on that beat with the best recent performance who is not already on a piece. A brief is drafted from the style guide, the rate card applies, and the draft is due in two or three days. No outreach, no negotiation, no sign-off meeting.</p>
-        <div class="sim-note">Simulated: in the real desk, the board is fed by Insights Finder and Brand Pulse, and the brief is drafted by Gemini from the NotebookLM style guide. Here both are scripted.</div>
+        <p class="small">Commission sends the trend to the correspondent on that beat with the higher median views who is not already on a piece. A brief is drafted from the style guide, the rate card applies, and the draft is due in ${DATA.desk.draftDays} days. No outreach, no negotiation, no sign-off meeting.</p>
+        <div class="sim-note">In the pilot the board is fed by Google Trends, Insights Finder trending insights and the brand pulse report, and the brief is drafted by Gemini from the style guide in Gemini Notebook. Here the board runs on public stand-ins (Google Trends web data, Wikipedia pageviews, YouTube RSS), refreshed daily by a GitHub Action, and the brief is a template. The day-by-day reveal and the decay are simulation mechanics.</div>
       </div>
       <div class="card" style="margin-top:16px"><h2>Desk log</h2><div class="log">${state.log.slice(0,12).map(l => `<div>Day ${l.day}: ${l.text}</div>`).join("") || `<div class="muted">Nothing yet.</div>`}</div></div>
     </div>
@@ -397,7 +563,8 @@ function meeting(){
 const STEPS = ["Commissioned", "Draft", "First read", "Cleared", "Live", "Boosted"];
 function stepIndex(p){ return { assigned:1, amber:2, legal:2, cleared:3, live:4, boosted:5, killed:2 }[p.status]; }
 function pieceCard(p){
-  const t = trendById(p.trendId), c = creatorById(p.creatorId);
+  const t = cardById(p.trendId), c = creatorById(p.creatorId);
+  if (!t || !c) return "";
   const idx = stepIndex(p);
   const steps = STEPS.map((s, i) => `<span class="${i < idx ? "done" : i === idx ? "now" : ""}">${s}</span>`).join("");
   let status = "", actions = "";
@@ -415,31 +582,32 @@ function pieceCard(p){
   if (p.status === "live" || p.status === "boosted") {
     status = `<span class="tag bl">Live since day ${p.liveDay}</span> <span class="tag nt">Trend-to-live ${p.liveDay - t.appears} days</span>${p.boosted ? ` <span class="tag rd">Boosted</span>` : ""}`;
     if (p.metrics) {
-      status += `<div class="small" style="margin-top:8px">48-hour read: <b>${fmt(p.metrics.views)}</b> views, ${p.metrics.watch}% average watched, brand lift <b>+${p.metrics.lift} pts</b></div>`;
-      if (!p.boosted) actions = `<button class="btn small red" onclick="boost('${p.id}')">Boost through Creator Partnerships</button>`;
+      status += `<div class="small" style="margin-top:8px">48-hour read (simulated): <b>${fmt(p.metrics.views)}</b> public views, ${fmt(p.metrics.engaged)} engaged, ${p.metrics.vsMedian >= 0 ? "+" : ""}${p.metrics.vsMedian}% against the channel's real median of ${fmt(p.metrics.median)}</div>`;
+      if (!p.boosted) actions = `<button class="btn small red" onclick="boost('${p.id}')">Boost through Creator partnerships boost</button>`;
     } else status += `<div class="small muted" style="margin-top:8px">48-hour read available day ${p.readDay}</div>`;
   }
   if (p.status === "killed") status = `<span class="tag nt">Killed</span>`;
   const check = p.check ? `<details><summary>First read against the standards</summary>
+      <div class="small muted" style="margin-top:6px">Test script used by the simulation. It was not written or said by ${esc(c.name)}.</div>
       <div style="margin-top:8px">${laneTag(p.check.lane)} ${p.check.hits.length ? "" : `<span class="small muted">Nothing flagged. Disclosure present.</span>`}</div>
       ${p.check.hits.length ? `<ul class="small" style="margin:8px 0 0;padding-left:18px">${p.check.hits.map(h => `<li><b>${h.label}</b>${h.match ? ` ("${esc(h.match)}")` : ""}: ${h.detail}</li>`).join("")}</ul>` : ""}
       <pre class="brief">${highlight(p.draft, p.check.hits)}</pre></details>` : "";
   return `<div class="piece">
-    <header><div><div class="title">${esc(t.title)}</div><div class="small muted">Piece ${p.n}, ${c.name} (${c.handle}), ${DATA.beats[c.beat]}. Commissioned day ${p.commissionedDay}.</div></div><div>${status}</div></header>
+    <header><div><div class="title">${esc(t.title)}</div><div class="small muted">Piece ${p.n}, <a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.name)}</a> (${esc(c.handle)}), ${DATA.beats[c.beat]}. Commissioned day ${p.commissionedDay}. Simulated assignment; no contact was made.</div></div><div>${status}</div></header>
     <div class="steps">${steps}</div>
     <div class="actions">${actions}</div>
     <details><summary>Brief</summary><pre class="brief">${esc(p.brief)}</pre></details>
     ${check}
     <details><summary>History</summary><ul class="small" style="margin:8px 0 0;padding-left:18px">${p.history.map(h => `<li>${esc(h)}</li>`).join("")}</ul>
-      <div class="small muted" style="margin-top:6px">Old process, for comparison: the same piece would go live on day ${p.commissionedDay + DATA.oldProcessDays}.</div></details>
+      <div class="small muted" style="margin-top:6px">For comparison: on the illustrative ${DATA.facts.oldDays}-day timeline the same piece would go live on day ${p.commissionedDay + DATA.facts.oldDays}; published ranges put a typical deal at 2 to 6 weeks (Creators Agency, 2026).</div></details>
   </div>`;
 }
 function desk(){
   const open = state.pieces.filter(p => !["killed"].includes(p.status));
   const needs = open.filter(p => p.status === "amber");
   return `<h1>The desk</h1>
-  <p class="lead">Every piece in flight, from commission to boost. Amber pieces need a decision from the editor within 24 hours. Red pieces are with legal. Everything else moves on its own when you advance the day.</p>
-  ${needs.length ? `<div class="card" style="border-color:var(--amber);background:var(--amber-bg);margin-bottom:16px"><b>${needs.length} amber ${needs.length === 1 ? "piece needs" : "pieces need"} an editor decision.</b> Amber used this month: ${state.amberUsed} of ${DATA.amberAllowance}.</div>` : ""}
+  <p class="lead">Every piece in flight, from commission to boost. Three people run it: the editor commissions and clears, the producer keeps the bench moving, the analyst reads the numbers. Amber pieces need a decision from the editor within 24 hours. Red pieces are with legal. Everything else moves on its own when you advance the day.</p>
+  ${needs.length ? `<div class="card" style="border-color:var(--amber);background:var(--amber-bg);margin-bottom:16px"><b>${needs.length} amber ${needs.length === 1 ? "piece needs" : "pieces need"} an editor decision.</b> Amber used this month: ${state.amberUsed} of ${DATA.desk.amberAllowance}.</div>` : ""}
   ${open.length ? open.map(pieceCard).join("") : `<div class="empty">No pieces yet. Go to the morning meeting and commission something.</div>`}
   ${state.pieces.some(p => p.status === "killed") ? `<details><summary>Killed pieces</summary>${state.pieces.filter(p => p.status === "killed").map(pieceCard).join("")}</details>` : ""}`;
 }
@@ -447,22 +615,30 @@ function desk(){
 function standards(){
   const rules = l => DATA.claims[l].map(r => `<tr><td>${r.label}</td><td class="muted">${r.detail}</td></tr>`).join("");
   return `<h1>Standards</h1>
-  <p class="lead">The style guide, the claims register and the disclosure rule. Legal signs this page once a quarter. Every draft gets a first read against it, which sorts the piece into a lane; only the amber and red lanes involve a person.</p>
+  <p class="lead">The style guide, the claims register and the disclosure rule. Legal signs this page once a quarter. Every draft gets a first read against it, which sorts the piece into a lane; only the amber and red lanes involve a person. The register follows the FTC's own advice that an advertiser should give its creators a list of the claims they may make.</p>
   <div class="grid2">
     <div>
       <div class="card"><h2>Test a script</h2>
-        <p class="small muted">Paste a draft, or edit the sample, and run the first read. This is the check every correspondent's draft goes through.</p>
-        <textarea id="testText">#ad The Kestrel Aero 3 is the best shoe for beginners because the rocker prevents injury. It's 15% lighter than the Stridewell Glide and I'm guaranteed to love it. Use my promo code for 20% off.</textarea>
+        <p class="small muted">Paste a draft, or edit the sample, and run the first read. The sample is a deliberately bad test script; it is not attributed to anyone.</p>
+        <textarea id="testText">#ad The Brooks Ghost 18 is the best shoe for beginners because the rocker prevents injury. It's lighter than the Saucony Ride 19 and 20% more comfortable, and I'm guaranteed to love it. Use my promo code for 20% off.</textarea>
         <div class="actions"><button class="btn" onclick="runTest()">Run the first read</button></div>
         <div id="testOut" style="margin-top:12px"></div>
+      </div>
+      <div class="card" style="margin-top:16px"><h2>Where the rules come from</h2>
+        <ul class="tight small">
+          <li>Disclosure: in the video, spoken and on screen, near the start; the description alone is not enough; a platform's paid-promotion label is not enough on its own. <a href="https://www.ftc.gov/business-guidance/resources/disclosures-101-social-media-influencers" target="_blank" rel="noopener">FTC, Disclosures 101</a>; <a href="https://www.ftc.gov/business-guidance/resources/ftcs-endorsement-guides-what-people-are-asking" target="_blank" rel="noopener">FTC Endorsement Guides FAQ</a>.</li>
+          <li>Health claims need substantiation; the advertiser is liable for what its endorsers say (16 CFR 255.1(d)). <a href="https://www.ftc.gov/business-guidance/resources/health-products-compliance-guidance" target="_blank" rel="noopener">FTC Health Products Compliance Guidance</a>; <a href="https://www.ecfr.gov/current/title-16/chapter-I/subchapter-B/part-255" target="_blank" rel="noopener">16 CFR 255</a>.</li>
+          <li>Footwear precedents: <a href="https://www.ftc.gov/news-events/news/press-releases/2011/09/reebok-pay-25-million-customer-refunds-settle-ftc-charges-deceptive-advertising-easytone-runtone" target="_blank" rel="noopener">Reebok, $25M (FTC, 2011)</a>; <a href="https://www.ftc.gov/news-events/news/press-releases/2012/05/skechers-will-pay-40-million-settle-ftc-charges-it-deceived-consumers-ads-toning-shoes" target="_blank" rel="noopener">Skechers, $40M (FTC, 2012)</a>.</li>
+          <li>The claims register itself: the FTC says advertisers should give their network "a list of the health claims they can make" and monitor them (Endorsement Guides FAQ).</li>
+        </ul>
       </div>
     </div>
     <div>
       <div class="card"><h2>The three lanes</h2>
         <div class="kv"><dt>${laneTag("green")}</dt><dd>Inside the standards. Cleared by the desk the same day; publishes the next.</dd>
-        <dt>${laneTag("amber")}</dt><dd>A flagged claim, a superlative, a competitor, a missing disclosure. The editor decides within 24 hours. Capped at ${DATA.amberAllowance} a month.</dd>
-        <dt>${laneTag("red")}</dt><dd>Health claims, guarantees, pricing, promotions. Always to legal, always logged. Back in ${DATA.legalTurnaround} days.</dd></div>
-        <div class="sim-note">Simulated: the real first read is Gemini reading the draft against the NotebookLM standards. Here it is a rule list, which is enough to show where the human decisions sit.</div>
+        <dt>${laneTag("amber")}</dt><dd>A flagged claim, a superlative, a competitor, a missing disclosure. The editor decides within 24 hours. Capped at ${DATA.desk.amberAllowance} a month.</dd>
+        <dt>${laneTag("red")}</dt><dd>Health claims, guarantees, pricing, promotions, a new product, an implied race partnership. Always to legal, always logged. Back in ${DATA.desk.legalTurnaround} days.</dd></div>
+        <div class="sim-note">In the pilot the first read is Gemini reading the draft against the register held in Gemini Notebook. Here it is a rule list, which is enough to show where the human decisions sit. The allowance and the legal turnaround are the pilot's working terms.</div>
       </div>
       <div class="card" style="margin-top:16px"><h2>Claims register</h2>
         <table><tr><th>Red, to legal</th><th></th></tr>${rules("red")}</table>
@@ -481,80 +657,141 @@ function runTest(){
 
 function bench(){
   const busy = new Set(state.pieces.filter(p => ["assigned","amber","legal"].includes(p.status)).map(p => p.creatorId));
-  const rows = DATA.bench.map(c => {
+  const list = creatorList();
+  const notes = [];
+  const rows = list.map(c => {
     const done = state.pieces.filter(p => p.creatorId === c.id && p.liveDay).length;
-    return `<tr><td><b>${esc(c.name)}</b><div class="small muted">${c.handle}</div></td><td>${DATA.beats[c.beat]}</td><td>${c.subs}</td><td>${c.perf.toFixed(1)}</td><td>${c.turnaround} days</td><td>${money(c.video)} / ${money(c.short)}</td><td>${busy.has(c.id) ? `<span class="tag am">On a piece</span>` : `<span class="tag gr">Available</span>`}${done ? ` <span class="tag nt">${done} live</span>` : ""}</td></tr>`;
+    const est = estimateRates(c), idx = reachIndex(c);
+    let flagRef = "";
+    if (c.flags && c.flags.length) { notes.push({ name: c.name, flags: c.flags }); flagRef = ` <sup><a href="#benchnotes" title="${esc(c.flags.join(" "))}">${notes.length}</a></sup>`; }
+    return `<tr><td><b><a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.name)}</a></b>${flagRef}<div class="small muted">${esc(c.handle)}</div></td><td>${DATA.beats[c.beat] || esc(c.beat)}</td><td>${esc(c.subscribersText || fmt(c.subscribers))}${c.subscribersStale ? ` <span class="tag am">stale</span>` : ""}</td><td>${fmt(c.medianViews15)}${c.feedStale ? ` <span class="tag am">stale</span>` : ""}</td><td>${fmt(c.uploads30d)}${c.uploads30dIsFloor ? "+" : ""}${c.shortsInLast15 ? `<div class="small muted">${c.shortsInLast15} of 15 are Shorts</div>` : ""}</td><td>${idx == null ? "–" : idx.toFixed(2)}</td><td>${est ? `${money(est.integration)} / ${money(est.short)} <span class="tag est">est.</span>` : "–"}</td><td>${busy.has(c.id) ? `<span class="tag am">On a piece</span>` : `<span class="tag gr">Available</span>`}${done ? ` <span class="tag nt">${done} live</span>` : ""}</td></tr>`;
   }).join("");
+  const cap = LIVE.creators && LIVE.creators[0] ? (LIVE.creators[0].subscribersCapturedAt || LIVE.generatedAt) : LIVE.generatedAt;
   return `<h1>The bench</h1>
-  <p class="lead">Sixteen correspondents on a quarterly retainer, two per beat, chosen through Creator Partnerships and contracted once. When the desk commissions, the brief goes to the available correspondent on that beat with the best recent performance.</p>
-  <div class="card"><table><tr><th>Correspondent</th><th>Beat</th><th>Subscribers</th><th>Performance index</th><th>Turnaround</th><th>Rate card (integration / Short)</th><th>Status</th></tr>${rows}</table></div>
+  <p class="lead">Sixteen correspondents on a quarterly retainer, two per beat, chosen once and contracted once. When the desk commissions, the brief goes to the available correspondent on that beat with the higher median views. The channels below are real and public; the commercial terms are modelled.</p>
+  <div class="card small" style="border-color:var(--amber);background:var(--amber-bg);margin-bottom:16px"><b>Real channels, hypothetical bench.</b> These sixteen are real public YouTube channels, found through public YouTube search on 22 Sep 2026 (in the pilot the list would come from YouTube Creator Partnerships). None of them is affiliated with ${DATA.brand.name} or with this project, none has been contacted, and none has agreed to anything. Subscriber counts and views are YouTube's public figures. Rates, the reach index and turnaround are calculated or set by the desk and are not facts about the people.</div>
+  <div class="card"><div class="tablewrap"><table><tr><th>Correspondent</th><th>Beat</th><th>Subscribers (YouTube)</th><th>Median views, last 15 uploads (RSS)</th><th>Uploads, 30 days</th><th>Reach index</th><th>Rate card, integration / Short</th><th>Status</th></tr>${rows}</table></div>
+    <div class="src" style="margin-top:8px">Counts captured ${fmtDate(cap)}${DATA_MODE === "live" ? " from the daily data file" : " (embedded snapshot)"}. Subscriber counts are YouTube's rounded public figures. Views are the feed's public count; since 24 Aug 2026 YouTube counts a view from the first frame.</div>
+  </div>
+  ${notes.length ? `<div class="card" style="margin-top:16px" id="benchnotes"><h3>Notes the desk must clear before contracting</h3><ol class="small" style="margin:6px 0 0;padding-left:18px">${notes.map(n => `<li><b>${esc(n.name)}:</b> ${esc(n.flags.join(" "))}</li>`).join("")}</ol></div>` : ""}
   <div class="grid3" style="margin-top:16px">
-    <div class="card"><h3>Contracted once</h3><p class="small">One Q4 agreement per correspondent: a monthly minimum, the rate card above, and pre-priced options for an extra video, a usage extension and Boost rights. An extra wave is a notice, not a renegotiation.</p></div>
-    <div class="card"><h3>Refreshed each quarter</h3><p class="small">The performance index is recomputed from the 48-hour reads. Correspondents whose pieces move the numbers stay; the bench is rebalanced by beat.</p></div>
-    <div class="card"><h3>Onboarded to the standards</h3><p class="small">Every correspondent receives the style guide and claims register at signing, so drafts arrive closer to clearable. The amber rate is a bench-quality metric too.</p><div class="sim-note">Simulated: names, subscriber counts, rates and the index are invented. In the real desk the bench comes from a Creator Partnerships search.</div></div>
+    <div class="card"><h3>Rate card: how the estimate is built</h3><p class="small">Median views of the last 15 uploads × 0.52 (the engaged share of public views in Fitness since YouTube's 24 Aug 2026 counting change) = engaged views. Engaged views ÷ 1,000 × the CPM for the tier: $51 under 50k views, $28 from 50k to 300k, $22 above. A Short is priced at half the integration. Every figure is a modelled estimate, not what the creator charges.</p><div class="src">Sources: <a href="https://static.agentio.com/blog/2026-YouTube-Creator-Marketing-Playbook.pdf" target="_blank" rel="noopener">Agentio 2026 Playbook</a> (CPM by tier, 10,000+ integrations); <a href="https://creatorsagency.co/blog/youtube-sponsorship-rate-card-2026" target="_blank" rel="noopener">Creators Agency rate card 2026</a> (fee = views ÷ 1,000 × CPM; usage +20% per 30 days); <a href="https://www.agentio.com/blog/youtube-new-view-count-60-engaged-view-rate" target="_blank" rel="noopener">Agentio, 3 Sep 2026</a> (52% engaged-view rate, Fitness). Accessed 22 Sep 2026.</div></div>
+    <div class="card"><h3>Reach index: what it means</h3><p class="small">Median views per subscriber, indexed so that the bench median is 1.00. A channel at 2.00 gets twice the views per subscriber of the typical correspondent here. It is recomputed every time the data refreshes. It replaces the invented "performance index" of the first version, and it only ranks these sixteen against each other.</p></div>
+    <div class="card"><h3>Contracted once, refreshed each quarter</h3><p class="small">One agreement per correspondent: a monthly minimum, the rate card above, and pre-priced options for an extra video, a usage extension and Boost rights. An extra wave is a notice, not a renegotiation. The draft term is ${DATA.desk.draftDays} days for everyone. Correspondents whose pieces move the numbers stay; the bench is rebalanced by beat. Every correspondent receives the style guide and claims register at signing.</p></div>
+  </div>`;
+}
+
+function waves(){
+  const cal = DATA.calendar.map(x => `<li><b>${fmtDay(x.d + "T12:00:00Z")}</b>: <a href="${esc(x.u)}" target="_blank" rel="noopener">${esc(x.e)}</a></li>`).join("");
+  return `<h1>Waves and terms</h1>
+  <p class="lead">The brief asks for a shift from one big drop to two or three impact waves over a six-to-eight-week activation, and for deal terms negotiated once. The desk runs both as an ongoing cadence. Below, one eight-week activation is laid over the real fall race calendar.</p>
+  <div class="grid3">
+    <div class="wave"><div class="w">Wave 1 · Weeks 1 to 2</div><div class="small muted">28 Sep to 11 Oct</div><p class="small">A small cohort publishes. The analyst has a first read within 48 hours of each piece going live.</p><ul><li>4 Oct: Twin Cities Marathon</li><li>11 Oct: Chicago Marathon</li></ul></div>
+    <div class="wave"><div class="w">Wave 2 · Weeks 3 to 5</div><div class="small muted">12 Oct to 1 Nov</div><p class="small">Commission more of what moved. The correspondents whose pieces performed get the next briefs; the rest wait for the next trend.</p><ul><li>25 Oct: Marine Corps Marathon</li><li>1 Nov: TCS New York City Marathon</li></ul></div>
+    <div class="wave"><div class="w">Wave 3 · Weeks 6 to 8</div><div class="small muted">2 Nov to 22 Nov</div><p class="small">Boost the winners through Creator partnerships boost as Shorts and in-stream ads. Media spend only follows pieces that have already proved themselves.</p><ul><li>7 Nov: Indianapolis Monumental</li><li>21 Nov: JFK 50 Mile</li><li>22 Nov: Philadelphia Marathon</li><li>26 Nov: Thanksgiving turkey trots start the next cycle</li></ul></div>
+  </div>
+  <div class="grid2" style="margin-top:16px">
+    <div class="card"><h2>Deal terms, negotiated once</h2>
+      <ul class="tight small">
+        <li><b>One quarterly agreement</b> per correspondent: a monthly minimum and the rate card on the bench page.</li>
+        <li><b>Pre-priced options</b> for an extra video, a usage extension and Boost rights, so an extra wave is a notice, not a renegotiation. Published benchmarks price usage rights at about 20% of the base fee per 30 days and exclusivity at about 10% (Creators Agency, 2026).</li>
+        <li><b>No exclusivity for the gear beat.</b> Shoe reviewers cover competitors by definition; the agreement says so.</li>
+        <li><b>A kill fee</b> and a 24-hour amber decision window, so a piece is never left waiting on the brand.</li>
+      </ul>
+      <div class="src">The bench's rates are modelled estimates. Terms above are the pilot's design, not an offer to anyone.</div>
+    </div>
+    <div class="card"><h2>The fall calendar the waves sit on</h2><ul class="tight small">${cal}</ul><div class="src">Each date was read from the official race site on 22 Sep 2026. Brooks is not a partner of these races; the desk covers the moment, not the event.</div></div>
   </div>`;
 }
 
 function dashboard(){
   const live = state.pieces.filter(p => p.liveDay);
-  const ttl = live.map(p => p.liveDay - trendById(p.trendId).appears);
+  const ttl = live.map(p => p.liveDay - cardById(p.trendId).appears);
   const ctl = live.map(p => p.liveDay - p.commissionedDay);
   const avg = a => a.length ? (a.reduce((x,y) => x+y, 0) / a.length) : null;
   const avgTtl = avg(ttl), avgCtl = avg(ctl);
   const boosted = state.pieces.filter(p => p.boosted).length;
   const withRead = state.pieces.filter(p => p.metrics);
   const views = withRead.reduce((s,p) => s + p.metrics.views, 0);
-  const newW = avgCtl ? Math.max(4, Math.round(avgCtl / DATA.oldProcessDays * 100)) : 0;
-  const rows = live.sort((a,b) => a.liveDay - b.liveDay).map(p => { const t = trendById(p.trendId); return `<tr><td>${esc(t.title)}</td><td>${creatorById(p.creatorId).name}</td><td>${t.appears}</td><td>${p.commissionedDay}</td><td>${p.liveDay}</td><td><b>${p.liveDay - t.appears}</b></td><td>${p.liveDay - p.commissionedDay}</td><td>${p.check ? laneTag(p.check.lane) : ""}</td><td>${p.metrics ? fmt(p.metrics.views) : "<span class='muted'>pending</span>"}${p.boosted ? " (boosted)" : ""}</td></tr>`; }).join("");
+  const old = DATA.facts.oldDays;
+  const newW = avgCtl ? Math.max(4, Math.round(avgCtl / old * 100)) : 0;
+  const targetW = Math.round(DATA.desk.pilotTargetDays / old * 100);
+  const stages = DATA.facts.oldStages.map(([n, d]) => `<span class="tag nt">${n} ${d}d</span>`).join(" ");
+  const rows = live.sort((a,b) => a.liveDay - b.liveDay).map(p => { const t = cardById(p.trendId); return `<tr><td>${esc(t.title)}</td><td>${esc(creatorById(p.creatorId).name)}</td><td>${t.appears}</td><td>${p.commissionedDay}</td><td>${p.liveDay}</td><td><b>${p.liveDay - t.appears}</b></td><td>${p.liveDay - p.commissionedDay}</td><td>${p.check ? laneTag(p.check.lane) : ""}</td><td>${p.metrics ? fmt(p.metrics.views) : "<span class='muted'>pending</span>"}${p.boosted ? " (boosted)" : ""}</td></tr>`; }).join("");
+  const f = DATA.facts;
   return `<h1>Dashboard</h1>
-  <p class="lead">The number the desk is held to is trend-to-live: days from a trend appearing on the board to a correspondent's video being up. The old process is shown alongside for the same pieces.</p>
+  <p class="lead">The number the desk is held to is trend-to-live: days from a trend appearing on the board to a correspondent's video being up. The pilot target is ${DATA.desk.pilotTargetDays} days. Published ranges for today's process are shown alongside.</p>
   <div class="grid3">
-    <div class="stat"><div class="n">${avgTtl === null ? "–" : avgTtl.toFixed(1)}</div><div class="l">Average trend-to-live, in days${avgTtl === null ? " (no piece live yet)" : ""}</div></div>
-    <div class="stat"><div class="n">${avgCtl === null ? "–" : avgCtl.toFixed(1)}</div><div class="l">Average commission-to-live, in days. Old process: ${DATA.oldProcessDays}.</div></div>
+    <div class="stat"><div class="n">${avgTtl === null ? "–" : avgTtl.toFixed(1)}</div><div class="l">Average trend-to-live, in days${avgTtl === null ? " (no piece live yet)" : ""}. Pilot target: ${DATA.desk.pilotTargetDays}.</div></div>
+    <div class="stat"><div class="n">${avgCtl === null ? "–" : avgCtl.toFixed(1)}</div><div class="l">Average commission-to-live, in days. Typical today: 2 to 6 weeks first contact to live (Creators Agency, 2026).</div></div>
     <div class="stat"><div class="n">${live.length}</div><div class="l">Pieces live, ${boosted} boosted</div></div>
-    <div class="stat"><div class="n">${state.amberUsed} <span class="muted" style="font-size:22px">/ ${DATA.amberAllowance}</span></div><div class="l">Amber decisions used this month</div></div>
+    <div class="stat"><div class="n">${state.amberUsed} <span class="muted" style="font-size:22px">/ ${DATA.desk.amberAllowance}</span></div><div class="l">Amber decisions used this month</div></div>
     <div class="stat"><div class="n">${state.redLogged}</div><div class="l">Pieces sent to legal and logged</div></div>
-    <div class="stat"><div class="n">${views ? fmt(views) : "–"}</div><div class="l">Views across pieces with a 48-hour read</div></div>
+    <div class="stat"><div class="n">${views ? fmt(views) : "–"}</div><div class="l">Simulated 48-hour views across pieces with a read</div></div>
   </div>
-  <div class="card" style="margin-top:16px"><h2>Commission to live, old process against this desk</h2>
-    <div class="small muted" style="margin-bottom:6px">Old process, typical: ${DATA.oldProcessDays} days</div><div class="bar grey"><i style="width:100%"></i></div>
+  <div class="card" style="margin-top:16px"><h2>Commission to live: today's process against this desk</h2>
+    <div class="small muted" style="margin-bottom:6px">Illustrative today, ${old} days: ${stages}</div><div class="bar grey"><i style="width:100%"></i></div>
+    <div class="small muted" style="margin:12px 0 6px">Pilot target: ${DATA.desk.pilotTargetDays} days trend-to-live</div><div class="bar green"><i style="width:${targetW}%"></i></div>
     <div class="small muted" style="margin:12px 0 6px">This desk, average so far: ${avgCtl === null ? "no piece live yet" : avgCtl.toFixed(1) + " days"}</div><div class="bar"><i style="width:${newW}%"></i></div>
-    <div class="sim-note">The old-process figure is an illustrative timeline from 2026 industry reporting, not a benchmark. The desk figure is whatever this simulation produced.</div>
+    <div class="sim-note">${esc(f.oldNote)} Published figure: ${esc(f.timeline.text)} <a href="${f.timeline.url}" target="_blank" rel="noopener">${esc(f.timeline.source)}</a>. The desk figure is whatever this simulation produced.</div>
+  </div>
+  <div class="grid3" style="margin-top:16px">
+    <div class="stat"><div class="n">${f.brief15x.n}</div><div class="l">${esc(f.brief15x.text)}<div class="src">${esc(f.brief15x.source)}</div></div></div>
+    <div class="stat"><div class="n">${f.brief15pct.n}</div><div class="l">${esc(f.brief15pct.text)}<div class="src">${esc(f.brief15pct.source)}</div></div></div>
+    <div class="stat"><div class="n">${f.iab.n}</div><div class="l">${esc(f.iab.text)}<div class="src"><a href="${f.iab.url}" target="_blank" rel="noopener">${esc(f.iab.source)}</a></div></div></div>
   </div>
   <div class="card" style="margin-top:16px"><h2>Pieces live</h2>
-    ${rows ? `<table><tr><th>Piece</th><th>Correspondent</th><th>Trend seen</th><th>Commissioned</th><th>Live</th><th>Trend-to-live</th><th>Commission-to-live</th><th>First read</th><th>Views</th></tr>${rows}</table>` : `<div class="empty">Nothing live yet. Commission a piece and advance the day a few times.</div>`}
+    ${rows ? `<div class="tablewrap"><table><tr><th>Piece</th><th>Correspondent</th><th>Trend seen</th><th>Commissioned</th><th>Live</th><th>Trend-to-live</th><th>Commission-to-live</th><th>First read</th><th>48h views (sim.)</th></tr>${rows}</table></div>` : `<div class="empty">Nothing live yet. Commission a piece and advance the day a few times.</div>`}
   </div>`;
 }
 
 function about(){
-  return `<h1>What is simulated</h1>
-  <p class="lead">This site was built for the NYU SPS and Google Marketing Accelerator Hackathon, Track 3, as a companion to the Creator Newsroom submission. It shows what a morning on the desk feels like and where the old sign-off steps disappear. It is a process demonstration, not a product.</p>
-  <div class="grid2">
-    <div class="card"><h2>Fictional throughout</h2><p class="small">Kestrel Running, the Aero 3, every correspondent, every trend, every rate and every number on the dashboard are invented. No real creator or brand is depicted. The old-process timeline of ${DATA.oldProcessDays} days is an illustrative figure from 2026 industry reporting.</p></div>
-    <div class="card"><h2>Where Google products sit in the real desk</h2>
-      <div class="kv"><dt>Trend board</dt><dd>Insights Finder and Brand Pulse. Here: a scripted list with decaying momentum.</dd>
-      <dt>Bench</dt><dd>YouTube Creator Partnerships search. Here: sixteen invented correspondents.</dd>
-      <dt>Brief</dt><dd>Gemini drafting from the NotebookLM style guide. Here: a template filled from the trend and the correspondent.</dd>
-      <dt>First read</dt><dd>Gemini reading the draft against the claims register. Here: a rule list with the same three lanes.</dd>
-      <dt>48-hour read</dt><dd>Creator Partnerships reporting and Brand Pulse. Here: generated figures.</dd>
-      <dt>Boost</dt><dd>Creator Partnerships Boost. Here: a multiplier.</dd></div>
-    </div>
+  const srcs = (LIVE.sources || []).map(s => `<li><b>${esc(s.name)}</b>: ${esc(s.status)}${s.ok != null ? ` (${s.ok} ok, ${s.failed || 0} failed)` : ""}, last success ${fmtDate(s.lastSuccess)}. <span class="muted">${esc(s.note || "")}</span></li>`).join("");
+  const prod = DATA.products.map(([stage, real, url, here]) => `<dt>${stage}</dt><dd>${esc(real)} <a href="${esc(url)}" target="_blank" rel="noopener">source</a><div class="small muted">${esc(here)}</div></dd>`).join("");
+  return `<h1>What is real, what is modelled, what is simulated</h1>
+  <p class="lead">This site was built for the NYU SPS and Google Marketing Accelerator Hackathon, Track 3, as the functional prototype behind the Creator Newsroom submission. It shows what a morning on the desk feels like and where the old sign-off steps disappear. It is a process demonstration on real data, not a product.</p>
+  <div class="grid3">
+    <div class="card"><h2>Real</h2><ul class="tight small">
+      <li><b>The brand and products.</b> ${esc(DATA.brand.name)}, the ${esc(DATA.brand.short)} ($${DATA.brand.price}, ${esc(DATA.brand.widths)}), the ${esc(DATA.brand.racer)} and the ${esc(DATA.brand.trail)}, read from <a href="${DATA.brand.productUrl}" target="_blank" rel="noopener">brooksrunning.com</a> on ${DATA.brand.verified}. ${esc(DATA.brand.note)}</li>
+      <li><b>The sixteen channels</b> on the bench, their handles, subscriber counts and the views of their last 15 uploads (YouTube's public feed and channel pages).</li>
+      <li><b>Every signal on the trend board</b>: Google Trends US search interest, English Wikipedia pageviews and YouTube feed views, each linked to its source with the time it was captured.</li>
+      <li><b>The race dates</b>, from the official race sites; <b>the review findings</b> on the Ghost 18 fit; <b>the FTC rules</b> and footwear cases behind the standards; <b>the Google product names</b>, checked on Google's own pages.</li>
+      <li><b>The figures in the brief</b> (1.5×, 15%) are quoted from the hackathon brief; no public source was found for them. The IAB 4× figure is sourced.</li>
+    </ul></div>
+    <div class="card"><h2>Modelled (formula shown)</h2><ul class="tight small">
+      <li><b>Rate card</b>: median views × 0.52 engaged share ÷ 1,000 × a published CPM tier ($51 / $28 / $22). Short = half. Not any creator's rate.</li>
+      <li><b>Reach index</b>: views per subscriber, bench median = 1.00.</li>
+      <li><b>Momentum</b>: 50 + week-on-week change ÷ 2 for search and pageview signals; 50 + 20 × log10(views ÷ 10,000) for YouTube view totals.</li>
+      <li><b>Today's process</b>: the ${DATA.facts.oldDays}-day split is the team's illustrative timeline; the published range is 2 to 6 weeks (Creators Agency, 2026).</li>
+    </ul></div>
+    <div class="card"><h2>Simulated</h2><ul class="tight small">
+      <li><b>The day-by-day reveal and decay</b> of trends, the ${DATA.desk.draftDays}-day draft term, the ${DATA.desk.legalTurnaround}-day legal turnaround, the amber allowance of ${DATA.desk.amberAllowance}.</li>
+      <li><b>Every assignment, brief, draft and outcome.</b> No correspondent was contacted. The draft scripts are the desk's test scripts and are not written or said by anyone on the bench.</li>
+      <li><b>The 48-hour read</b>: a projection from the channel's real median views (formula in the code), and the ×3.2 boost. No published benchmark gives the share of views arriving in 48 hours; Brand Lift needs a 10-day study, so no brand-lift number is shown.</li>
+    </ul></div>
+  </div>
+  <div class="card" style="margin-top:16px"><h2>Where Google products sit in the pilot desk</h2><div class="kv">${prod}</div>
+    <div class="src">Names as Google uses them in September 2026: YouTube Creator Partnerships (formerly BrandConnect, announced 23 Mar 2026), Creator partnerships boost, the brand pulse report (launched 9 Oct 2025), Insights Finder, Gemini, Gemini Notebook (NotebookLM was renamed on 16 Jul 2026). Insights Finder needs a Google account representative and its outputs are confidential, which is one reason the prototype uses public stand-ins.</div></div>
+  <div class="card" style="margin-top:16px"><h2>How the data refreshes</h2>
+    <p class="small">A GitHub Action runs <code>scripts/fetch_data.py</code> once a day (06:17 UTC) and commits <code>data/live.json</code>. The script uses no API key: YouTube channel feeds and channel pages, the Wikimedia pageviews API and Google Trends' web endpoints. When a source fails, the last good value is kept and marked stale; nothing is estimated or invented. This page loads the file when it opens, falls back to a snapshot embedded in the page, and then refreshes the Wikipedia figures directly in your browser.</p>
+    <ul class="tight small">${srcs || "<li>No source summary in the data file.</li>"}</ul>
+    <div class="src">Data file generated ${fmtDate(LIVE.generatedAt)}. Mode now: ${DATA_MODE}.</div>
   </div>
   <div class="card" style="margin-top:16px"><h2>A two-minute walkthrough</h2>
     <ol class="small" style="padding-left:20px;margin:0">
-      <li>On the morning meeting, commission the two trends with the highest momentum.</li>
-      <li>Advance the day two or three times. Drafts arrive and get a first read.</li>
+      <li>On the morning meeting, read the signals, then commission the two trends with the highest momentum. Notice the Hyrox card the desk declines.</li>
+      <li>Advance the day three times. Test scripts arrive and get a first read.</li>
       <li>On the desk, decide any amber pieces. Watch a red one go to legal and come back.</li>
       <li>Advance until pieces are live and have a 48-hour read, then boost the strongest.</li>
-      <li>Open the dashboard and compare trend-to-live with the old process bar.</li>
-      <li>On standards, paste your own script and run the first read.</li>
+      <li>Open the dashboard and compare trend-to-live with the 7-day target and today's published ranges.</li>
+      <li>On standards, paste your own script and run the first read. On the bench, hover the note markers.</li>
     </ol>
     <p class="small muted" style="margin-top:12px">Progress is kept in this browser only. Reset clears it.</p>
   </div>`;
 }
 
 /* ===================== BOOT ===================== */
-load(); render();
+load(); render(); loadLive();
 </script>
 </body>
 </html>

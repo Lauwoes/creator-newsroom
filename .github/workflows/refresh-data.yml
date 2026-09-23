@@ -1,0 +1,45 @@
+name: Refresh live data
+
+on:
+  schedule:
+    - cron: "17 6 * * *" # daily at 06:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-data
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      # Standard library only; no pip install. Exits 1 (and leaves the file alone)
+      # only if every source failed.
+      - name: Fetch data
+        run: python scripts/fetch_data.py
+
+      # Re-embed a slim copy of the data in index.html as the page's offline fallback.
+      - name: Rebuild the embedded snapshot
+        run: python scripts/build_snapshot.py
+
+      - name: Commit data/live.json and index.html if they changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/live.json index.html
+          if git diff --cached --quiet; then
+            echo "Nothing changed; nothing to commit."
+            exit 0
+          fi
+          git commit -m "Refresh live data ($(date -u +%Y-%m-%dT%H:%MZ))"
+          git push
