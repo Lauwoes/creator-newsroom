@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-09-23T17:50:02Z",
+  "generatedAt": "2026-09-23T18:03:39Z",
   "generator": "scripts/fetch_data.py",
   "notes": [
     "Trend signals are public stand-ins (Wikipedia pageviews, YouTube RSS, Google Trends web data). They are not Insights Finder or Brand Pulse output; in the pilot those products replace them.",
@@ -33,7 +33,7 @@
       "status": "ok",
       "ok": 19,
       "failed": 0,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "errors": [],
       "note": "Latest 15 uploads per channel with public view counts. Server-side only (no CORS)."
     },
@@ -44,7 +44,7 @@
       "status": "ok",
       "ok": 16,
       "failed": 0,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "errors": [],
       "note": "Subscriber text read from the channel page header; the channel ID on the page must match."
     },
@@ -55,7 +55,7 @@
       "status": "ok",
       "ok": 25,
       "failed": 0,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "errors": [],
       "note": "English Wikipedia daily pageviews, agent=user. Also callable from a browser with a plain fetch()."
     },
@@ -66,7 +66,7 @@
       "status": "ok",
       "ok": 1,
       "failed": 0,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "errors": [],
       "note": "Flags configured article titles that were renamed or deleted."
     },
@@ -77,7 +77,7 @@
       "status": "ok",
       "ok": 11,
       "failed": 0,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "errors": [],
       "note": "Best effort: rate-limited (HTTP 429) and untested from GitHub Actions IPs. Last good values are kept and marked stale on failure."
     }
@@ -96,7 +96,7 @@
       "feedUrl": "https://www.youtube.com/feeds/videos.xml?channel_id=UCe43pe3w4L6w3tNMRkWiJBA",
       "feedAuthor": "kofuzi",
       "feedEntries": 15,
-      "medianViews15": 28437,
+      "medianViews15": 28445,
       "uploads30d": 12,
       "uploads30dIsFloor": false,
       "shortsInLast15": 0,
@@ -106,65 +106,65 @@
           "title": "adidas Adios Pro 5",
           "videoId": "Rb1Lg1gOPnA",
           "published": "2026-09-22T10:00:09Z",
-          "views": 100808,
+          "views": 101014,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=Rb1Lg1gOPnA",
-          "ageDays": 1.33,
-          "viewsPerDay": 76006
+          "ageDays": 1.34,
+          "viewsPerDay": 75623
         },
         {
           "title": "Peak Week (part 1) - Berlin Marathon Training Week 9, Chasing Ghosts S2",
           "videoId": "PlfGj2tkakg",
           "published": "2026-09-21T21:45:35Z",
-          "views": 17629,
+          "views": 17664,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=PlfGj2tkakg",
-          "ageDays": 1.84,
-          "viewsPerDay": 9600
+          "ageDays": 1.85,
+          "viewsPerDay": 9569
         },
         {
           "title": "Balancing Shoe Testing with Marathon Training - Berlin Marathon Training Week 8, Chasing Ghosts S2",
           "videoId": "2vT74Juv3vQ",
           "published": "2026-09-19T11:00:34Z",
-          "views": 31238,
+          "views": 31253,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=2vT74Juv3vQ",
-          "ageDays": 4.28,
-          "viewsPerDay": 7291
+          "ageDays": 4.29,
+          "viewsPerDay": 7279
         },
         {
           "title": "How Fit Am I? Berlin Marathon Training Week 7. Chasing Ghosts Season 2",
           "videoId": "4lnYAwFX7do",
           "published": "2026-09-17T16:35:24Z",
-          "views": 28437,
+          "views": 28445,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=4lnYAwFX7do",
-          "ageDays": 6.05,
-          "viewsPerDay": 4699
+          "ageDays": 6.06,
+          "viewsPerDay": 4693
         },
         {
           "title": "On Cloudsurfer 3",
           "videoId": "O0WMth-aSog",
           "published": "2026-09-15T13:02:50Z",
-          "views": 49426,
+          "views": 49464,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=O0WMth-aSog",
-          "ageDays": 8.2,
-          "viewsPerDay": 6028
+          "ageDays": 8.21,
+          "viewsPerDay": 6026
         }
       ],
-      "feedCapturedAt": "2026-09-23T17:50:02Z",
+      "feedCapturedAt": "2026-09-23T18:03:39Z",
       "feedStale": false,
-      "feedLastSuccess": "2026-09-23T17:50:02Z",
+      "feedLastSuccess": "2026-09-23T18:03:39Z",
       "subscribers": 242000,
       "subscribersText": "242K subscribers",
       "subscribersSource": "https://www.youtube.com/@kofuzi (channel page header)",
-      "subscribersCapturedAt": "2026-09-23T17:50:02Z",
+      "subscribersCapturedAt": "2026-09-23T18:03:39Z",
       "subscribersStale": false,
-      "subscribersLastSuccess": "2026-09-23T17:50:02Z",
+      "subscribersLastSuccess": "2026-09-23T18:03:39Z",
       "subscribersPrecision": "YouTube public abbreviated count (3 significant figures); the number is the abbreviation expanded, not an exact count",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z"
+      "lastSuccess": "2026-09-23T18:03:39Z"
     },
     {
       "id": "doctorsofrunning",
@@ -179,7 +179,7 @@
       "feedUrl": "https://www.youtube.com/feeds/videos.xml?channel_id=UCpUtRsyAx5rluUDmF4k_gHw",
       "feedAuthor": "Doctors of Running",
       "feedEntries": 15,
-      "medianViews15": 8289,
+      "medianViews15": 8290,
       "uploads30d": 14,
       "uploads30dIsFloor": false,
       "shortsInLast15": 2,
@@ -189,65 +189,65 @@
           "title": "adidas Adios Pro 5, Full Breakdown",
           "videoId": "NWNpmBnNxiE",
           "published": "2026-09-23T17:12:57Z",
-          "views": 196,
+          "views": 267,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=NWNpmBnNxiE",
-          "ageDays": 0.03,
+          "ageDays": 0.04,
           "viewsPerDay": null
         },
         {
           "title": "adidas Adizero Adios Pro 5 Review + Comparisons",
           "videoId": "gB1y2XR5fIc",
           "published": "2026-09-22T10:17:28Z",
-          "views": 12458,
+          "views": 12489,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=gB1y2XR5fIc",
-          "ageDays": 1.31,
-          "viewsPerDay": 9479
+          "ageDays": 1.32,
+          "viewsPerDay": 9435
         },
         {
           "title": "Drawbacks to Running in Only One Shoe? Do Height & Weight Affect Running Shoes? | Mailbag!",
           "videoId": "Sgz91dMi78g",
           "published": "2026-09-20T12:28:46Z",
-          "views": 6455,
+          "views": 6460,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=Sgz91dMi78g",
-          "ageDays": 3.22,
-          "viewsPerDay": 2003
+          "ageDays": 3.23,
+          "viewsPerDay": 1998
         },
         {
           "title": "ASICS GEL-Slowcush Review + Comparisons",
           "videoId": "DDN5Y608GB4",
           "published": "2026-09-17T14:50:54Z",
-          "views": 15975,
+          "views": 15979,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=DDN5Y608GB4",
-          "ageDays": 6.12,
-          "viewsPerDay": 2608
+          "ageDays": 6.13,
+          "viewsPerDay": 2605
         },
         {
           "title": "TYR Valkyrie Elite 2 vs. Everything: Top Lightweight Super Shoes",
           "videoId": "XEuu-aCHMRM",
           "published": "2026-09-15T16:57:29Z",
-          "views": 5901,
+          "views": 5902,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=XEuu-aCHMRM",
-          "ageDays": 8.04,
+          "ageDays": 8.05,
           "viewsPerDay": 734
         }
       ],
-      "feedCapturedAt": "2026-09-23T17:50:02Z",
+      "feedCapturedAt": "2026-09-23T18:03:39Z",
       "feedStale": false,
-      "feedLastSuccess": "2026-09-23T17:50:02Z",
+      "feedLastSuccess": "2026-09-23T18:03:39Z",
       "subscribers": 50200,
       "subscribersText": "50.2K subscribers",
       "subscribersSource": "https://www.youtube.com/@DoctorsofRunning (channel page header)",
-      "subscribersCapturedAt": "2026-09-23T17:50:02Z",
+      "subscribersCapturedAt": "2026-09-23T18:03:39Z",
       "subscribersStale": false,
-      "subscribersLastSuccess": "2026-09-23T17:50:02Z",
+      "subscribersLastSuccess": "2026-09-23T18:03:39Z",
       "subscribersPrecision": "YouTube public abbreviated count (3 significant figures); the number is the abbreviation expanded, not an exact count",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z"
+      "lastSuccess": "2026-09-23T18:03:39Z"
     },
     {
       "id": "keltieoconnor",
@@ -262,7 +262,7 @@
       "feedUrl": "https://www.youtube.com/feeds/videos.xml?channel_id=UC9zEqIwv7yPQ8IlzNYpB_Aw",
       "feedAuthor": "Keltie O'Connor",
       "feedEntries": 15,
-      "medianViews15": 88459,
+      "medianViews15": 88476,
       "uploads30d": 11,
       "uploads30dIsFloor": false,
       "shortsInLast15": 8,
@@ -272,65 +272,65 @@
           "title": "Apple Watch 12’s Newest Recovery Metrics explained",
           "videoId": "wpwvFwdjSOw",
           "published": "2026-09-23T16:53:23Z",
-          "views": 537,
+          "views": 675,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/wpwvFwdjSOw",
-          "ageDays": 0.04,
+          "ageDays": 0.05,
           "viewsPerDay": null
         },
         {
           "title": "The newest workout MUST HAVE *beats 360*",
           "videoId": "swKrbxzUZWE",
           "published": "2026-09-22T21:13:18Z",
-          "views": 12087,
+          "views": 12157,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/swKrbxzUZWE",
-          "ageDays": 0.86,
+          "ageDays": 0.87,
           "viewsPerDay": null
         },
         {
           "title": "Why I have to quit my marathon 🥲",
           "videoId": "gyU1cyCx83s",
           "published": "2026-09-20T15:00:12Z",
-          "views": 76711,
+          "views": 76792,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/gyU1cyCx83s",
-          "ageDays": 3.12,
-          "viewsPerDay": 24603
+          "ageDays": 3.13,
+          "viewsPerDay": 24555
         },
         {
           "title": "Celebrities Weight Loss, We Need to Talk about It",
           "videoId": "zCv2IT37LV4",
           "published": "2026-09-19T15:00:32Z",
-          "views": 231613,
+          "views": 232050,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=zCv2IT37LV4",
-          "ageDays": 4.12,
-          "viewsPerDay": 56248
+          "ageDays": 4.13,
+          "viewsPerDay": 56225
         },
         {
           "title": "Did Apple Watch 12 just destroy Oura & Whoop?",
           "videoId": "vMH9XG3PWIY",
           "published": "2026-09-17T12:00:37Z",
-          "views": 157291,
+          "views": 157459,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=vMH9XG3PWIY",
-          "ageDays": 6.24,
-          "viewsPerDay": 25196
+          "ageDays": 6.25,
+          "viewsPerDay": 25185
         }
       ],
-      "feedCapturedAt": "2026-09-23T17:50:02Z",
+      "feedCapturedAt": "2026-09-23T18:03:39Z",
       "feedStale": false,
-      "feedLastSuccess": "2026-09-23T17:50:02Z",
+      "feedLastSuccess": "2026-09-23T18:03:39Z",
       "subscribers": 773000,
       "subscribersText": "773K subscribers",
       "subscribersSource": "https://www.youtube.com/@KeltieOConnor (channel page header)",
-      "subscribersCapturedAt": "2026-09-23T17:50:02Z",
+      "subscribersCapturedAt": "2026-09-23T18:03:39Z",
       "subscribersStale": false,
-      "subscribersLastSuccess": "2026-09-23T17:50:02Z",
+      "subscribersLastSuccess": "2026-09-23T18:03:39Z",
       "subscribersPrecision": "YouTube public abbreviated count (3 significant figures); the number is the abbreviation expanded, not an exact count",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z"
+      "lastSuccess": "2026-09-23T18:03:39Z"
     },
     {
       "id": "nk-medani",
@@ -353,21 +353,21 @@
           "title": "3 days in maine (a cozy fall trip, enjoying slow living, peaceful moments, trying something new!)🍂🍁🐑",
           "videoId": "T-KJ7X4Xnc0",
           "published": "2026-09-20T19:00:09Z",
-          "views": 4908,
+          "views": 4915,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=T-KJ7X4Xnc0",
-          "ageDays": 2.95,
-          "viewsPerDay": 1663
+          "ageDays": 2.96,
+          "viewsPerDay": 1660
         },
         {
           "title": "realistic week of marathon training *diet, workouts, outfits* a beginner runner (post knee surgery)",
           "videoId": "MYHXnJt0zfI",
           "published": "2026-09-13T19:00:06Z",
-          "views": 9663,
+          "views": 9664,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=MYHXnJt0zfI",
-          "ageDays": 9.95,
-          "viewsPerDay": 971
+          "ageDays": 9.96,
+          "viewsPerDay": 970
         },
         {
           "title": "HOBBYMAXXING will cure your depression. this is your hack to never be bored (part 3)🩷",
@@ -376,8 +376,8 @@
           "views": 10129,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=X7bB7umSfvs",
-          "ageDays": 16.95,
-          "viewsPerDay": 598
+          "ageDays": 16.96,
+          "viewsPerDay": 597
         },
         {
           "title": "realistic week of marathon training *diet, workouts, outfits* a beginner runner (post knee surgery)",
@@ -386,7 +386,7 @@
           "views": 10933,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=xlSimGCdtMY",
-          "ageDays": 23.95,
+          "ageDays": 23.96,
           "viewsPerDay": 456
         },
         {
@@ -396,22 +396,22 @@
           "views": 4705,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=HDt5OUW673I",
-          "ageDays": 30.95,
+          "ageDays": 30.96,
           "viewsPerDay": 152
         }
       ],
-      "feedCapturedAt": "2026-09-23T17:50:02Z",
+      "feedCapturedAt": "2026-09-23T18:03:39Z",
       "feedStale": false,
-      "feedLastSuccess": "2026-09-23T17:50:02Z",
+      "feedLastSuccess": "2026-09-23T18:03:39Z",
       "subscribers": 25300,
       "subscribersText": "25.3K subscribers",
       "subscribersSource": "https://www.youtube.com/@nk.medani (channel page header)",
-      "subscribersCapturedAt": "2026-09-23T17:50:02Z",
+      "subscribersCapturedAt": "2026-09-23T18:03:39Z",
       "subscribersStale": false,
-      "subscribersLastSuccess": "2026-09-23T17:50:02Z",
+      "subscribersLastSuccess": "2026-09-23T18:03:39Z",
       "subscribersPrecision": "YouTube public abbreviated count (3 significant figures); the number is the abbreviation expanded, not an exact count",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z"
+      "lastSuccess": "2026-09-23T18:03:39Z"
     },
     {
       "id": "philybowden",
@@ -424,7 +424,7 @@
       "feedUrl": "https://www.youtube.com/feeds/videos.xml?channel_id=UCzCCsm1ry8no4j-gS6TgySQ",
       "feedAuthor": "Phily Bowden",
       "feedEntries": 15,
-      "medianViews15": 106968,
+      "medianViews15": 107013,
       "uploads30d": 8,
       "uploads30dIsFloor": false,
       "shortsInLast15": 9,
@@ -434,41 +434,41 @@
           "title": "The Best Marathon Workout You're Probably Not Doing",
           "videoId": "UVkjqi9uRho",
           "published": "2026-09-20T18:00:20Z",
-          "views": 122388,
+          "views": 122571,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=UVkjqi9uRho",
-          "ageDays": 2.99,
-          "viewsPerDay": 40894
+          "ageDays": 3.0,
+          "viewsPerDay": 40826
         },
         {
           "title": "Realistic GRWM",
           "videoId": "VHBeQShPb0I",
           "published": "2026-09-17T20:07:57Z",
-          "views": 48404,
+          "views": 48416,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/VHBeQShPb0I",
-          "ageDays": 5.9,
-          "viewsPerDay": 8198
+          "ageDays": 5.91,
+          "viewsPerDay": 8187
         },
         {
           "title": "The Running Industry Has A Problem And Nobody Is Talking About It",
           "videoId": "Ch6qs7UW-mU",
           "published": "2026-09-13T18:00:16Z",
-          "views": 199644,
+          "views": 199697,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=Ch6qs7UW-mU",
-          "ageDays": 9.99,
-          "viewsPerDay": 19979
+          "ageDays": 10.0,
+          "viewsPerDay": 19965
         },
         {
           "title": "Letting my husband narrate my day",
           "videoId": "a6rKQJYynNM",
           "published": "2026-09-11T18:49:46Z",
-          "views": 82142,
+          "views": 82158,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/a6rKQJYynNM",
-          "ageDays": 11.96,
-          "viewsPerDay": 6869
+          "ageDays": 11.97,
+          "viewsPerDay": 6865
         },
         {
           "title": "New Perspective 🫶",
@@ -477,22 +477,22 @@
           "views": 55681,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/Yz2C730wofM",
-          "ageDays": 18.95,
-          "viewsPerDay": 2938
+          "ageDays": 18.96,
+          "viewsPerDay": 2937
         }
       ],
-      "feedCapturedAt": "2026-09-23T17:50:02Z",
+      "feedCapturedAt": "2026-09-23T18:03:39Z",
       "feedStale": false,
-      "feedLastSuccess": "2026-09-23T17:50:02Z",
+      "feedLastSuccess": "2026-09-23T18:03:39Z",
       "subscribers": 224000,
       "subscribersText": "224K subscribers",
       "subscribersSource": "https://www.youtube.com/@PhilyBowden (channel page header)",
-      "subscribersCapturedAt": "2026-09-23T17:50:02Z",
+      "subscribersCapturedAt": "2026-09-23T18:03:39Z",
       "subscribersStale": false,
-      "subscribersLastSuccess": "2026-09-23T17:50:02Z",
+      "subscribersLastSuccess": "2026-09-23T18:03:39Z",
       "subscribersPrecision": "YouTube public abbreviated count (3 significant figures); the number is the abbreviation expanded, not an exact count",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z"
+      "lastSuccess": "2026-09-23T18:03:39Z"
     },
     {
       "id": "benisrunning",
@@ -515,21 +515,21 @@
           "title": "I Took On My First Ever Cycling Race | Can A Runner Compete For The WIN?!",
           "videoId": "okrchBaJXLk",
           "published": "2026-09-20T15:00:27Z",
-          "views": 44105,
+          "views": 44140,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=okrchBaJXLk",
-          "ageDays": 3.12,
-          "viewsPerDay": 14146
+          "ageDays": 3.13,
+          "viewsPerDay": 14115
         },
         {
           "title": "Carbon vs Normal Shoes... Are they ACTUALLY faster for BEGINNERS? *5K All Out In Each*",
           "videoId": "fJ8l1ehTKo4",
           "published": "2026-09-13T15:00:02Z",
-          "views": 104412,
+          "views": 104441,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=fJ8l1ehTKo4",
-          "ageDays": 10.12,
-          "viewsPerDay": 10319
+          "ageDays": 10.13,
+          "viewsPerDay": 10313
         },
         {
           "title": "Runner takes on Mallorca’s biggest climb! Ben is cycling 🤪",
@@ -538,8 +538,8 @@
           "views": 6471,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/D8oTeohSCTE",
-          "ageDays": 11.94,
-          "viewsPerDay": 542
+          "ageDays": 11.95,
+          "viewsPerDay": 541
         },
         {
           "title": "I’m Struggling With This More Than I Expected… | Reality Of A Injured Runner",
@@ -548,8 +548,8 @@
           "views": 55193,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=nVmtdU8r-9M",
-          "ageDays": 17.12,
-          "viewsPerDay": 3224
+          "ageDays": 17.13,
+          "viewsPerDay": 3223
         },
         {
           "title": "I didn't want to make this video again",
@@ -558,22 +558,22 @@
           "views": 122085,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=-FAaKROu92k",
-          "ageDays": 22.12,
-          "viewsPerDay": 5520
+          "ageDays": 22.13,
+          "viewsPerDay": 5517
         }
       ],
-      "feedCapturedAt": "2026-09-23T17:50:02Z",
+      "feedCapturedAt": "2026-09-23T18:03:39Z",
       "feedStale": false,
-      "feedLastSuccess": "2026-09-23T17:50:02Z",
+      "feedLastSuccess": "2026-09-23T18:03:39Z",
       "subscribers": 158000,
       "subscribersText": "158K subscribers",
       "subscribersSource": "https://www.youtube.com/@BenIsRunning (channel page header)",
-      "subscribersCapturedAt": "2026-09-23T17:50:02Z",
+      "subscribersCapturedAt": "2026-09-23T18:03:39Z",
       "subscribersStale": false,
-      "subscribersLastSuccess": "2026-09-23T17:50:02Z",
+      "subscribersLastSuccess": "2026-09-23T18:03:39Z",
       "subscribersPrecision": "YouTube public abbreviated count (3 significant figures); the number is the abbreviation expanded, not an exact count",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z"
+      "lastSuccess": "2026-09-23T18:03:39Z"
     },
     {
       "id": "jeffpelletier",
@@ -590,17 +590,17 @@
       "uploads30d": 2,
       "uploads30dIsFloor": false,
       "shortsInLast15": 6,
-      "daysSinceLastUpload": 9.9,
+      "daysSinceLastUpload": 10.0,
       "latestVideos": [
         {
           "title": "Running the Via Valais, the Runner’s Haute Route",
           "videoId": "q_OiFrE04IU",
           "published": "2026-09-13T19:14:55Z",
-          "views": 104112,
+          "views": 104131,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=q_OiFrE04IU",
-          "ageDays": 9.94,
-          "viewsPerDay": 10473
+          "ageDays": 9.95,
+          "viewsPerDay": 10465
         },
         {
           "title": "My favourite hike in Chamonix",
@@ -609,7 +609,7 @@
           "views": 15279,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/rLIPTZOjREo",
-          "ageDays": 29.12,
+          "ageDays": 29.13,
           "viewsPerDay": 525
         },
         {
@@ -619,18 +619,18 @@
           "views": 37432,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/ruFzJtE2qq4",
-          "ageDays": 30.35,
+          "ageDays": 30.36,
           "viewsPerDay": 1233
         },
         {
           "title": "Climbing the Vertical KM in Chamonix",
           "videoId": "aWLO-LbQTT4",
           "published": "2026-08-23T20:58:42Z",
-          "views": 24240,
+          "views": 24260,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/aWLO-LbQTT4",
-          "ageDays": 30.87,
-          "viewsPerDay": 785
+          "ageDays": 30.88,
+          "viewsPerDay": 786
         },
         {
           "title": "The Truth About Headlamp Brightness",
@@ -639,22 +639,22 @@
           "views": 12742,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=-AZ1eEl0c90",
-          "ageDays": 57.08,
+          "ageDays": 57.09,
           "viewsPerDay": 223
         }
       ],
-      "feedCapturedAt": "2026-09-23T17:50:02Z",
+      "feedCapturedAt": "2026-09-23T18:03:39Z",
       "feedStale": false,
-      "feedLastSuccess": "2026-09-23T17:50:02Z",
+      "feedLastSuccess": "2026-09-23T18:03:39Z",
       "subscribers": 174000,
       "subscribersText": "174K subscribers",
       "subscribersSource": "https://www.youtube.com/@JeffPelletier (channel page header)",
-      "subscribersCapturedAt": "2026-09-23T17:50:02Z",
+      "subscribersCapturedAt": "2026-09-23T18:03:39Z",
       "subscribersStale": false,
-      "subscribersLastSuccess": "2026-09-23T17:50:02Z",
+      "subscribersLastSuccess": "2026-09-23T18:03:39Z",
       "subscribersPrecision": "YouTube public abbreviated count (3 significant figures); the number is the abbreviation expanded, not an exact count",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z"
+      "lastSuccess": "2026-09-23T18:03:39Z"
     },
     {
       "id": "run4adventure",
@@ -670,7 +670,7 @@
       "feedUrl": "https://www.youtube.com/feeds/videos.xml?channel_id=UCGMbTnk82pK0vmITB5LtiPw",
       "feedAuthor": "Run4Adventure",
       "feedEntries": 15,
-      "medianViews15": 8630,
+      "medianViews15": 8627,
       "uploads30d": 7,
       "uploads30dIsFloor": false,
       "shortsInLast15": 4,
@@ -680,40 +680,40 @@
           "title": "Trail running shoe OF THE YEAR? | INOV8 TRAILFLY PRO First Run Review | Run4Adventure",
           "videoId": "ql3Y02Rz5jo",
           "published": "2026-09-20T18:06:25Z",
-          "views": 11297,
+          "views": 11306,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=ql3Y02Rz5jo",
-          "ageDays": 2.99,
-          "viewsPerDay": 3780
+          "ageDays": 3.0,
+          "viewsPerDay": 3771
         },
         {
           "title": "WE HAD TO BE THERE! Kailas FUGA’s First European Store in CHAMONIX + testing the new EX PRO G",
           "videoId": "Q5w2nVnjuqg",
           "published": "2026-09-13T18:00:07Z",
-          "views": 10280,
+          "views": 10259,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=Q5w2nVnjuqg",
-          "ageDays": 9.99,
-          "viewsPerDay": 1029
+          "ageDays": 10.0,
+          "viewsPerDay": 1026
         },
         {
           "title": "We Found Germany’s HIDDEN Trail Paradise! | Saxon Switzerland | European Trail Running Road Trip Ep4",
           "videoId": "XDrJ5xDaPRE",
           "published": "2026-09-06T18:00:08Z",
-          "views": 34166,
+          "views": 34216,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=XDrJ5xDaPRE",
-          "ageDays": 16.99,
-          "viewsPerDay": 2011
+          "ageDays": 17.0,
+          "viewsPerDay": 2012
         },
         {
           "title": "We Found SO MANY New Trail Running Shoes! | UTMB 2026 Expo | Run4Adventure",
           "videoId": "YwGXs-9qseI",
           "published": "2026-08-31T18:00:35Z",
-          "views": 30100,
+          "views": 30103,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=YwGXs-9qseI",
-          "ageDays": 22.99,
+          "ageDays": 23.0,
           "viewsPerDay": 1309
         },
         {
@@ -723,22 +723,22 @@
           "views": 2989,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/eHVxtZoPB_k",
-          "ageDays": 23.11,
+          "ageDays": 23.12,
           "viewsPerDay": 129
         }
       ],
-      "feedCapturedAt": "2026-09-23T17:50:02Z",
+      "feedCapturedAt": "2026-09-23T18:03:39Z",
       "feedStale": false,
-      "feedLastSuccess": "2026-09-23T17:50:02Z",
+      "feedLastSuccess": "2026-09-23T18:03:39Z",
       "subscribers": 69900,
       "subscribersText": "69.9K subscribers",
       "subscribersSource": "https://www.youtube.com/@Run4Adventure (channel page header)",
-      "subscribersCapturedAt": "2026-09-23T17:50:02Z",
+      "subscribersCapturedAt": "2026-09-23T18:03:39Z",
       "subscribersStale": false,
-      "subscribersLastSuccess": "2026-09-23T17:50:02Z",
+      "subscribersLastSuccess": "2026-09-23T18:03:39Z",
       "subscribersPrecision": "YouTube public abbreviated count (3 significant figures); the number is the abbreviation expanded, not an exact count",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z"
+      "lastSuccess": "2026-09-23T18:03:39Z"
     },
     {
       "id": "noahanderson14",
@@ -761,65 +761,65 @@
           "title": "My race did NOT go as planned",
           "videoId": "N8p0nLU84tQ",
           "published": "2026-09-21T23:28:30Z",
-          "views": 209800,
+          "views": 211124,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/N8p0nLU84tQ",
-          "ageDays": 1.76,
-          "viewsPerDay": 118870
+          "ageDays": 1.77,
+          "viewsPerDay": 118983
         },
         {
           "title": "I think we got productivity wrong",
           "videoId": "hIOaW0M6F0w",
           "published": "2026-09-19T15:00:31Z",
-          "views": 30077,
+          "views": 30100,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/hIOaW0M6F0w",
-          "ageDays": 4.12,
-          "viewsPerDay": 7304
+          "ageDays": 4.13,
+          "viewsPerDay": 7293
         },
         {
           "title": "Running at 200lbs sucks",
           "videoId": "GCyqmkPdHe4",
           "published": "2026-09-19T12:50:45Z",
-          "views": 144598,
+          "views": 144795,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=GCyqmkPdHe4",
-          "ageDays": 4.21,
-          "viewsPerDay": 34364
+          "ageDays": 4.22,
+          "viewsPerDay": 34334
         },
         {
           "title": "Tolerating boredom is a cheat code",
           "videoId": "maXS2DEDoQk",
           "published": "2026-09-18T15:00:35Z",
-          "views": 62184,
+          "views": 62260,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/maXS2DEDoQk",
-          "ageDays": 5.12,
-          "viewsPerDay": 12151
+          "ageDays": 5.13,
+          "viewsPerDay": 12143
         },
         {
           "title": "3 days out from my next race",
           "videoId": "HSJnt3Dh9zE",
           "published": "2026-09-17T21:32:30Z",
-          "views": 127433,
+          "views": 127496,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/HSJnt3Dh9zE",
           "ageDays": 5.85,
-          "viewsPerDay": 21800
+          "viewsPerDay": 21776
         }
       ],
-      "feedCapturedAt": "2026-09-23T17:50:02Z",
+      "feedCapturedAt": "2026-09-23T18:03:39Z",
       "feedStale": false,
-      "feedLastSuccess": "2026-09-23T17:50:02Z",
+      "feedLastSuccess": "2026-09-23T18:03:39Z",
       "subscribers": 515000,
       "subscribersText": "515K subscribers",
       "subscribersSource": "https://www.youtube.com/@noahanderson14 (channel page header)",
-      "subscribersCapturedAt": "2026-09-23T17:50:02Z",
+      "subscribersCapturedAt": "2026-09-23T18:03:39Z",
       "subscribersStale": false,
-      "subscribersLastSuccess": "2026-09-23T17:50:02Z",
+      "subscribersLastSuccess": "2026-09-23T18:03:39Z",
       "subscribersPrecision": "YouTube public abbreviated count (3 significant figures); the number is the abbreviation expanded, not an exact count",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z"
+      "lastSuccess": "2026-09-23T18:03:39Z"
     },
     {
       "id": "crownmyrun",
@@ -844,11 +844,11 @@
           "title": "Getting LOST Twice During a Sub-20 Parkrun Attempt!!",
           "videoId": "diolDyKgdGc",
           "published": "2026-09-21T16:59:40Z",
-          "views": 8953,
+          "views": 8971,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=diolDyKgdGc",
-          "ageDays": 2.03,
-          "viewsPerDay": 4400
+          "ageDays": 2.04,
+          "viewsPerDay": 4388
         },
         {
           "title": "Sending my brother to SUFFER at BRUTAL Parkruns!",
@@ -857,8 +857,8 @@
           "views": 11724,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=VfAsWbMep_w",
-          "ageDays": 8.05,
-          "viewsPerDay": 1457
+          "ageDays": 8.06,
+          "viewsPerDay": 1455
         },
         {
           "title": "The Parkrun that INJURED me?!",
@@ -867,17 +867,17 @@
           "views": 11388,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=H__V64KllNI",
-          "ageDays": 20.13,
-          "viewsPerDay": 566
+          "ageDays": 20.14,
+          "viewsPerDay": 565
         },
         {
           "title": "This Parkrun had EVERYTHING?!",
           "videoId": "MpMKu0Hv31E",
           "published": "2026-08-24T13:44:06Z",
-          "views": 11999,
+          "views": 12000,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=MpMKu0Hv31E",
-          "ageDays": 30.17,
+          "ageDays": 30.18,
           "viewsPerDay": 398
         },
         {
@@ -887,22 +887,22 @@
           "views": 7803,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=wk9pivN62N8",
-          "ageDays": 45.28,
+          "ageDays": 45.29,
           "viewsPerDay": 172
         }
       ],
-      "feedCapturedAt": "2026-09-23T17:50:02Z",
+      "feedCapturedAt": "2026-09-23T18:03:39Z",
       "feedStale": false,
-      "feedLastSuccess": "2026-09-23T17:50:02Z",
+      "feedLastSuccess": "2026-09-23T18:03:39Z",
       "subscribers": 14700,
       "subscribersText": "14.7K subscribers",
       "subscribersSource": "https://www.youtube.com/@CrownMyRun (channel page header)",
-      "subscribersCapturedAt": "2026-09-23T17:50:02Z",
+      "subscribersCapturedAt": "2026-09-23T18:03:39Z",
       "subscribersStale": false,
-      "subscribersLastSuccess": "2026-09-23T17:50:02Z",
+      "subscribersLastSuccess": "2026-09-23T18:03:39Z",
       "subscribersPrecision": "YouTube public abbreviated count (3 significant figures); the number is the abbreviation expanded, not an exact count",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z"
+      "lastSuccess": "2026-09-23T18:03:39Z"
     },
     {
       "id": "allie-ostrander",
@@ -915,21 +915,31 @@
       "feedUrl": "https://www.youtube.com/feeds/videos.xml?channel_id=UCn5hg2riwFTCNif80JbaA8A",
       "feedAuthor": "Allie Ostrander",
       "feedEntries": 15,
-      "medianViews15": 130323,
-      "uploads30d": 9,
+      "medianViews15": 102778,
+      "uploads30d": 10,
       "uploads30dIsFloor": false,
-      "shortsInLast15": 8,
-      "daysSinceLastUpload": 6.0,
+      "shortsInLast15": 7,
+      "daysSinceLastUpload": 0.0,
       "latestVideos": [
+        {
+          "title": "The Best Race of My Life | 5K World Championships",
+          "videoId": "ruAWWXBqr_o",
+          "published": "2026-09-23T18:00:22Z",
+          "views": 84,
+          "isShort": false,
+          "url": "https://www.youtube.com/watch?v=ruAWWXBqr_o",
+          "ageDays": 0.0,
+          "viewsPerDay": null
+        },
         {
           "title": "Taking on the 5k World Championships",
           "videoId": "RCkFaPasbyk",
           "published": "2026-09-17T18:48:25Z",
-          "views": 102756,
+          "views": 102778,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=RCkFaPasbyk",
-          "ageDays": 5.96,
-          "viewsPerDay": 17243
+          "ageDays": 5.97,
+          "viewsPerDay": 17219
         },
         {
           "title": "The Final Push for a Sub-15 5k | World Championships Training",
@@ -938,18 +948,18 @@
           "views": 98929,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=5BgowhjLypM",
-          "ageDays": 10.97,
-          "viewsPerDay": 9017
+          "ageDays": 10.98,
+          "viewsPerDay": 9009
         },
         {
           "title": "Can I break 15min in the 5k?",
           "videoId": "7RZpYVsWQ2o",
           "published": "2026-09-09T16:58:32Z",
-          "views": 80530,
+          "views": 80656,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/7RZpYVsWQ2o",
-          "ageDays": 14.04,
-          "viewsPerDay": 5737
+          "ageDays": 14.05,
+          "viewsPerDay": 5743
         },
         {
           "title": "these insults kinda suck 🤷‍♀️",
@@ -958,32 +968,22 @@
           "views": 130323,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/1P_n3kxXwLQ",
-          "ageDays": 14.1,
-          "viewsPerDay": 9240
-        },
-        {
-          "title": "Can I Break 15 Minutes in the 5k? | World Championships Training",
-          "videoId": "L_7y_XRb4BY",
-          "published": "2026-09-07T19:00:11Z",
-          "views": 147570,
-          "isShort": false,
-          "url": "https://www.youtube.com/watch?v=L_7y_XRb4BY",
-          "ageDays": 15.95,
-          "viewsPerDay": 9251
+          "ageDays": 14.11,
+          "viewsPerDay": 9234
         }
       ],
-      "feedCapturedAt": "2026-09-23T17:50:02Z",
+      "feedCapturedAt": "2026-09-23T18:03:39Z",
       "feedStale": false,
-      "feedLastSuccess": "2026-09-23T17:50:02Z",
+      "feedLastSuccess": "2026-09-23T18:03:39Z",
       "subscribers": 136000,
       "subscribersText": "136K subscribers",
       "subscribersSource": "https://www.youtube.com/@allie_ostrander (channel page header)",
-      "subscribersCapturedAt": "2026-09-23T17:50:02Z",
+      "subscribersCapturedAt": "2026-09-23T18:03:39Z",
       "subscribersStale": false,
-      "subscribersLastSuccess": "2026-09-23T17:50:02Z",
+      "subscribersLastSuccess": "2026-09-23T18:03:39Z",
       "subscribersPrecision": "YouTube public abbreviated count (3 significant figures); the number is the abbreviation expanded, not an exact count",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z"
+      "lastSuccess": "2026-09-23T18:03:39Z"
     },
     {
       "id": "hannahtrenches",
@@ -998,7 +998,7 @@
       "feedUrl": "https://www.youtube.com/feeds/videos.xml?channel_id=UCMbAwEnxe3yIJq06H8Ft5rg",
       "feedAuthor": "Hannah Trenches",
       "feedEntries": 15,
-      "medianViews15": 20544,
+      "medianViews15": 20546,
       "uploads30d": 15,
       "uploads30dIsFloor": true,
       "shortsInLast15": 11,
@@ -1008,31 +1008,31 @@
           "title": "MARANOIA!!!🫪🫪🫪🫩🫩🫩",
           "videoId": "e3zVZKzw14E",
           "published": "2026-09-22T16:27:59Z",
-          "views": 13540,
+          "views": 13596,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/e3zVZKzw14E",
-          "ageDays": 1.06,
-          "viewsPerDay": 12810
+          "ageDays": 1.07,
+          "viewsPerDay": 12749
         },
         {
           "title": "T'was the week before Berlin Marathon... | weekly vlog",
           "videoId": "rKwOZUQaT1E",
           "published": "2026-09-20T17:24:26Z",
-          "views": 7712,
+          "views": 7724,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=rKwOZUQaT1E",
-          "ageDays": 3.02,
-          "viewsPerDay": 2556
+          "ageDays": 3.03,
+          "viewsPerDay": 2552
         },
         {
           "title": "9 days to go!!",
           "videoId": "9EeF-6JkAGc",
           "published": "2026-09-17T08:41:12Z",
-          "views": 17460,
+          "views": 17461,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/9EeF-6JkAGc",
-          "ageDays": 6.38,
-          "viewsPerDay": 2736
+          "ageDays": 6.39,
+          "viewsPerDay": 2732
         },
         {
           "title": "The final *32km!!* long run before Berlin Marathon⭐️ | Weekly Vlog",
@@ -1041,8 +1041,8 @@
           "views": 12048,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=pEXeePXpqZw",
-          "ageDays": 9.13,
-          "viewsPerDay": 1319
+          "ageDays": 9.14,
+          "viewsPerDay": 1318
         },
         {
           "title": "I am speed ⚡️⚡️",
@@ -1051,22 +1051,22 @@
           "views": 42512,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/5FoqDAIaADw",
-          "ageDays": 11.36,
-          "viewsPerDay": 3742
+          "ageDays": 11.37,
+          "viewsPerDay": 3739
         }
       ],
-      "feedCapturedAt": "2026-09-23T17:50:02Z",
+      "feedCapturedAt": "2026-09-23T18:03:39Z",
       "feedStale": false,
-      "feedLastSuccess": "2026-09-23T17:50:02Z",
+      "feedLastSuccess": "2026-09-23T18:03:39Z",
       "subscribers": 26600,
       "subscribersText": "26.6K subscribers",
       "subscribersSource": "https://www.youtube.com/@hannahtrenches (channel page header)",
-      "subscribersCapturedAt": "2026-09-23T17:50:02Z",
+      "subscribersCapturedAt": "2026-09-23T18:03:39Z",
       "subscribersStale": false,
-      "subscribersLastSuccess": "2026-09-23T17:50:02Z",
+      "subscribersLastSuccess": "2026-09-23T18:03:39Z",
       "subscribersPrecision": "YouTube public abbreviated count (3 significant figures); the number is the abbreviation expanded, not an exact count",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z"
+      "lastSuccess": "2026-09-23T18:03:39Z"
     },
     {
       "id": "jamesdunne",
@@ -1089,10 +1089,10 @@
           "title": "5 Easy Steps to Fix Your Running Form",
           "videoId": "hpnc5VqulOM",
           "published": "2026-08-28T05:55:01Z",
-          "views": 25175,
+          "views": 25176,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=hpnc5VqulOM",
-          "ageDays": 26.5,
+          "ageDays": 26.51,
           "viewsPerDay": 950
         },
         {
@@ -1102,17 +1102,17 @@
           "views": 22200,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=U11DnvcBvSo",
-          "ageDays": 28.54,
+          "ageDays": 28.55,
           "viewsPerDay": 778
         },
         {
           "title": "How PRO Runners Run SLOW with Perfect Running Form",
           "videoId": "ie6gjXJU5Yw",
           "published": "2026-08-23T05:33:43Z",
-          "views": 94675,
+          "views": 94692,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=ie6gjXJU5Yw",
-          "ageDays": 31.51,
+          "ageDays": 31.52,
           "viewsPerDay": 3004
         },
         {
@@ -1122,7 +1122,7 @@
           "views": 4055,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=_uPnwmBuqdE",
-          "ageDays": 35.32,
+          "ageDays": 35.33,
           "viewsPerDay": 115
         },
         {
@@ -1132,22 +1132,22 @@
           "views": 44178,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=nftFr3FHUTQ",
-          "ageDays": 37.41,
+          "ageDays": 37.42,
           "viewsPerDay": 1181
         }
       ],
-      "feedCapturedAt": "2026-09-23T17:50:02Z",
+      "feedCapturedAt": "2026-09-23T18:03:39Z",
       "feedStale": false,
-      "feedLastSuccess": "2026-09-23T17:50:02Z",
+      "feedLastSuccess": "2026-09-23T18:03:39Z",
       "subscribers": 311000,
       "subscribersText": "311K subscribers",
       "subscribersSource": "https://www.youtube.com/@JamesDunne (channel page header)",
-      "subscribersCapturedAt": "2026-09-23T17:50:02Z",
+      "subscribersCapturedAt": "2026-09-23T18:03:39Z",
       "subscribersStale": false,
-      "subscribersLastSuccess": "2026-09-23T17:50:02Z",
+      "subscribersLastSuccess": "2026-09-23T18:03:39Z",
       "subscribersPrecision": "YouTube public abbreviated count (3 significant figures); the number is the abbreviation expanded, not an exact count",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z"
+      "lastSuccess": "2026-09-23T18:03:39Z"
     },
     {
       "id": "runbetterwithash",
@@ -1160,7 +1160,7 @@
       "feedUrl": "https://www.youtube.com/feeds/videos.xml?channel_id=UCB2zycIY_qMKZjlE98zO4gg",
       "feedAuthor": "Run Better with Ash",
       "feedEntries": 15,
-      "medianViews15": 8423,
+      "medianViews15": 8432,
       "uploads30d": 13,
       "uploads30dIsFloor": false,
       "shortsInLast15": 0,
@@ -1170,10 +1170,10 @@
           "title": "7 MIN Pre Run Dynamic Warmup to Run Better",
           "videoId": "wTY0A0EdgvQ",
           "published": "2026-09-23T15:00:34Z",
-          "views": 236,
+          "views": 264,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=wTY0A0EdgvQ",
-          "ageDays": 0.12,
+          "ageDays": 0.13,
           "viewsPerDay": null
         },
         {
@@ -1183,27 +1183,27 @@
           "views": 2782,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=_SP67jhxtnE",
-          "ageDays": 2.12,
-          "viewsPerDay": 1313
+          "ageDays": 2.13,
+          "viewsPerDay": 1308
         },
         {
           "title": "10 Minutes to Instant Relief: Post-Run Stretch Follow Along",
           "videoId": "tI5Aad-hfB8",
           "published": "2026-09-18T15:00:06Z",
-          "views": 8423,
+          "views": 8432,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=tI5Aad-hfB8",
-          "ageDays": 5.12,
-          "viewsPerDay": 1646
+          "ageDays": 5.13,
+          "viewsPerDay": 1644
         },
         {
           "title": "8 MIN Plyometrics Routine for Runners: Boost Your Speed",
           "videoId": "KEt9ZAqoQ_0",
           "published": "2026-09-16T15:00:06Z",
-          "views": 6620,
+          "views": 6632,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=KEt9ZAqoQ_0",
-          "ageDays": 7.12,
+          "ageDays": 7.13,
           "viewsPerDay": 930
         },
         {
@@ -1213,22 +1213,22 @@
           "views": 5307,
           "isShort": false,
           "url": "https://www.youtube.com/watch?v=LSVe7GxCUjM",
-          "ageDays": 9.12,
-          "viewsPerDay": 582
+          "ageDays": 9.13,
+          "viewsPerDay": 581
         }
       ],
-      "feedCapturedAt": "2026-09-23T17:50:02Z",
+      "feedCapturedAt": "2026-09-23T18:03:39Z",
       "feedStale": false,
-      "feedLastSuccess": "2026-09-23T17:50:02Z",
+      "feedLastSuccess": "2026-09-23T18:03:39Z",
       "subscribers": 186000,
       "subscribersText": "186K subscribers",
       "subscribersSource": "https://www.youtube.com/@RunBetterwithAsh (channel page header)",
-      "subscribersCapturedAt": "2026-09-23T17:50:02Z",
+      "subscribersCapturedAt": "2026-09-23T18:03:39Z",
       "subscribersStale": false,
-      "subscribersLastSuccess": "2026-09-23T17:50:02Z",
+      "subscribersLastSuccess": "2026-09-23T18:03:39Z",
       "subscribersPrecision": "YouTube public abbreviated count (3 significant figures); the number is the abbreviation expanded, not an exact count",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z"
+      "lastSuccess": "2026-09-23T18:03:39Z"
     },
     {
       "id": "andirenay",
@@ -1243,7 +1243,7 @@
       "feedUrl": "https://www.youtube.com/feeds/videos.xml?channel_id=UCuchAnfKNzuKQ0T6pBQqurQ",
       "feedAuthor": "Andi Renay",
       "feedEntries": 15,
-      "medianViews15": 30290,
+      "medianViews15": 30299,
       "uploads30d": 15,
       "uploads30dIsFloor": true,
       "shortsInLast15": 15,
@@ -1253,65 +1253,65 @@
           "title": "#fitness #runner #run #halfmarathon #track #running #workout #athlete #relatable #funny #jokes #gym",
           "videoId": "fAHH1pJK_N4",
           "published": "2026-09-23T00:33:01Z",
-          "views": 3724,
+          "views": 3819,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/fAHH1pJK_N4",
-          "ageDays": 0.72,
+          "ageDays": 0.73,
           "viewsPerDay": null
         },
         {
           "title": "#fitness #runner #halfmarathon #run #funny #running #joke #relatable #workout #motivation #runwithme",
           "videoId": "YGuPcu_OXmw",
           "published": "2026-09-22T22:23:29Z",
-          "views": 14226,
+          "views": 14274,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/YGuPcu_OXmw",
-          "ageDays": 0.81,
+          "ageDays": 0.82,
           "viewsPerDay": null
         },
         {
           "title": "#fitness #gym #lift #runner #run #workout #funny #skit #jokes #relatable #running #track",
           "videoId": "H6Ya1Ll0taQ",
           "published": "2026-09-22T01:04:08Z",
-          "views": 14880,
+          "views": 15068,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/H6Ya1Ll0taQ",
-          "ageDays": 1.7,
-          "viewsPerDay": 8760
+          "ageDays": 1.71,
+          "viewsPerDay": 8822
         },
         {
           "title": "#fitness #runner #run #running #workout #track #relatable #funny #jokes #gym #marathon",
           "videoId": "UJ365I54QLo",
           "published": "2026-09-21T23:21:43Z",
-          "views": 108483,
+          "views": 109050,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/UJ365I54QLo",
-          "ageDays": 1.77,
-          "viewsPerDay": 61301
+          "ageDays": 1.78,
+          "viewsPerDay": 61294
         },
         {
           "title": "#fitness #runner #run #running #workout #skit #funny #jokes #relatable #gym #lift #track",
           "videoId": "NSTqO_7LbnU",
           "published": "2026-09-21T00:15:23Z",
-          "views": 25658,
+          "views": 25678,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/NSTqO_7LbnU",
-          "ageDays": 2.73,
-          "viewsPerDay": 9390
+          "ageDays": 2.74,
+          "viewsPerDay": 9365
         }
       ],
-      "feedCapturedAt": "2026-09-23T17:50:02Z",
+      "feedCapturedAt": "2026-09-23T18:03:39Z",
       "feedStale": false,
-      "feedLastSuccess": "2026-09-23T17:50:02Z",
+      "feedLastSuccess": "2026-09-23T18:03:39Z",
       "subscribers": 128000,
       "subscribersText": "128K subscribers",
       "subscribersSource": "https://www.youtube.com/@andirenay (channel page header)",
-      "subscribersCapturedAt": "2026-09-23T17:50:02Z",
+      "subscribersCapturedAt": "2026-09-23T18:03:39Z",
       "subscribersStale": false,
-      "subscribersLastSuccess": "2026-09-23T17:50:02Z",
+      "subscribersLastSuccess": "2026-09-23T18:03:39Z",
       "subscribersPrecision": "YouTube public abbreviated count (3 significant figures); the number is the abbreviation expanded, not an exact count",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z"
+      "lastSuccess": "2026-09-23T18:03:39Z"
     },
     {
       "id": "thefashionjogger",
@@ -1326,7 +1326,7 @@
       "feedUrl": "https://www.youtube.com/feeds/videos.xml?channel_id=UC6khvHxqs_5VySwJ6amtG8Q",
       "feedAuthor": "The Fashion Jogger",
       "feedEntries": 15,
-      "medianViews15": 91270,
+      "medianViews15": 91338,
       "uploads30d": 15,
       "uploads30dIsFloor": true,
       "shortsInLast15": 15,
@@ -1336,65 +1336,65 @@
           "title": "NIKE ALPHAFLY 4 🚀🔥 What do you think? 👀 @nikerunning @nike #running #shoes #marathon",
           "videoId": "50ZK2uO0EGw",
           "published": "2026-09-21T18:41:28Z",
-          "views": 120625,
+          "views": 121147,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/50ZK2uO0EGw",
-          "ageDays": 1.96,
-          "viewsPerDay": 61409
+          "ageDays": 1.97,
+          "viewsPerDay": 61379
         },
         {
           "title": "Running with the GIANT MONOLITH of ULURU behind me 🏜️❤️ #running #australia #outback",
           "videoId": "DnCpSvraIVA",
           "published": "2026-09-20T18:06:56Z",
-          "views": 25276,
+          "views": 25319,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/DnCpSvraIVA",
-          "ageDays": 2.99,
-          "viewsPerDay": 8458
+          "ageDays": 3.0,
+          "viewsPerDay": 8446
         },
         {
           "title": "⚠️ THE CROCODILES HAD A REST DAY 🐊😂 #running #crocodile #australia",
           "videoId": "ZV2X0j6DDNw",
           "published": "2026-09-19T18:39:41Z",
-          "views": 201811,
+          "views": 201950,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/ZV2X0j6DDNw",
           "ageDays": 3.97,
-          "viewsPerDay": 50891
+          "viewsPerDay": 50805
         },
         {
           "title": "RUNNING on the WHITEST BEACH I have ever seen 💦💙 Whitehaven Beach, Australia #running #australia",
           "videoId": "EeAw0gIn5uo",
           "published": "2026-09-18T17:47:25Z",
-          "views": 91270,
+          "views": 91338,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/EeAw0gIn5uo",
-          "ageDays": 5.0,
-          "viewsPerDay": 18247
+          "ageDays": 5.01,
+          "viewsPerDay": 18227
         },
         {
           "title": "FLYING over the GREAT BARRIER REEF 🐠🪸 Whitehaven beach - Hill Inlet in Australia 🇦🇺 #australia",
           "videoId": "J8scvdXL8I8",
           "published": "2026-09-17T17:48:03Z",
-          "views": 30130,
+          "views": 30145,
           "isShort": true,
           "url": "https://www.youtube.com/shorts/J8scvdXL8I8",
-          "ageDays": 6.0,
-          "viewsPerDay": 5021
+          "ageDays": 6.01,
+          "viewsPerDay": 5015
         }
       ],
-      "feedCapturedAt": "2026-09-23T17:50:02Z",
+      "feedCapturedAt": "2026-09-23T18:03:39Z",
       "feedStale": false,
-      "feedLastSuccess": "2026-09-23T17:50:02Z",
+      "feedLastSuccess": "2026-09-23T18:03:39Z",
       "subscribers": 1610000,
       "subscribersText": "1.61M subscribers",
       "subscribersSource": "https://www.youtube.com/@TheFashionJogger (channel page header)",
-      "subscribersCapturedAt": "2026-09-23T17:50:02Z",
+      "subscribersCapturedAt": "2026-09-23T18:03:39Z",
       "subscribersStale": false,
-      "subscribersLastSuccess": "2026-09-23T17:50:02Z",
+      "subscribersLastSuccess": "2026-09-23T18:03:39Z",
       "subscribersPrecision": "YouTube public abbreviated count (3 significant figures); the number is the abbreviation expanded, not an exact count",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z"
+      "lastSuccess": "2026-09-23T18:03:39Z"
     }
   ],
   "trends": [
@@ -1408,9 +1408,9 @@
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Wikimedia Pageviews REST API",
       "source_url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Hyrox/daily/20260721/20260922",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "wikimedia",
       "beat": "community",
       "kind": "category",
@@ -1431,9 +1431,9 @@
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Wikimedia Pageviews REST API",
       "source_url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/On_%28company%29/daily/20260721/20260922",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "wikimedia",
       "beat": "gear",
       "kind": "competitor",
@@ -1454,9 +1454,9 @@
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Wikimedia Pageviews REST API",
       "source_url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Half_marathon/daily/20260721/20260922",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "wikimedia",
       "beat": "marathon",
       "kind": "category",
@@ -1477,9 +1477,9 @@
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Wikimedia Pageviews REST API",
       "source_url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Marathon/daily/20260721/20260922",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "wikimedia",
       "beat": "marathon",
       "kind": "category",
@@ -1500,9 +1500,9 @@
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Wikimedia Pageviews REST API",
       "source_url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Berlin_Marathon/daily/20260721/20260922",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "wikimedia",
       "beat": "marathon",
       "kind": "race",
@@ -1523,9 +1523,9 @@
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Wikimedia Pageviews REST API",
       "source_url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Chicago_Marathon/daily/20260721/20260922",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "wikimedia",
       "beat": "marathon",
       "kind": "race",
@@ -1546,9 +1546,9 @@
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Wikimedia Pageviews REST API",
       "source_url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/New_York_City_Marathon/daily/20260721/20260922",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "wikimedia",
       "beat": "marathon",
       "kind": "race",
@@ -1569,9 +1569,9 @@
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Wikimedia Pageviews REST API",
       "source_url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Boston_Marathon/daily/20260721/20260922",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "wikimedia",
       "beat": "marathon",
       "kind": "race",
@@ -1592,9 +1592,9 @@
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Wikimedia Pageviews REST API",
       "source_url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Trail_running/daily/20260721/20260922",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "wikimedia",
       "beat": "trail",
       "kind": "category",
@@ -1615,9 +1615,9 @@
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Wikimedia Pageviews REST API",
       "source_url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Ultramarathon/daily/20260721/20260922",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "wikimedia",
       "beat": "trail",
       "kind": "category",
@@ -1638,9 +1638,9 @@
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Wikimedia Pageviews REST API",
       "source_url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Couch_to_5K/daily/20260721/20260922",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "wikimedia",
       "beat": "beginner",
       "kind": "category",
@@ -1661,9 +1661,9 @@
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Wikimedia Pageviews REST API",
       "source_url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/5K_run/daily/20260721/20260922",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "wikimedia",
       "beat": "beginner",
       "kind": "category",
@@ -1684,9 +1684,9 @@
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Wikimedia Pageviews REST API",
       "source_url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Parkrun/daily/20260721/20260922",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "wikimedia",
       "beat": "community",
       "kind": "category",
@@ -1707,9 +1707,9 @@
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Wikimedia Pageviews REST API",
       "source_url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Strava/daily/20260721/20260922",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "wikimedia",
       "beat": "community",
       "kind": "category",
@@ -1730,9 +1730,9 @@
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Wikimedia Pageviews REST API",
       "source_url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Zone_2_training/daily/20260721/20260922",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "wikimedia",
       "beat": "recovery",
       "kind": "category",
@@ -1755,9 +1755,9 @@
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Wikimedia Pageviews REST API",
       "source_url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Plantar_fasciitis/daily/20260721/20260922",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "wikimedia",
       "beat": "recovery",
       "kind": "health",
@@ -1778,9 +1778,9 @@
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Wikimedia Pageviews REST API",
       "source_url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Shin_splints/daily/20260721/20260922",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "wikimedia",
       "beat": "recovery",
       "kind": "health",
@@ -1801,9 +1801,9 @@
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Wikimedia Pageviews REST API",
       "source_url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Super_shoes/daily/20260721/20260922",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "wikimedia",
       "beat": "gear",
       "kind": "category",
@@ -1824,9 +1824,9 @@
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Wikimedia Pageviews REST API",
       "source_url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Brooks_Sports/daily/20260721/20260922",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "wikimedia",
       "beat": "gear",
       "kind": "brand",
@@ -1847,9 +1847,9 @@
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Wikimedia Pageviews REST API",
       "source_url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Hoka/daily/20260721/20260922",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "wikimedia",
       "beat": "gear",
       "kind": "competitor",
@@ -1870,9 +1870,9 @@
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Wikimedia Pageviews REST API",
       "source_url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Saucony/daily/20260721/20260922",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "wikimedia",
       "beat": "gear",
       "kind": "competitor",
@@ -1893,9 +1893,9 @@
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Wikimedia Pageviews REST API",
       "source_url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Asics/daily/20260721/20260922",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "wikimedia",
       "beat": "gear",
       "kind": "competitor",
@@ -1916,9 +1916,9 @@
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Wikimedia Pageviews REST API",
       "source_url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/New_Balance/daily/20260721/20260922",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "wikimedia",
       "beat": "gear",
       "kind": "competitor",
@@ -1939,9 +1939,9 @@
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Wikimedia Pageviews REST API",
       "source_url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Nike%2C_Inc./daily/20260721/20260922",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "wikimedia",
       "beat": "gear",
       "kind": "competitor",
@@ -1962,9 +1962,9 @@
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Wikimedia Pageviews REST API",
       "source_url": "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/user/Adidas/daily/20260721/20260922",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "wikimedia",
       "beat": "gear",
       "kind": "competitor",
@@ -1978,16 +1978,16 @@
     {
       "id": "gt-trail-running-shoes",
       "topic": "Trail running shoes",
-      "signal_text": "US Google search interest for 'trail running shoes' summed to 197 over the 7 complete days to 22 Sep, up 58.9% on the previous 7 days (124). Daily index 0-100, relative to the peak of its 3-month chart. Today's partial value is 14 (provisional).",
+      "signal_text": "US Google search interest for 'trail running shoes' summed to 198 over the 7 complete days to 22 Sep, up 59.7% on the previous 7 days (124). Daily index 0-100, relative to the peak of its 3-month chart. Today's partial value is 14 (provisional).",
       "metric": "Google Trends US search interest (0-100 index, 3-month chart), sum of the last 7 complete days",
-      "value": 197,
-      "change_pct": 58.9,
+      "value": 198,
+      "change_pct": 59.7,
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Google Trends (unofficial web endpoints, best effort)",
       "source_url": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=trail%20running%20shoes",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "google_trends",
       "beat": "trail",
       "kind": "category",
@@ -2000,21 +2000,21 @@
       "caveats": [
         "Index values are relative to the peak of this chart only; do not compare them with other charts."
       ],
-      "series": [["2026-08-26", 18], ["2026-08-27", 21], ["2026-08-28", 19], ["2026-08-29", 21], ["2026-08-30", 24], ["2026-08-31", 19], ["2026-09-01", 21], ["2026-09-02", 22], ["2026-09-03", 21], ["2026-09-04", 18], ["2026-09-05", 25], ["2026-09-06", 25], ["2026-09-07", 33], ["2026-09-08", 25], ["2026-09-09", 17], ["2026-09-10", 15], ["2026-09-11", 13], ["2026-09-12", 15], ["2026-09-13", 16], ["2026-09-14", 22], ["2026-09-15", 26], ["2026-09-16", 17], ["2026-09-17", 37], ["2026-09-18", 26], ["2026-09-19", 31], ["2026-09-20", 45], ["2026-09-21", 28], ["2026-09-22", 13]]
+      "series": [["2026-08-26", 18], ["2026-08-27", 21], ["2026-08-28", 19], ["2026-08-29", 21], ["2026-08-30", 24], ["2026-08-31", 19], ["2026-09-01", 21], ["2026-09-02", 22], ["2026-09-03", 21], ["2026-09-04", 18], ["2026-09-05", 25], ["2026-09-06", 25], ["2026-09-07", 33], ["2026-09-08", 25], ["2026-09-09", 17], ["2026-09-10", 15], ["2026-09-11", 13], ["2026-09-12", 15], ["2026-09-13", 16], ["2026-09-14", 22], ["2026-09-15", 26], ["2026-09-16", 17], ["2026-09-17", 37], ["2026-09-18", 26], ["2026-09-19", 31], ["2026-09-20", 45], ["2026-09-21", 28], ["2026-09-22", 14]]
     },
     {
       "id": "gt-run-club",
       "topic": "Run clubs",
-      "signal_text": "US Google search interest for 'run club' summed to 310 over the 7 complete days to 22 Sep, down 10.7% on the previous 7 days (347). Daily index 0-100, relative to the peak of its 3-month chart. Today's partial value is 45 (provisional).",
+      "signal_text": "US Google search interest for 'run club' summed to 312 over the 7 complete days to 22 Sep, down 10.1% on the previous 7 days (347). Daily index 0-100, relative to the peak of its 3-month chart. Today's partial value is 46 (provisional).",
       "metric": "Google Trends US search interest (0-100 index, 3-month chart), sum of the last 7 complete days",
-      "value": 310,
-      "change_pct": -10.7,
+      "value": 312,
+      "change_pct": -10.1,
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Google Trends (unofficial web endpoints, best effort)",
       "source_url": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=run%20club",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "google_trends",
       "beat": "community",
       "kind": "category",
@@ -2022,31 +2022,31 @@
       "previousValue": 347,
       "partialToday": {
         "date": "2026-09-23",
-        "value": 45
+        "value": 46
       },
       "caveats": [
         "Index values are relative to the peak of this chart only; do not compare them with other charts."
       ],
-      "series": [["2026-08-26", 58], ["2026-08-27", 56], ["2026-08-28", 49], ["2026-08-29", 65], ["2026-08-30", 74], ["2026-08-31", 69], ["2026-09-01", 69], ["2026-09-02", 59], ["2026-09-03", 50], ["2026-09-04", 56], ["2026-09-05", 55], ["2026-09-06", 52], ["2026-09-07", 54], ["2026-09-08", 54], ["2026-09-09", 49], ["2026-09-10", 49], ["2026-09-11", 49], ["2026-09-12", 53], ["2026-09-13", 47], ["2026-09-14", 48], ["2026-09-15", 52], ["2026-09-16", 50], ["2026-09-17", 47], ["2026-09-18", 44], ["2026-09-19", 45], ["2026-09-20", 38], ["2026-09-21", 40], ["2026-09-22", 46]]
+      "series": [["2026-08-26", 58], ["2026-08-27", 56], ["2026-08-28", 49], ["2026-08-29", 65], ["2026-08-30", 74], ["2026-08-31", 69], ["2026-09-01", 69], ["2026-09-02", 59], ["2026-09-03", 50], ["2026-09-04", 56], ["2026-09-05", 55], ["2026-09-06", 52], ["2026-09-07", 54], ["2026-09-08", 54], ["2026-09-09", 49], ["2026-09-10", 49], ["2026-09-11", 49], ["2026-09-12", 53], ["2026-09-13", 47], ["2026-09-14", 48], ["2026-09-15", 52], ["2026-09-16", 50], ["2026-09-17", 47], ["2026-09-18", 44], ["2026-09-19", 45], ["2026-09-20", 38], ["2026-09-21", 40], ["2026-09-22", 48]]
     },
     {
       "id": "gt-couch-to-5k",
       "topic": "Couch to 5K",
-      "signal_text": "US Google search interest for 'couch to 5k' summed to 340 over the 7 complete days to 22 Sep, down 4.8% on the previous 7 days (357). Daily index 0-100, relative to the peak of its 3-month chart. Today's partial value is 44 (provisional).",
+      "signal_text": "US Google search interest for 'couch to 5k' summed to 322 over the 7 complete days to 22 Sep, down 4.5% on the previous 7 days (337). Daily index 0-100, relative to the peak of its 3-month chart. Today's partial value is 44 (provisional).",
       "metric": "Google Trends US search interest (0-100 index, 3-month chart), sum of the last 7 complete days",
-      "value": 340,
-      "change_pct": -4.8,
+      "value": 322,
+      "change_pct": -4.5,
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Google Trends (unofficial web endpoints, best effort)",
       "source_url": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=couch%20to%205k",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "google_trends",
       "beat": "beginner",
       "kind": "category",
       "keyword": "couch to 5k",
-      "previousValue": 357,
+      "previousValue": 337,
       "partialToday": {
         "date": "2026-09-23",
         "value": 44
@@ -2054,21 +2054,21 @@
       "caveats": [
         "Index values are relative to the peak of this chart only; do not compare them with other charts."
       ],
-      "series": [["2026-08-26", 81], ["2026-08-27", 50], ["2026-08-28", 37], ["2026-08-29", 60], ["2026-08-30", 72], ["2026-08-31", 67], ["2026-09-01", 47], ["2026-09-02", 44], ["2026-09-03", 37], ["2026-09-04", 47], ["2026-09-05", 57], ["2026-09-06", 45], ["2026-09-07", 62], ["2026-09-08", 75], ["2026-09-09", 51], ["2026-09-10", 54], ["2026-09-11", 35], ["2026-09-12", 45], ["2026-09-13", 53], ["2026-09-14", 69], ["2026-09-15", 50], ["2026-09-16", 50], ["2026-09-17", 50], ["2026-09-18", 41], ["2026-09-19", 44], ["2026-09-20", 51], ["2026-09-21", 55], ["2026-09-22", 49]]
+      "series": [["2026-08-26", 76], ["2026-08-27", 29], ["2026-08-28", 39], ["2026-08-29", 56], ["2026-08-30", 75], ["2026-08-31", 62], ["2026-09-01", 41], ["2026-09-02", 52], ["2026-09-03", 42], ["2026-09-04", 29], ["2026-09-05", 50], ["2026-09-06", 40], ["2026-09-07", 66], ["2026-09-08", 76], ["2026-09-09", 49], ["2026-09-10", 51], ["2026-09-11", 34], ["2026-09-12", 41], ["2026-09-13", 50], ["2026-09-14", 64], ["2026-09-15", 48], ["2026-09-16", 46], ["2026-09-17", 46], ["2026-09-18", 38], ["2026-09-19", 41], ["2026-09-20", 47], ["2026-09-21", 57], ["2026-09-22", 47]]
     },
     {
       "id": "gt-zone-2-running",
       "topic": "Zone 2 running",
-      "signal_text": "US Google search interest for 'zone 2 running' summed to 215 over the 7 complete days to 22 Sep, down 6.1% on the previous 7 days (229). Daily index 0-100, relative to the peak of its 3-month chart. Today's partial value is 35 (provisional).",
+      "signal_text": "US Google search interest for 'zone 2 running' summed to 216 over the 7 complete days to 22 Sep, down 5.7% on the previous 7 days (229). Daily index 0-100, relative to the peak of its 3-month chart. Today's partial value is 37 (provisional).",
       "metric": "Google Trends US search interest (0-100 index, 3-month chart), sum of the last 7 complete days",
-      "value": 215,
-      "change_pct": -6.1,
+      "value": 216,
+      "change_pct": -5.7,
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Google Trends (unofficial web endpoints, best effort)",
       "source_url": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=zone%202%20running",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "google_trends",
       "beat": "recovery",
       "kind": "category",
@@ -2076,26 +2076,26 @@
       "previousValue": 229,
       "partialToday": {
         "date": "2026-09-23",
-        "value": 35
+        "value": 37
       },
       "caveats": [
         "Index values are relative to the peak of this chart only; do not compare them with other charts."
       ],
-      "series": [["2026-08-26", 46], ["2026-08-27", 36], ["2026-08-28", 45], ["2026-08-29", 0], ["2026-08-30", 0], ["2026-08-31", 38], ["2026-09-01", 35], ["2026-09-02", 33], ["2026-09-03", 0], ["2026-09-04", 0], ["2026-09-05", 0], ["2026-09-06", 45], ["2026-09-07", 43], ["2026-09-08", 35], ["2026-09-09", 34], ["2026-09-10", 32], ["2026-09-11", 34], ["2026-09-12", 30], ["2026-09-13", 28], ["2026-09-14", 38], ["2026-09-15", 33], ["2026-09-16", 39], ["2026-09-17", 33], ["2026-09-18", 28], ["2026-09-19", 29], ["2026-09-20", 26], ["2026-09-21", 28], ["2026-09-22", 32]]
+      "series": [["2026-08-26", 46], ["2026-08-27", 36], ["2026-08-28", 45], ["2026-08-29", 0], ["2026-08-30", 0], ["2026-08-31", 38], ["2026-09-01", 35], ["2026-09-02", 33], ["2026-09-03", 0], ["2026-09-04", 0], ["2026-09-05", 0], ["2026-09-06", 45], ["2026-09-07", 43], ["2026-09-08", 35], ["2026-09-09", 34], ["2026-09-10", 32], ["2026-09-11", 34], ["2026-09-12", 30], ["2026-09-13", 28], ["2026-09-14", 38], ["2026-09-15", 33], ["2026-09-16", 39], ["2026-09-17", 33], ["2026-09-18", 28], ["2026-09-19", 29], ["2026-09-20", 26], ["2026-09-21", 28], ["2026-09-22", 33]]
     },
     {
       "id": "gt-half-marathon-training",
       "topic": "Half marathon training",
-      "signal_text": "US Google search interest for 'half marathon training' summed to 376 over the 7 complete days to 22 Sep, down 2.8% on the previous 7 days (387). Daily index 0-100, relative to the peak of its 3-month chart. Today's partial value is 54 (provisional).",
+      "signal_text": "US Google search interest for 'half marathon training' summed to 375 over the 7 complete days to 22 Sep, down 3.1% on the previous 7 days (387). Daily index 0-100, relative to the peak of its 3-month chart. Today's partial value is 54 (provisional).",
       "metric": "Google Trends US search interest (0-100 index, 3-month chart), sum of the last 7 complete days",
-      "value": 376,
-      "change_pct": -2.8,
+      "value": 375,
+      "change_pct": -3.1,
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Google Trends (unofficial web endpoints, best effort)",
       "source_url": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=half%20marathon%20training",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "google_trends",
       "beat": "marathon",
       "kind": "category",
@@ -2108,26 +2108,26 @@
       "caveats": [
         "Index values are relative to the peak of this chart only; do not compare them with other charts."
       ],
-      "series": [["2026-08-26", 66], ["2026-08-27", 61], ["2026-08-28", 64], ["2026-08-29", 71], ["2026-08-30", 83], ["2026-08-31", 71], ["2026-09-01", 56], ["2026-09-02", 49], ["2026-09-03", 38], ["2026-09-04", 62], ["2026-09-05", 72], ["2026-09-06", 41], ["2026-09-07", 69], ["2026-09-08", 68], ["2026-09-09", 55], ["2026-09-10", 50], ["2026-09-11", 43], ["2026-09-12", 49], ["2026-09-13", 61], ["2026-09-14", 67], ["2026-09-15", 62], ["2026-09-16", 54], ["2026-09-17", 50], ["2026-09-18", 45], ["2026-09-19", 49], ["2026-09-20", 64], ["2026-09-21", 62], ["2026-09-22", 52]]
+      "series": [["2026-08-26", 66], ["2026-08-27", 61], ["2026-08-28", 64], ["2026-08-29", 71], ["2026-08-30", 83], ["2026-08-31", 71], ["2026-09-01", 56], ["2026-09-02", 49], ["2026-09-03", 38], ["2026-09-04", 62], ["2026-09-05", 72], ["2026-09-06", 41], ["2026-09-07", 69], ["2026-09-08", 68], ["2026-09-09", 55], ["2026-09-10", 50], ["2026-09-11", 43], ["2026-09-12", 49], ["2026-09-13", 61], ["2026-09-14", 67], ["2026-09-15", 62], ["2026-09-16", 54], ["2026-09-17", 50], ["2026-09-18", 45], ["2026-09-19", 49], ["2026-09-20", 63], ["2026-09-21", 61], ["2026-09-22", 53]]
     },
     {
       "id": "gt-berlin-marathon",
       "topic": "Berlin Marathon",
-      "signal_text": "US Google search interest for 'berlin marathon' summed to 474 over the 7 complete days to 22 Sep, up 39.0% on the previous 7 days (341). Daily index 0-100, relative to the peak of its 3-month chart. Today's partial value is 100 (provisional).",
+      "signal_text": "US Google search interest for 'berlin marathon' summed to 468 over the 7 complete days to 22 Sep, up 40.5% on the previous 7 days (333). Daily index 0-100, relative to the peak of its 3-month chart. Today's partial value is 100 (provisional).",
       "metric": "Google Trends US search interest (0-100 index, 3-month chart), sum of the last 7 complete days",
-      "value": 474,
-      "change_pct": 39.0,
+      "value": 468,
+      "change_pct": 40.5,
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Google Trends (unofficial web endpoints, best effort)",
       "source_url": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=berlin%20marathon",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "google_trends",
       "beat": "marathon",
       "kind": "race",
       "keyword": "berlin marathon",
-      "previousValue": 341,
+      "previousValue": 333,
       "partialToday": {
         "date": "2026-09-23",
         "value": 100
@@ -2135,26 +2135,26 @@
       "caveats": [
         "Index values are relative to the peak of this chart only; do not compare them with other charts."
       ],
-      "series": [["2026-08-26", 20], ["2026-08-27", 21], ["2026-08-28", 26], ["2026-08-29", 40], ["2026-08-30", 35], ["2026-08-31", 31], ["2026-09-01", 21], ["2026-09-02", 44], ["2026-09-03", 35], ["2026-09-04", 32], ["2026-09-05", 24], ["2026-09-06", 42], ["2026-09-07", 38], ["2026-09-08", 34], ["2026-09-09", 40], ["2026-09-10", 59], ["2026-09-11", 45], ["2026-09-12", 39], ["2026-09-13", 51], ["2026-09-14", 58], ["2026-09-15", 49], ["2026-09-16", 50], ["2026-09-17", 63], ["2026-09-18", 70], ["2026-09-19", 60], ["2026-09-20", 61], ["2026-09-21", 74], ["2026-09-22", 96]]
+      "series": [["2026-08-26", 20], ["2026-08-27", 21], ["2026-08-28", 26], ["2026-08-29", 39], ["2026-08-30", 35], ["2026-08-31", 30], ["2026-09-01", 20], ["2026-09-02", 43], ["2026-09-03", 34], ["2026-09-04", 31], ["2026-09-05", 24], ["2026-09-06", 41], ["2026-09-07", 37], ["2026-09-08", 33], ["2026-09-09", 39], ["2026-09-10", 57], ["2026-09-11", 44], ["2026-09-12", 39], ["2026-09-13", 50], ["2026-09-14", 56], ["2026-09-15", 48], ["2026-09-16", 49], ["2026-09-17", 62], ["2026-09-18", 69], ["2026-09-19", 59], ["2026-09-20", 59], ["2026-09-21", 72], ["2026-09-22", 98]]
     },
     {
       "id": "gt-chicago-marathon",
       "topic": "Chicago Marathon",
-      "signal_text": "US Google search interest for 'chicago marathon' summed to 613 over the 7 complete days to 22 Sep, up 16.3% on the previous 7 days (527). Daily index 0-100, relative to the peak of its 3-month chart. Today's partial value is 98 (provisional).",
+      "signal_text": "US Google search interest for 'chicago marathon' summed to 595 over the 7 complete days to 22 Sep, up 17.8% on the previous 7 days (505). Daily index 0-100, relative to the peak of its 3-month chart. Today's partial value is 98 (provisional).",
       "metric": "Google Trends US search interest (0-100 index, 3-month chart), sum of the last 7 complete days",
-      "value": 613,
-      "change_pct": 16.3,
+      "value": 595,
+      "change_pct": 17.8,
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Google Trends (unofficial web endpoints, best effort)",
       "source_url": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=chicago%20marathon",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "google_trends",
       "beat": "marathon",
       "kind": "race",
       "keyword": "chicago marathon",
-      "previousValue": 527,
+      "previousValue": 505,
       "partialToday": {
         "date": "2026-09-23",
         "value": 98
@@ -2162,48 +2162,48 @@
       "caveats": [
         "Index values are relative to the peak of this chart only; do not compare them with other charts."
       ],
-      "series": [["2026-08-26", 49], ["2026-08-27", 45], ["2026-08-28", 47], ["2026-08-29", 55], ["2026-08-30", 57], ["2026-08-31", 47], ["2026-09-01", 62], ["2026-09-02", 63], ["2026-09-03", 57], ["2026-09-04", 52], ["2026-09-05", 51], ["2026-09-06", 68], ["2026-09-07", 63], ["2026-09-08", 63], ["2026-09-09", 65], ["2026-09-10", 63], ["2026-09-11", 64], ["2026-09-12", 78], ["2026-09-13", 78], ["2026-09-14", 90], ["2026-09-15", 89], ["2026-09-16", 84], ["2026-09-17", 93], ["2026-09-18", 100], ["2026-09-19", 82], ["2026-09-20", 78], ["2026-09-21", 78], ["2026-09-22", 98]]
+      "series": [["2026-08-26", 47], ["2026-08-27", 43], ["2026-08-28", 45], ["2026-08-29", 52], ["2026-08-30", 54], ["2026-08-31", 46], ["2026-09-01", 60], ["2026-09-02", 60], ["2026-09-03", 54], ["2026-09-04", 50], ["2026-09-05", 49], ["2026-09-06", 66], ["2026-09-07", 60], ["2026-09-08", 60], ["2026-09-09", 62], ["2026-09-10", 60], ["2026-09-11", 61], ["2026-09-12", 75], ["2026-09-13", 75], ["2026-09-14", 87], ["2026-09-15", 85], ["2026-09-16", 81], ["2026-09-17", 90], ["2026-09-18", 96], ["2026-09-19", 79], ["2026-09-20", 75], ["2026-09-21", 74], ["2026-09-22", 100]]
     },
     {
       "id": "gt-nyc-marathon",
       "topic": "New York City Marathon",
-      "signal_text": "US Google search interest for 'nyc marathon' summed to 388 over the 7 complete days to 22 Sep, up 2.6% on the previous 7 days (378). Daily index 0-100, relative to the peak of its 3-month chart. Today's partial value is 73 (provisional).",
+      "signal_text": "US Google search interest for 'nyc marathon' summed to 370 over the 7 complete days to 22 Sep, up 3.9% on the previous 7 days (356). Daily index 0-100, relative to the peak of its 3-month chart. Today's partial value is 70 (provisional).",
       "metric": "Google Trends US search interest (0-100 index, 3-month chart), sum of the last 7 complete days",
-      "value": 388,
-      "change_pct": 2.6,
+      "value": 370,
+      "change_pct": 3.9,
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Google Trends (unofficial web endpoints, best effort)",
       "source_url": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=nyc%20marathon",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "google_trends",
       "beat": "marathon",
       "kind": "race",
       "keyword": "nyc marathon",
-      "previousValue": 378,
+      "previousValue": 356,
       "partialToday": {
         "date": "2026-09-23",
-        "value": 73
+        "value": 70
       },
       "caveats": [
         "Index values are relative to the peak of this chart only; do not compare them with other charts."
       ],
-      "series": [["2026-08-26", 49], ["2026-08-27", 40], ["2026-08-28", 30], ["2026-08-29", 36], ["2026-08-30", 55], ["2026-08-31", 38], ["2026-09-01", 40], ["2026-09-02", 53], ["2026-09-03", 39], ["2026-09-04", 35], ["2026-09-05", 39], ["2026-09-06", 38], ["2026-09-07", 50], ["2026-09-08", 49], ["2026-09-09", 47], ["2026-09-10", 54], ["2026-09-11", 47], ["2026-09-12", 51], ["2026-09-13", 63], ["2026-09-14", 63], ["2026-09-15", 53], ["2026-09-16", 50], ["2026-09-17", 49], ["2026-09-18", 48], ["2026-09-19", 51], ["2026-09-20", 46], ["2026-09-21", 44], ["2026-09-22", 100]]
+      "series": [["2026-08-26", 46], ["2026-08-27", 38], ["2026-08-28", 28], ["2026-08-29", 34], ["2026-08-30", 51], ["2026-08-31", 36], ["2026-09-01", 38], ["2026-09-02", 50], ["2026-09-03", 36], ["2026-09-04", 33], ["2026-09-05", 37], ["2026-09-06", 35], ["2026-09-07", 47], ["2026-09-08", 46], ["2026-09-09", 44], ["2026-09-10", 51], ["2026-09-11", 44], ["2026-09-12", 48], ["2026-09-13", 60], ["2026-09-14", 59], ["2026-09-15", 50], ["2026-09-16", 47], ["2026-09-17", 46], ["2026-09-18", 45], ["2026-09-19", 48], ["2026-09-20", 43], ["2026-09-21", 41], ["2026-09-22", 100]]
     },
     {
       "id": "gt-brooks-running",
       "topic": "Brooks Running (the brand)",
-      "signal_text": "US Google search interest for 'brooks running' summed to 170 over the 7 complete days to 22 Sep, up 1.2% on the previous 7 days (168). Daily index 0-100, relative to the peak of its 3-month chart. Today's partial value is 24 (provisional).",
+      "signal_text": "US Google search interest for 'brooks running' summed to 172 over the 7 complete days to 22 Sep, up 2.4% on the previous 7 days (168). Daily index 0-100, relative to the peak of its 3-month chart. Today's partial value is 24 (provisional).",
       "metric": "Google Trends US search interest (0-100 index, 3-month chart), sum of the last 7 complete days",
-      "value": 170,
-      "change_pct": 1.2,
+      "value": 172,
+      "change_pct": 2.4,
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Google Trends (unofficial web endpoints, best effort)",
       "source_url": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=brooks%20running",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "google_trends",
       "beat": "gear",
       "kind": "brand",
@@ -2216,21 +2216,21 @@
       "caveats": [
         "Index values are relative to the peak of this chart only; do not compare them with other charts."
       ],
-      "series": [["2026-08-26", 26], ["2026-08-27", 27], ["2026-08-28", 25], ["2026-08-29", 34], ["2026-08-30", 36], ["2026-08-31", 29], ["2026-09-01", 26], ["2026-09-02", 27], ["2026-09-03", 25], ["2026-09-04", 25], ["2026-09-05", 34], ["2026-09-06", 29], ["2026-09-07", 38], ["2026-09-08", 27], ["2026-09-09", 24], ["2026-09-10", 22], ["2026-09-11", 21], ["2026-09-12", 27], ["2026-09-13", 27], ["2026-09-14", 24], ["2026-09-15", 23], ["2026-09-16", 24], ["2026-09-17", 23], ["2026-09-18", 22], ["2026-09-19", 26], ["2026-09-20", 31], ["2026-09-21", 22], ["2026-09-22", 22]]
+      "series": [["2026-08-26", 26], ["2026-08-27", 27], ["2026-08-28", 25], ["2026-08-29", 34], ["2026-08-30", 36], ["2026-08-31", 29], ["2026-09-01", 26], ["2026-09-02", 27], ["2026-09-03", 25], ["2026-09-04", 25], ["2026-09-05", 34], ["2026-09-06", 29], ["2026-09-07", 38], ["2026-09-08", 27], ["2026-09-09", 24], ["2026-09-10", 22], ["2026-09-11", 21], ["2026-09-12", 27], ["2026-09-13", 27], ["2026-09-14", 24], ["2026-09-15", 23], ["2026-09-16", 24], ["2026-09-17", 23], ["2026-09-18", 22], ["2026-09-19", 26], ["2026-09-20", 31], ["2026-09-21", 22], ["2026-09-22", 24]]
     },
     {
       "id": "gt-hoka",
       "topic": "HOKA (competitor)",
-      "signal_text": "US Google search interest for 'hoka' summed to 333 over the 7 complete days to 22 Sep, down 7.5% on the previous 7 days (360). Daily index 0-100, relative to the peak of its 3-month chart. Today's partial value is 48 (provisional).",
+      "signal_text": "US Google search interest for 'hoka' summed to 334 over the 7 complete days to 22 Sep, down 7.2% on the previous 7 days (360). Daily index 0-100, relative to the peak of its 3-month chart. Today's partial value is 48 (provisional).",
       "metric": "Google Trends US search interest (0-100 index, 3-month chart), sum of the last 7 complete days",
-      "value": 333,
-      "change_pct": -7.5,
+      "value": 334,
+      "change_pct": -7.2,
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Google Trends (unofficial web endpoints, best effort)",
       "source_url": "https://trends.google.com/trends/explore?date=today%203-m&geo=US&q=hoka",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "google_trends",
       "beat": "gear",
       "kind": "competitor",
@@ -2243,54 +2243,54 @@
       "caveats": [
         "Index values are relative to the peak of this chart only; do not compare them with other charts."
       ],
-      "series": [["2026-08-26", 64], ["2026-08-27", 54], ["2026-08-28", 56], ["2026-08-29", 72], ["2026-08-30", 71], ["2026-08-31", 56], ["2026-09-01", 54], ["2026-09-02", 54], ["2026-09-03", 51], ["2026-09-04", 51], ["2026-09-05", 63], ["2026-09-06", 63], ["2026-09-07", 70], ["2026-09-08", 49], ["2026-09-09", 49], ["2026-09-10", 50], ["2026-09-11", 48], ["2026-09-12", 59], ["2026-09-13", 57], ["2026-09-14", 49], ["2026-09-15", 48], ["2026-09-16", 46], ["2026-09-17", 47], ["2026-09-18", 46], ["2026-09-19", 54], ["2026-09-20", 53], ["2026-09-21", 39], ["2026-09-22", 48]]
+      "series": [["2026-08-26", 64], ["2026-08-27", 54], ["2026-08-28", 56], ["2026-08-29", 72], ["2026-08-30", 71], ["2026-08-31", 56], ["2026-09-01", 54], ["2026-09-02", 54], ["2026-09-03", 51], ["2026-09-04", 51], ["2026-09-05", 63], ["2026-09-06", 63], ["2026-09-07", 70], ["2026-09-08", 49], ["2026-09-09", 49], ["2026-09-10", 50], ["2026-09-11", 48], ["2026-09-12", 59], ["2026-09-13", 57], ["2026-09-14", 49], ["2026-09-15", 48], ["2026-09-16", 46], ["2026-09-17", 47], ["2026-09-18", 46], ["2026-09-19", 54], ["2026-09-20", 53], ["2026-09-21", 39], ["2026-09-22", 49]]
     },
     {
       "id": "gt-shoes-ghost-18",
       "topic": "Brooks Ghost 18",
-      "signal_text": "US Google search interest for 'ghost 18' summed to 419 over the 7 complete days to 22 Sep, up 2.7% on the previous 7 days (408). Daily index 0-100, relative to the peak of its 1-month five-shoe comparison chart. Today's partial value is 53 (provisional).",
+      "signal_text": "US Google search interest for 'ghost 18' summed to 388 over the 7 complete days to 22 Sep, up 2.6% on the previous 7 days (378). Daily index 0-100, relative to the peak of its 1-month five-shoe comparison chart. Today's partial value is 47 (provisional).",
       "metric": "Google Trends US search interest (0-100 index, 1-month five-shoe comparison chart), sum of the last 7 complete days",
-      "value": 419,
-      "change_pct": 2.7,
+      "value": 388,
+      "change_pct": 2.6,
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Google Trends (unofficial web endpoints, best effort)",
       "source_url": "https://trends.google.com/trends/explore?date=today%201-m&geo=US&q=ghost%2018%2Chyperion%20elite%206%2Cclifton%2011%2Calphafly%204%2Cadios%20pro%205",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "google_trends",
       "beat": "gear",
       "kind": "brand",
       "keyword": "ghost 18",
-      "previousValue": 408,
+      "previousValue": 378,
       "partialToday": {
         "date": "2026-09-23",
-        "value": 53
+        "value": 47
       },
       "caveats": [
         "Index values are relative to the peak of this chart only; do not compare them with other charts.",
         "The bare keyword 'ghost 18' can also catch searches unrelated to the shoe; read it as an upper bound."
       ],
-      "series": [["2026-08-26", 51], ["2026-08-27", 57], ["2026-08-28", 51], ["2026-08-29", 81], ["2026-08-30", 80], ["2026-08-31", 66], ["2026-09-01", 56], ["2026-09-02", 53], ["2026-09-03", 44], ["2026-09-04", 58], ["2026-09-05", 57], ["2026-09-06", 74], ["2026-09-07", 86], ["2026-09-08", 66], ["2026-09-09", 55], ["2026-09-10", 54], ["2026-09-11", 49], ["2026-09-12", 73], ["2026-09-13", 67], ["2026-09-14", 57], ["2026-09-15", 53], ["2026-09-16", 53], ["2026-09-17", 58], ["2026-09-18", 58], ["2026-09-19", 70], ["2026-09-20", 73], ["2026-09-21", 54], ["2026-09-22", 53]]
+      "series": [["2026-08-26", 47], ["2026-08-27", 52], ["2026-08-28", 47], ["2026-08-29", 75], ["2026-08-30", 73], ["2026-08-31", 61], ["2026-09-01", 52], ["2026-09-02", 49], ["2026-09-03", 41], ["2026-09-04", 53], ["2026-09-05", 52], ["2026-09-06", 68], ["2026-09-07", 80], ["2026-09-08", 61], ["2026-09-09", 51], ["2026-09-10", 50], ["2026-09-11", 45], ["2026-09-12", 68], ["2026-09-13", 62], ["2026-09-14", 53], ["2026-09-15", 49], ["2026-09-16", 49], ["2026-09-17", 54], ["2026-09-18", 54], ["2026-09-19", 64], ["2026-09-20", 67], ["2026-09-21", 49], ["2026-09-22", 51]]
     },
     {
       "id": "gt-shoes-hyperion-elite-6",
       "topic": "Brooks Hyperion Elite 6",
-      "signal_text": "US Google search interest for 'hyperion elite 6' summed to 26 over the 7 complete days to 22 Sep, unchanged on the previous 7 days (26). Daily index 0-100, relative to the peak of its 1-month five-shoe comparison chart. Today's partial value is 4 (provisional).",
+      "signal_text": "US Google search interest for 'hyperion elite 6' summed to 26 over the 7 complete days to 22 Sep, up 4.0% on the previous 7 days (25). Daily index 0-100, relative to the peak of its 1-month five-shoe comparison chart. Today's partial value is 4 (provisional).",
       "metric": "Google Trends US search interest (0-100 index, 1-month five-shoe comparison chart), sum of the last 7 complete days",
       "value": 26,
-      "change_pct": 0.0,
+      "change_pct": 4.0,
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Google Trends (unofficial web endpoints, best effort)",
       "source_url": "https://trends.google.com/trends/explore?date=today%201-m&geo=US&q=ghost%2018%2Chyperion%20elite%206%2Cclifton%2011%2Calphafly%204%2Cadios%20pro%205",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "google_trends",
       "beat": "gear",
       "kind": "brand",
       "keyword": "hyperion elite 6",
-      "previousValue": 26,
+      "previousValue": 25,
       "partialToday": {
         "date": "2026-09-23",
         "value": 4
@@ -2298,102 +2298,102 @@
       "caveats": [
         "Index values are relative to the peak of this chart only; do not compare them with other charts."
       ],
-      "series": [["2026-08-26", 0], ["2026-08-27", 0], ["2026-08-28", 0], ["2026-08-29", 0], ["2026-08-30", 0], ["2026-08-31", 0], ["2026-09-01", 0], ["2026-09-02", 0], ["2026-09-03", 0], ["2026-09-04", 0], ["2026-09-05", 0], ["2026-09-06", 0], ["2026-09-07", 40], ["2026-09-08", 0], ["2026-09-09", 4], ["2026-09-10", 4], ["2026-09-11", 4], ["2026-09-12", 4], ["2026-09-13", 4], ["2026-09-14", 3], ["2026-09-15", 3], ["2026-09-16", 4], ["2026-09-17", 3], ["2026-09-18", 3], ["2026-09-19", 3], ["2026-09-20", 5], ["2026-09-21", 4], ["2026-09-22", 4]]
+      "series": [["2026-08-26", 0], ["2026-08-27", 0], ["2026-08-28", 0], ["2026-08-29", 0], ["2026-08-30", 0], ["2026-08-31", 0], ["2026-09-01", 0], ["2026-09-02", 0], ["2026-09-03", 0], ["2026-09-04", 0], ["2026-09-05", 0], ["2026-09-06", 0], ["2026-09-07", 37], ["2026-09-08", 0], ["2026-09-09", 4], ["2026-09-10", 3], ["2026-09-11", 4], ["2026-09-12", 4], ["2026-09-13", 4], ["2026-09-14", 3], ["2026-09-15", 3], ["2026-09-16", 4], ["2026-09-17", 3], ["2026-09-18", 3], ["2026-09-19", 3], ["2026-09-20", 5], ["2026-09-21", 4], ["2026-09-22", 4]]
     },
     {
       "id": "gt-shoes-clifton-11",
       "topic": "HOKA Clifton 11 (competitor)",
-      "signal_text": "US Google search interest for 'clifton 11' summed to 367 over the 7 complete days to 22 Sep, down 8.7% on the previous 7 days (402). Daily index 0-100, relative to the peak of its 1-month five-shoe comparison chart. Today's partial value is 51 (provisional).",
+      "signal_text": "US Google search interest for 'clifton 11' summed to 343 over the 7 complete days to 22 Sep, down 7.3% on the previous 7 days (370). Daily index 0-100, relative to the peak of its 1-month five-shoe comparison chart. Today's partial value is 46 (provisional).",
       "metric": "Google Trends US search interest (0-100 index, 1-month five-shoe comparison chart), sum of the last 7 complete days",
-      "value": 367,
-      "change_pct": -8.7,
+      "value": 343,
+      "change_pct": -7.3,
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Google Trends (unofficial web endpoints, best effort)",
       "source_url": "https://trends.google.com/trends/explore?date=today%201-m&geo=US&q=ghost%2018%2Chyperion%20elite%206%2Cclifton%2011%2Calphafly%204%2Cadios%20pro%205",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "google_trends",
       "beat": "gear",
       "kind": "competitor",
       "keyword": "clifton 11",
-      "previousValue": 402,
+      "previousValue": 370,
       "partialToday": {
         "date": "2026-09-23",
-        "value": 51
+        "value": 46
       },
       "caveats": [
         "Index values are relative to the peak of this chart only; do not compare them with other charts."
       ],
-      "series": [["2026-08-26", 55], ["2026-08-27", 60], ["2026-08-28", 51], ["2026-08-29", 66], ["2026-08-30", 94], ["2026-08-31", 84], ["2026-09-01", 65], ["2026-09-02", 65], ["2026-09-03", 50], ["2026-09-04", 64], ["2026-09-05", 80], ["2026-09-06", 87], ["2026-09-07", 97], ["2026-09-08", 76], ["2026-09-09", 51], ["2026-09-10", 55], ["2026-09-11", 59], ["2026-09-12", 67], ["2026-09-13", 63], ["2026-09-14", 55], ["2026-09-15", 52], ["2026-09-16", 50], ["2026-09-17", 53], ["2026-09-18", 48], ["2026-09-19", 57], ["2026-09-20", 62], ["2026-09-21", 45], ["2026-09-22", 52]]
+      "series": [["2026-08-26", 51], ["2026-08-27", 55], ["2026-08-28", 47], ["2026-08-29", 61], ["2026-08-30", 87], ["2026-08-31", 78], ["2026-09-01", 60], ["2026-09-02", 60], ["2026-09-03", 46], ["2026-09-04", 59], ["2026-09-05", 74], ["2026-09-06", 80], ["2026-09-07", 90], ["2026-09-08", 70], ["2026-09-09", 47], ["2026-09-10", 50], ["2026-09-11", 54], ["2026-09-12", 62], ["2026-09-13", 58], ["2026-09-14", 51], ["2026-09-15", 48], ["2026-09-16", 46], ["2026-09-17", 49], ["2026-09-18", 45], ["2026-09-19", 53], ["2026-09-20", 57], ["2026-09-21", 41], ["2026-09-22", 52]]
     },
     {
       "id": "gt-shoes-alphafly-4",
       "topic": "Nike Alphafly 4 (competitor)",
-      "signal_text": "US Google search interest for 'alphafly 4' summed to 333 over the 7 complete days to 22 Sep, up 420.3% on the previous 7 days (64). Daily index 0-100, relative to the peak of its 1-month five-shoe comparison chart. Today's partial value is 24 (provisional).",
+      "signal_text": "US Google search interest for 'alphafly 4' summed to 306 over the 7 complete days to 22 Sep, up 410.0% on the previous 7 days (60). Daily index 0-100, relative to the peak of its 1-month five-shoe comparison chart. Today's partial value is 22 (provisional).",
       "metric": "Google Trends US search interest (0-100 index, 1-month five-shoe comparison chart), sum of the last 7 complete days",
-      "value": 333,
-      "change_pct": 420.3,
+      "value": 306,
+      "change_pct": 410.0,
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Google Trends (unofficial web endpoints, best effort)",
       "source_url": "https://trends.google.com/trends/explore?date=today%201-m&geo=US&q=ghost%2018%2Chyperion%20elite%206%2Cclifton%2011%2Calphafly%204%2Cadios%20pro%205",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "google_trends",
       "beat": "gear",
       "kind": "competitor",
       "keyword": "alphafly 4",
-      "previousValue": 64,
+      "previousValue": 60,
       "partialToday": {
         "date": "2026-09-23",
-        "value": 24
+        "value": 22
       },
       "caveats": [
         "Index values are relative to the peak of this chart only; do not compare them with other charts."
       ],
-      "series": [["2026-08-26", 0], ["2026-08-27", 0], ["2026-08-28", 0], ["2026-08-29", 0], ["2026-08-30", 0], ["2026-08-31", 0], ["2026-09-01", 0], ["2026-09-02", 0], ["2026-09-03", 0], ["2026-09-04", 0], ["2026-09-05", 0], ["2026-09-06", 0], ["2026-09-07", 0], ["2026-09-08", 0], ["2026-09-09", 6], ["2026-09-10", 5], ["2026-09-11", 7], ["2026-09-12", 9], ["2026-09-13", 8], ["2026-09-14", 11], ["2026-09-15", 18], ["2026-09-16", 31], ["2026-09-17", 100], ["2026-09-18", 69], ["2026-09-19", 50], ["2026-09-20", 31], ["2026-09-21", 26], ["2026-09-22", 26]]
+      "series": [["2026-08-26", 0], ["2026-08-27", 0], ["2026-08-28", 0], ["2026-08-29", 0], ["2026-08-30", 0], ["2026-08-31", 0], ["2026-09-01", 0], ["2026-09-02", 0], ["2026-09-03", 0], ["2026-09-04", 0], ["2026-09-05", 0], ["2026-09-06", 0], ["2026-09-07", 0], ["2026-09-08", 0], ["2026-09-09", 6], ["2026-09-10", 5], ["2026-09-11", 7], ["2026-09-12", 8], ["2026-09-13", 8], ["2026-09-14", 10], ["2026-09-15", 16], ["2026-09-16", 28], ["2026-09-17", 92], ["2026-09-18", 63], ["2026-09-19", 46], ["2026-09-20", 28], ["2026-09-21", 24], ["2026-09-22", 25]]
     },
     {
       "id": "gt-shoes-adios-pro-5",
       "topic": "adidas Adios Pro 5 (competitor)",
-      "signal_text": "US Google search interest for 'adios pro 5' summed to 177 over the 7 complete days to 22 Sep, up 172.3% on the previous 7 days (65). Daily index 0-100, relative to the peak of its 1-month five-shoe comparison chart. Today's partial value is 52 (provisional).",
+      "signal_text": "US Google search interest for 'adios pro 5' summed to 172 over the 7 complete days to 22 Sep, up 196.6% on the previous 7 days (58). Daily index 0-100, relative to the peak of its 1-month five-shoe comparison chart. Today's partial value is 48 (provisional).",
       "metric": "Google Trends US search interest (0-100 index, 1-month five-shoe comparison chart), sum of the last 7 complete days",
-      "value": 177,
-      "change_pct": 172.3,
+      "value": 172,
+      "change_pct": 196.6,
       "window": "2026-09-16 to 2026-09-22 vs 2026-09-09 to 2026-09-15",
       "source_name": "Google Trends (unofficial web endpoints, best effort)",
       "source_url": "https://trends.google.com/trends/explore?date=today%201-m&geo=US&q=ghost%2018%2Chyperion%20elite%206%2Cclifton%2011%2Calphafly%204%2Cadios%20pro%205",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "google_trends",
       "beat": "gear",
       "kind": "competitor",
       "keyword": "adios pro 5",
-      "previousValue": 65,
+      "previousValue": 58,
       "partialToday": {
         "date": "2026-09-23",
-        "value": 52
+        "value": 48
       },
       "caveats": [
         "Index values are relative to the peak of this chart only; do not compare them with other charts."
       ],
-      "series": [["2026-08-26", 0], ["2026-08-27", 0], ["2026-08-28", 0], ["2026-08-29", 0], ["2026-08-30", 0], ["2026-08-31", 0], ["2026-09-01", 0], ["2026-09-02", 0], ["2026-09-03", 21], ["2026-09-04", 17], ["2026-09-05", 0], ["2026-09-06", 0], ["2026-09-07", 0], ["2026-09-08", 0], ["2026-09-09", 6], ["2026-09-10", 7], ["2026-09-11", 11], ["2026-09-12", 10], ["2026-09-13", 8], ["2026-09-14", 11], ["2026-09-15", 12], ["2026-09-16", 14], ["2026-09-17", 13], ["2026-09-18", 12], ["2026-09-19", 14], ["2026-09-20", 9], ["2026-09-21", 15], ["2026-09-22", 100]]
+      "series": [["2026-08-26", 0], ["2026-08-27", 0], ["2026-08-28", 0], ["2026-08-29", 0], ["2026-08-30", 0], ["2026-08-31", 0], ["2026-09-01", 0], ["2026-09-02", 0], ["2026-09-03", 20], ["2026-09-04", 15], ["2026-09-05", 0], ["2026-09-06", 0], ["2026-09-07", 0], ["2026-09-08", 0], ["2026-09-09", 5], ["2026-09-10", 6], ["2026-09-11", 10], ["2026-09-12", 9], ["2026-09-13", 7], ["2026-09-14", 10], ["2026-09-15", 11], ["2026-09-16", 13], ["2026-09-17", 12], ["2026-09-18", 11], ["2026-09-19", 13], ["2026-09-20", 9], ["2026-09-21", 14], ["2026-09-22", 100]]
     },
     {
       "id": "yt-bench-fastest-video",
       "topic": "Fastest-moving bench video this week",
-      "signal_text": "'adidas Adios Pro 5' by kofuzi (gear beat) has 100,808 views (RSS) 1.3 days after publishing, about 76,006 a day: the fastest of 19 bench videos published in the last 7 days and at least 24 hours old.",
+      "signal_text": "'adidas Adios Pro 5' by kofuzi (gear beat) has 101,014 views (RSS) 1.3 days after publishing, about 75,623 a day: the fastest of 19 bench videos published in the last 7 days and at least 24 hours old.",
       "metric": "YouTube views (RSS) per day since publish",
-      "value": 76006,
+      "value": 75623,
       "change_pct": null,
       "window": "video uploads published 2026-09-16 to 2026-09-23, at least 24 hours old",
       "source_name": "YouTube channel RSS feed (kofuzi)",
       "source_url": "https://www.youtube.com/watch?v=Rb1Lg1gOPnA",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "youtube_rss",
       "beat": "gear",
       "kind": "bench",
@@ -2406,8 +2406,8 @@
           "videoId": "Rb1Lg1gOPnA",
           "url": "https://www.youtube.com/watch?v=Rb1Lg1gOPnA",
           "published": "2026-09-22T10:00:09Z",
-          "views": 100808,
-          "viewsPerDay": 76006
+          "views": 101014,
+          "viewsPerDay": 75623
         },
         {
           "title": "Celebrities Weight Loss, We Need to Talk about It",
@@ -2416,8 +2416,8 @@
           "videoId": "zCv2IT37LV4",
           "url": "https://www.youtube.com/watch?v=zCv2IT37LV4",
           "published": "2026-09-19T15:00:32Z",
-          "views": 231613,
-          "viewsPerDay": 56248
+          "views": 232050,
+          "viewsPerDay": 56225
         },
         {
           "title": "The Best Marathon Workout You're Probably Not Doing",
@@ -2426,8 +2426,8 @@
           "videoId": "UVkjqi9uRho",
           "url": "https://www.youtube.com/watch?v=UVkjqi9uRho",
           "published": "2026-09-20T18:00:20Z",
-          "views": 122388,
-          "viewsPerDay": 40894
+          "views": 122571,
+          "viewsPerDay": 40826
         },
         {
           "title": "Running at 200lbs sucks",
@@ -2436,8 +2436,8 @@
           "videoId": "GCyqmkPdHe4",
           "url": "https://www.youtube.com/watch?v=GCyqmkPdHe4",
           "published": "2026-09-19T12:50:45Z",
-          "views": 144598,
-          "viewsPerDay": 34364
+          "views": 144795,
+          "viewsPerDay": 34334
         },
         {
           "title": "Did Apple Watch 12 just destroy Oura & Whoop?",
@@ -2446,24 +2446,24 @@
           "videoId": "vMH9XG3PWIY",
           "url": "https://www.youtube.com/watch?v=vMH9XG3PWIY",
           "published": "2026-09-17T12:00:37Z",
-          "views": 157291,
-          "viewsPerDay": 25196
+          "views": 157459,
+          "viewsPerDay": 25185
         }
       ]
     },
     {
       "id": "yt-bench-fastest-short",
       "topic": "Fastest-moving bench Short this week",
-      "signal_text": "'#fitness #runner #halfmarathon #run #running #workout #athlete #trend #funny #jokes #gym' by Andi Renay (shorts beat) has 1,471,799 views (RSS) 5.0 days after publishing, about 295,964 a day: the fastest of 25 bench Shorts published in the last 7 days and at least 24 hours old.",
+      "signal_text": "'#fitness #runner #halfmarathon #run #running #workout #athlete #trend #funny #jokes #gym' by Andi Renay (shorts beat) has 1,473,893 views (RSS) 5.0 days after publishing, about 295,822 a day: the fastest of 25 bench Shorts published in the last 7 days and at least 24 hours old.",
       "metric": "YouTube views (RSS) per day since publish",
-      "value": 295964,
+      "value": 295822,
       "change_pct": null,
       "window": "Short uploads published 2026-09-16 to 2026-09-23, at least 24 hours old",
       "source_name": "YouTube channel RSS feed (Andi Renay)",
       "source_url": "https://www.youtube.com/shorts/vRSTHtZ7jXI",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "youtube_rss",
       "beat": "shorts",
       "kind": "bench",
@@ -2476,8 +2476,8 @@
           "videoId": "vRSTHtZ7jXI",
           "url": "https://www.youtube.com/shorts/vRSTHtZ7jXI",
           "published": "2026-09-18T18:29:03Z",
-          "views": 1471799,
-          "viewsPerDay": 295964
+          "views": 1473893,
+          "viewsPerDay": 295822
         },
         {
           "title": "My race did NOT go as planned",
@@ -2486,8 +2486,8 @@
           "videoId": "N8p0nLU84tQ",
           "url": "https://www.youtube.com/shorts/N8p0nLU84tQ",
           "published": "2026-09-21T23:28:30Z",
-          "views": 209800,
-          "viewsPerDay": 118870
+          "views": 211124,
+          "viewsPerDay": 118983
         },
         {
           "title": "NIKE ALPHAFLY 4 🚀🔥 What do you think? 👀 @nikerunning @nike #running #shoes #marathon",
@@ -2496,8 +2496,8 @@
           "videoId": "50ZK2uO0EGw",
           "url": "https://www.youtube.com/shorts/50ZK2uO0EGw",
           "published": "2026-09-21T18:41:28Z",
-          "views": 120625,
-          "viewsPerDay": 61409
+          "views": 121147,
+          "viewsPerDay": 61379
         },
         {
           "title": "#fitness #runner #run #running #workout #track #relatable #funny #jokes #gym #marathon",
@@ -2506,8 +2506,8 @@
           "videoId": "UJ365I54QLo",
           "url": "https://www.youtube.com/shorts/UJ365I54QLo",
           "published": "2026-09-21T23:21:43Z",
-          "views": 108483,
-          "viewsPerDay": 61301
+          "views": 109050,
+          "viewsPerDay": 61294
         },
         {
           "title": "⚠️ THE CROCODILES HAD A REST DAY 🐊😂 #running #crocodile #australia",
@@ -2516,24 +2516,24 @@
           "videoId": "ZV2X0j6DDNw",
           "url": "https://www.youtube.com/shorts/ZV2X0j6DDNw",
           "published": "2026-09-19T18:39:41Z",
-          "views": 201811,
-          "viewsPerDay": 50891
+          "views": 201950,
+          "viewsPerDay": 50805
         }
       ]
     },
     {
       "id": "yt-kw-brooks",
       "topic": "Brooks shoes on YouTube (any model)",
-      "signal_text": "1 upload in the last 14 days from 1 tracked channel (0 from the bench, 1 from watch channels) matches this topic in the title, with 3,800 views in total (RSS). Most viewed: 'Brooks Ghost Amp First Run: The Ghost with the most?' by The Run Testers, 3,800 views.",
+      "signal_text": "1 upload in the last 14 days from 1 tracked channel (0 from the bench, 1 from watch channels) matches this topic in the title, with 3,862 views in total (RSS). Most viewed: 'Brooks Ghost Amp First Run: The Ghost with the most?' by The Run Testers, 3,862 views.",
       "metric": "YouTube views (RSS) summed over matching uploads published in the last 14 days",
-      "value": 3800,
+      "value": 3862,
       "change_pct": null,
       "window": "uploads published 2026-09-09 to 2026-09-23",
       "source_name": "YouTube channel RSS feeds (16 bench + 3 watch channels: Believe in the Run, The Run Testers, Ben Parkes)",
       "source_url": "https://www.youtube.com/watch?v=fnxzhPlm6Ps",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "youtube_rss",
       "beat": "gear",
       "kind": "brand",
@@ -2554,7 +2554,7 @@
           "videoId": "fnxzhPlm6Ps",
           "url": "https://www.youtube.com/watch?v=fnxzhPlm6Ps",
           "published": "2026-09-23T07:10:53Z",
-          "views": 3800,
+          "views": 3862,
           "isShort": false
         }
       ]
@@ -2562,16 +2562,16 @@
     {
       "id": "yt-kw-alphafly-4",
       "topic": "Nike Alphafly 4 launch (competitor)",
-      "signal_text": "3 uploads in the last 14 days from 2 tracked channels (1 from the bench, 2 from watch channels) match this topic in the title, with 314,262 views in total (RSS). Most viewed: 'NIKE ALPHAFLY 4 🚀🔥 What do you think? 👀 @nikerunning @nike #running #shoes #marathon' by The Fashion Jogger, 120,625 views.",
+      "signal_text": "3 uploads in the last 14 days from 2 tracked channels (1 from the bench, 2 from watch channels) match this topic in the title, with 314,815 views in total (RSS). Most viewed: 'NIKE ALPHAFLY 4 🚀🔥 What do you think? 👀 @nikerunning @nike #running #shoes #marathon' by The Fashion Jogger, 121,147 views.",
       "metric": "YouTube views (RSS) summed over matching uploads published in the last 14 days",
-      "value": 314262,
+      "value": 314815,
       "change_pct": null,
       "window": "uploads published 2026-09-09 to 2026-09-23",
       "source_name": "YouTube channel RSS feeds (16 bench + 3 watch channels: Believe in the Run, The Run Testers, Ben Parkes)",
       "source_url": "https://www.youtube.com/shorts/50ZK2uO0EGw",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "youtube_rss",
       "beat": "gear",
       "kind": "competitor",
@@ -2593,7 +2593,7 @@
           "videoId": "50ZK2uO0EGw",
           "url": "https://www.youtube.com/shorts/50ZK2uO0EGw",
           "published": "2026-09-21T18:41:28Z",
-          "views": 120625,
+          "views": 121147,
           "isShort": true
         },
         {
@@ -2603,7 +2603,7 @@
           "videoId": "fW6KzP6tMFM",
           "url": "https://www.youtube.com/shorts/fW6KzP6tMFM",
           "published": "2026-09-17T12:00:17Z",
-          "views": 119945,
+          "views": 119961,
           "isShort": true
         },
         {
@@ -2613,7 +2613,7 @@
           "videoId": "lOIDb7ahVhM",
           "url": "https://www.youtube.com/watch?v=lOIDb7ahVhM",
           "published": "2026-09-17T12:00:20Z",
-          "views": 73692,
+          "views": 73707,
           "isShort": false
         }
       ]
@@ -2621,16 +2621,16 @@
     {
       "id": "yt-kw-adios-pro-5",
       "topic": "adidas Adios Pro 5 launch (competitor)",
-      "signal_text": "7 uploads in the last 14 days from 4 tracked channels (3 from the bench, 4 from watch channels) match this topic in the title, with 213,681 views in total (RSS). Most viewed: 'adidas Adios Pro 5' by kofuzi, 100,808 views.",
+      "signal_text": "7 uploads in the last 14 days from 4 tracked channels (3 from the bench, 4 from watch channels) match this topic in the title, with 214,461 views in total (RSS). Most viewed: 'adidas Adios Pro 5' by kofuzi, 101,014 views.",
       "metric": "YouTube views (RSS) summed over matching uploads published in the last 14 days",
-      "value": 213681,
+      "value": 214461,
       "change_pct": null,
       "window": "uploads published 2026-09-09 to 2026-09-23",
       "source_name": "YouTube channel RSS feeds (16 bench + 3 watch channels: Believe in the Run, The Run Testers, Ben Parkes)",
       "source_url": "https://www.youtube.com/watch?v=Rb1Lg1gOPnA",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "youtube_rss",
       "beat": "gear",
       "kind": "competitor",
@@ -2654,7 +2654,7 @@
           "videoId": "Rb1Lg1gOPnA",
           "url": "https://www.youtube.com/watch?v=Rb1Lg1gOPnA",
           "published": "2026-09-22T10:00:09Z",
-          "views": 100808,
+          "views": 101014,
           "isShort": false
         },
         {
@@ -2664,7 +2664,7 @@
           "videoId": "vRutr6nEV2M",
           "url": "https://www.youtube.com/watch?v=vRutr6nEV2M",
           "published": "2026-09-22T08:00:23Z",
-          "views": 48272,
+          "views": 48350,
           "isShort": false
         },
         {
@@ -2674,7 +2674,7 @@
           "videoId": "EMFc5Lr_SC8",
           "url": "https://www.youtube.com/watch?v=EMFc5Lr_SC8",
           "published": "2026-09-22T09:02:41Z",
-          "views": 31008,
+          "views": 31126,
           "isShort": false
         },
         {
@@ -2684,7 +2684,7 @@
           "videoId": "84LJHtHEj0Q",
           "url": "https://www.youtube.com/watch?v=84LJHtHEj0Q",
           "published": "2026-09-22T09:02:14Z",
-          "views": 17528,
+          "views": 17580,
           "isShort": false
         },
         {
@@ -2694,7 +2694,7 @@
           "videoId": "gB1y2XR5fIc",
           "url": "https://www.youtube.com/watch?v=gB1y2XR5fIc",
           "published": "2026-09-22T10:17:28Z",
-          "views": 12458,
+          "views": 12489,
           "isShort": false
         }
       ]
@@ -2702,16 +2702,16 @@
     {
       "id": "yt-kw-super-shoes",
       "topic": "Super shoes and carbon plates",
-      "signal_text": "1 upload in the last 14 days from 1 tracked channel (1 from the bench, 0 from watch channels) matches this topic in the title, with 5,901 views in total (RSS). Most viewed: 'TYR Valkyrie Elite 2 vs. Everything: Top Lightweight Super Shoes' by Doctors of Running, 5,901 views.",
+      "signal_text": "1 upload in the last 14 days from 1 tracked channel (1 from the bench, 0 from watch channels) matches this topic in the title, with 5,902 views in total (RSS). Most viewed: 'TYR Valkyrie Elite 2 vs. Everything: Top Lightweight Super Shoes' by Doctors of Running, 5,902 views.",
       "metric": "YouTube views (RSS) summed over matching uploads published in the last 14 days",
-      "value": 5901,
+      "value": 5902,
       "change_pct": null,
       "window": "uploads published 2026-09-09 to 2026-09-23",
       "source_name": "YouTube channel RSS feeds (16 bench + 3 watch channels: Believe in the Run, The Run Testers, Ben Parkes)",
       "source_url": "https://www.youtube.com/watch?v=XEuu-aCHMRM",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "youtube_rss",
       "beat": "gear",
       "kind": "category",
@@ -2732,7 +2732,7 @@
           "videoId": "XEuu-aCHMRM",
           "url": "https://www.youtube.com/watch?v=XEuu-aCHMRM",
           "published": "2026-09-15T16:57:29Z",
-          "views": 5901,
+          "views": 5902,
           "isShort": false
         }
       ]
@@ -2740,16 +2740,16 @@
     {
       "id": "yt-kw-berlin-marathon",
       "topic": "Berlin Marathon on YouTube",
-      "signal_text": "6 uploads in the last 14 days from 2 tracked channels (6 from the bench, 0 from watch channels) match this topic in the title, with 123,994 views in total (RSS). Most viewed: 'Balancing Shoe Testing with Marathon Training - Berlin Marathon Training Week 8, Chasing Ghosts S2' by kofuzi, 31,238 views.",
+      "signal_text": "6 uploads in the last 14 days from 2 tracked channels (6 from the bench, 0 from watch channels) match this topic in the title, with 124,064 views in total (RSS). Most viewed: 'Balancing Shoe Testing with Marathon Training - Berlin Marathon Training Week 8, Chasing Ghosts S2' by kofuzi, 31,253 views.",
       "metric": "YouTube views (RSS) summed over matching uploads published in the last 14 days",
-      "value": 123994,
+      "value": 124064,
       "change_pct": null,
       "window": "uploads published 2026-09-09 to 2026-09-23",
       "source_name": "YouTube channel RSS feeds (16 bench + 3 watch channels: Believe in the Run, The Run Testers, Ben Parkes)",
       "source_url": "https://www.youtube.com/watch?v=2vT74Juv3vQ",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "youtube_rss",
       "beat": "marathon",
       "kind": "race",
@@ -2771,7 +2771,7 @@
           "videoId": "2vT74Juv3vQ",
           "url": "https://www.youtube.com/watch?v=2vT74Juv3vQ",
           "published": "2026-09-19T11:00:34Z",
-          "views": 31238,
+          "views": 31253,
           "isShort": false
         },
         {
@@ -2781,7 +2781,7 @@
           "videoId": "4lnYAwFX7do",
           "url": "https://www.youtube.com/watch?v=4lnYAwFX7do",
           "published": "2026-09-17T16:35:24Z",
-          "views": 28437,
+          "views": 28445,
           "isShort": false
         },
         {
@@ -2801,7 +2801,7 @@
           "videoId": "PlfGj2tkakg",
           "url": "https://www.youtube.com/watch?v=PlfGj2tkakg",
           "published": "2026-09-21T21:45:35Z",
-          "views": 17629,
+          "views": 17664,
           "isShort": false
         },
         {
@@ -2819,16 +2819,16 @@
     {
       "id": "yt-kw-run-club",
       "topic": "Run clubs and parkrun",
-      "signal_text": "1 upload in the last 14 days from 1 tracked channel (1 from the bench, 0 from watch channels) matches this topic in the title, with 8,953 views in total (RSS). Most viewed: 'Getting LOST Twice During a Sub-20 Parkrun Attempt!!' by Crown my Run, 8,953 views.",
+      "signal_text": "1 upload in the last 14 days from 1 tracked channel (1 from the bench, 0 from watch channels) matches this topic in the title, with 8,971 views in total (RSS). Most viewed: 'Getting LOST Twice During a Sub-20 Parkrun Attempt!!' by Crown my Run, 8,971 views.",
       "metric": "YouTube views (RSS) summed over matching uploads published in the last 14 days",
-      "value": 8953,
+      "value": 8971,
       "change_pct": null,
       "window": "uploads published 2026-09-09 to 2026-09-23",
       "source_name": "YouTube channel RSS feeds (16 bench + 3 watch channels: Believe in the Run, The Run Testers, Ben Parkes)",
       "source_url": "https://www.youtube.com/watch?v=diolDyKgdGc",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "youtube_rss",
       "beat": "community",
       "kind": "category",
@@ -2849,7 +2849,7 @@
           "videoId": "diolDyKgdGc",
           "url": "https://www.youtube.com/watch?v=diolDyKgdGc",
           "published": "2026-09-21T16:59:40Z",
-          "views": 8953,
+          "views": 8971,
           "isShort": false
         }
       ]
@@ -2857,16 +2857,16 @@
     {
       "id": "yt-kw-beginner",
       "topic": "Beginner running",
-      "signal_text": "3 uploads in the last 14 days from 3 tracked channels (3 from the bench, 0 from watch channels) match this topic in the title, with 213,631 views in total (RSS). Most viewed: 'Carbon vs Normal Shoes... Are they ACTUALLY faster for BEGINNERS? *5K All Out In Each*' by Ben Is Running, 104,412 views.",
+      "signal_text": "3 uploads in the last 14 days from 3 tracked channels (3 from the bench, 0 from watch channels) match this topic in the title, with 213,690 views in total (RSS). Most viewed: 'Carbon vs Normal Shoes... Are they ACTUALLY faster for BEGINNERS? *5K All Out In Each*' by Ben Is Running, 104,441 views.",
       "metric": "YouTube views (RSS) summed over matching uploads published in the last 14 days",
-      "value": 213631,
+      "value": 213690,
       "change_pct": null,
       "window": "uploads published 2026-09-09 to 2026-09-23",
       "source_name": "YouTube channel RSS feeds (16 bench + 3 watch channels: Believe in the Run, The Run Testers, Ben Parkes)",
       "source_url": "https://www.youtube.com/watch?v=fJ8l1ehTKo4",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "youtube_rss",
       "beat": "beginner",
       "kind": "category",
@@ -2889,7 +2889,7 @@
           "videoId": "fJ8l1ehTKo4",
           "url": "https://www.youtube.com/watch?v=fJ8l1ehTKo4",
           "published": "2026-09-13T15:00:02Z",
-          "views": 104412,
+          "views": 104441,
           "isShort": false
         },
         {
@@ -2899,7 +2899,7 @@
           "videoId": "RLyGKkCRkbg",
           "url": "https://www.youtube.com/watch?v=RLyGKkCRkbg",
           "published": "2026-09-12T15:00:05Z",
-          "views": 99556,
+          "views": 99585,
           "isShort": false
         },
         {
@@ -2909,7 +2909,7 @@
           "videoId": "MYHXnJt0zfI",
           "url": "https://www.youtube.com/watch?v=MYHXnJt0zfI",
           "published": "2026-09-13T19:00:06Z",
-          "views": 9663,
+          "views": 9664,
           "isShort": false
         }
       ]
@@ -2917,16 +2917,16 @@
     {
       "id": "yt-kw-trail-ultra",
       "topic": "Trail and ultra",
-      "signal_text": "1 upload in the last 14 days from 1 tracked channel (1 from the bench, 0 from watch channels) matches this topic in the title, with 11,297 views in total (RSS). Most viewed: 'Trail running shoe OF THE YEAR? | INOV8 TRAILFLY PRO First Run Review | Run4Adventure' by Run4Adventure, 11,297 views.",
+      "signal_text": "1 upload in the last 14 days from 1 tracked channel (1 from the bench, 0 from watch channels) matches this topic in the title, with 11,306 views in total (RSS). Most viewed: 'Trail running shoe OF THE YEAR? | INOV8 TRAILFLY PRO First Run Review | Run4Adventure' by Run4Adventure, 11,306 views.",
       "metric": "YouTube views (RSS) summed over matching uploads published in the last 14 days",
-      "value": 11297,
+      "value": 11306,
       "change_pct": null,
       "window": "uploads published 2026-09-09 to 2026-09-23",
       "source_name": "YouTube channel RSS feeds (16 bench + 3 watch channels: Believe in the Run, The Run Testers, Ben Parkes)",
       "source_url": "https://www.youtube.com/watch?v=ql3Y02Rz5jo",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "youtube_rss",
       "beat": "trail",
       "kind": "category",
@@ -2947,7 +2947,7 @@
           "videoId": "ql3Y02Rz5jo",
           "url": "https://www.youtube.com/watch?v=ql3Y02Rz5jo",
           "published": "2026-09-20T18:06:25Z",
-          "views": 11297,
+          "views": 11306,
           "isShort": false
         }
       ]
@@ -2955,16 +2955,16 @@
     {
       "id": "yt-kw-injury-recovery",
       "topic": "Injury, pain and recovery (health topic: claims register applies)",
-      "signal_text": "4 uploads in the last 14 days from 2 tracked channels (4 from the bench, 0 from watch channels) match this topic in the title, with 34,101 views in total (RSS). Most viewed: 'Recovery Stretch to Reset and Feel Good After Running' by Run Better with Ash, 10,708 views.",
+      "signal_text": "4 uploads in the last 14 days from 2 tracked channels (4 from the bench, 0 from watch channels) match this topic in the title, with 34,111 views in total (RSS). Most viewed: 'Recovery Stretch to Reset and Feel Good After Running' by Run Better with Ash, 10,708 views.",
       "metric": "YouTube views (RSS) summed over matching uploads published in the last 14 days",
-      "value": 34101,
+      "value": 34111,
       "change_pct": null,
       "window": "uploads published 2026-09-09 to 2026-09-23",
       "source_name": "YouTube channel RSS feeds (16 bench + 3 watch channels: Believe in the Run, The Run Testers, Ben Parkes)",
       "source_url": "https://www.youtube.com/watch?v=kv7pT8zTprk",
-      "captured": "2026-09-23T17:50:02Z",
+      "captured": "2026-09-23T18:03:39Z",
       "stale": false,
-      "lastSuccess": "2026-09-23T17:50:02Z",
+      "lastSuccess": "2026-09-23T18:03:39Z",
       "sourceKey": "youtube_rss",
       "beat": "recovery",
       "kind": "health",
@@ -2996,7 +2996,7 @@
           "videoId": "MYHXnJt0zfI",
           "url": "https://www.youtube.com/watch?v=MYHXnJt0zfI",
           "published": "2026-09-13T19:00:06Z",
-          "views": 9663,
+          "views": 9664,
           "isShort": false
         },
         {
@@ -3006,7 +3006,7 @@
           "videoId": "tI5Aad-hfB8",
           "url": "https://www.youtube.com/watch?v=tI5Aad-hfB8",
           "published": "2026-09-18T15:00:06Z",
-          "views": 8423,
+          "views": 8432,
           "isShort": false
         },
         {
