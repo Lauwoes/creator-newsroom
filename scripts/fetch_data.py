@@ -868,6 +868,11 @@ def main():
     trends += run_google_trends(cfg, prev_trends, skip, now, st["google_trends"])
     if feeds:
         trends += youtube_trends(cfg, feeds, now, len(cfg["creators"]))
+        # The velocity items are omitted when no upload sits in the window this run;
+        # carry the previous value marked stale, as every other source does.
+        made = {t["id"] for t in trends}
+        trends += [carry_trend(t, "no qualifying upload in the velocity window this run")
+                   for i, t in prev_trends.items() if i and i.startswith("yt-bench-") and i not in made]
     else:
         trends += [carry_trend(t, "YouTube RSS feeds could not be read this run")
                    for i, t in prev_trends.items() if i and i.startswith("yt-")]

@@ -2,7 +2,7 @@ name: Refresh live data
 
 on:
   schedule:
-    - cron: "17 6 * * *" # daily at 06:17 UTC
+    - cron: "17 9 * * *" # daily at 09:17 UTC, after Wikimedia has published the previous day's totals
   workflow_dispatch:
 
 permissions:
@@ -42,4 +42,6 @@ jobs:
             exit 0
           fi
           git commit -m "Refresh live data ($(date -u +%Y-%m-%dT%H:%MZ))"
+          # Someone may have pushed during the run; replay this commit on top of theirs.
+          git pull --rebase origin "${GITHUB_REF_NAME}"
           git push
