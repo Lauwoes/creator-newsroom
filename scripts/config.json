@@ -1,0 +1,613 @@
+{
+  "_comment": "Static inputs for scripts/fetch_data.py. Edit freely; the fetcher reads everything from here. Identities of the 16 channels and the 3 watch channels were verified on 2026-09-22 (channel page canonical ID = RSS feed author); see research notes. Wikipedia article titles were checked against the MediaWiki API on 2026-09-22.",
+  "contact": "https://github.com/Lauwoes/creator-newsroom",
+  "userAgent": "CreatorNewsroomDataBot/1.0 (+https://github.com/Lauwoes/creator-newsroom; NYU SPS hackathon prototype) python-urllib",
+  "browserUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36",
+  "benchNote": "Illustrative bench of 16 real public YouTube channels found through public YouTube search (not through YouTube Creator Partnerships). No channel has any known relationship with Brooks. Rates, fees and turnaround are not public and are not in this file.",
+  "creators": [
+    {
+      "id": "kofuzi",
+      "beat": "gear",
+      "name": "kofuzi",
+      "handle": "@kofuzi",
+      "channelId": "UCe43pe3w4L6w3tNMRkWiJBA",
+      "url": "https://www.youtube.com/@kofuzi",
+      "flags": [
+        "Reviews shoes from many brands, competitors included, so exclusivity terms would not fit."
+      ]
+    },
+    {
+      "id": "doctorsofrunning",
+      "beat": "gear",
+      "name": "Doctors of Running",
+      "handle": "@DoctorsofRunning",
+      "channelId": "UCpUtRsyAx5rluUDmF4k_gHw",
+      "url": "https://www.youtube.com/@DoctorsofRunning",
+      "flags": [
+        "Reviews shoes from many brands, competitors included, so exclusivity terms would not fit."
+      ]
+    },
+    {
+      "id": "keltieoconnor",
+      "beat": "beginner",
+      "name": "Keltie O'Connor",
+      "handle": "@KeltieOConnor",
+      "channelId": "UC9zEqIwv7yPQ8IlzNYpB_Aw",
+      "url": "https://www.youtube.com/@KeltieOConnor",
+      "flags": [
+        "General fitness and lifestyle channel, not a dedicated running channel. In the beginner beat for its reach to people who do not run yet; do not call it a running creator."
+      ]
+    },
+    {
+      "id": "nk-medani",
+      "beat": "beginner",
+      "name": "NK Medani",
+      "handle": "@nk.medani",
+      "channelId": "UCNhvxFNlvV3RwR7f3TdAunA",
+      "url": "https://www.youtube.com/@nk.medani",
+      "flags": []
+    },
+    {
+      "id": "philybowden",
+      "beat": "marathon",
+      "name": "Phily Bowden",
+      "handle": "@PhilyBowden",
+      "channelId": "UCzCCsm1ry8no4j-gS6TgySQ",
+      "url": "https://www.youtube.com/@PhilyBowden",
+      "flags": []
+    },
+    {
+      "id": "benisrunning",
+      "beat": "marathon",
+      "name": "Ben Is Running",
+      "handle": "@BenIsRunning",
+      "channelId": "UC-vlZFFRyWKx-d3LpoAhNfg",
+      "url": "https://www.youtube.com/@BenIsRunning",
+      "flags": []
+    },
+    {
+      "id": "jeffpelletier",
+      "beat": "trail",
+      "name": "Jeff Pelletier",
+      "handle": "@JeffPelletier",
+      "channelId": "UCNKMpnM_Yvf6E-Hhf9btYqA",
+      "url": "https://www.youtube.com/@JeffPelletier",
+      "flags": []
+    },
+    {
+      "id": "run4adventure",
+      "beat": "trail",
+      "name": "Run4Adventure",
+      "handle": "@Run4Adventure",
+      "channelId": "UCGMbTnk82pK0vmITB5LtiPw",
+      "url": "https://www.youtube.com/@Run4Adventure",
+      "flags": [
+        "A 2026-08-27 livestream title says 'powered by SCOTT Running' (SCOTT sells trail shoes). Relationship unverified.",
+        "Reviews shoes from many brands, competitors included, so exclusivity terms would not fit."
+      ]
+    },
+    {
+      "id": "noahanderson14",
+      "beat": "community",
+      "name": "Noah Anderson",
+      "handle": "@noahanderson14",
+      "channelId": "UC3B5F11oEtOwI-jXpwT0kHg",
+      "url": "https://www.youtube.com/@noahanderson14",
+      "flags": []
+    },
+    {
+      "id": "crownmyrun",
+      "beat": "community",
+      "name": "Crown my Run",
+      "handle": "@CrownMyRun",
+      "channelId": "UCV9Gjy-Ec1cWMaR_J0KSFXg",
+      "url": "https://www.youtube.com/@CrownMyRun",
+      "flags": [
+        "Below the 20k-subscriber floor (14.7K on 2026-09-22). Kept because no active run-club or parkrun channel between 20k and 200k was found; nearest 20k+ swap is Flora Beverley (@FloraBeverley)."
+      ]
+    },
+    {
+      "id": "allie-ostrander",
+      "beat": "womens",
+      "name": "Allie Ostrander",
+      "handle": "@allie_ostrander",
+      "channelId": "UCn5hg2riwFTCNif80JbaA8A",
+      "url": "https://www.youtube.com/@allie_ostrander",
+      "flags": []
+    },
+    {
+      "id": "hannahtrenches",
+      "beat": "womens",
+      "name": "Hannah Trenches",
+      "handle": "@hannahtrenches",
+      "channelId": "UCMbAwEnxe3yIJq06H8Ft5rg",
+      "url": "https://www.youtube.com/@hannahtrenches",
+      "flags": [
+        "A 2026-09-10 title promotes a Gymshark discount code (apparel, not footwear)."
+      ]
+    },
+    {
+      "id": "jamesdunne",
+      "beat": "recovery",
+      "name": "James Dunne",
+      "handle": "@JamesDunne",
+      "channelId": "UCEBjuHm_Z6hz8Q6C_dm8bSg",
+      "url": "https://www.youtube.com/@JamesDunne",
+      "flags": []
+    },
+    {
+      "id": "runbetterwithash",
+      "beat": "recovery",
+      "name": "Run Better with Ash",
+      "handle": "@RunBetterwithAsh",
+      "channelId": "UCB2zycIY_qMKZjlE98zO4gg",
+      "url": "https://www.youtube.com/@RunBetterwithAsh",
+      "flags": []
+    },
+    {
+      "id": "andirenay",
+      "beat": "shorts",
+      "name": "Andi Renay",
+      "handle": "@andirenay",
+      "channelId": "UCuchAnfKNzuKQ0T6pBQqurQ",
+      "url": "https://www.youtube.com/@andirenay",
+      "flags": [
+        "Her channel description says she is 21 and runs at FAU. If she is a current college athlete, her school's and the NCAA's NIL rules would apply to any paid deal; not verified."
+      ]
+    },
+    {
+      "id": "thefashionjogger",
+      "beat": "shorts",
+      "name": "The Fashion Jogger",
+      "handle": "@TheFashionJogger",
+      "channelId": "UC6khvHxqs_5VySwJ6amtG8Q",
+      "url": "https://www.youtube.com/@TheFashionJogger",
+      "flags": [
+        "A 2026-09-21 title tags @nikerunning and @nike on a Nike Alphafly 4 video. Any Nike relationship is unverified."
+      ]
+    }
+  ],
+  "youtube": {
+    "latestVideos": 5,
+    "velocityWindowDays": 7,
+    "velocityMinAgeHours": 24,
+    "keywordWindowDays": 14,
+    "_watchChannelsComment": "Review channels scanned only for product/topic keyword signals. They are NOT on the bench and nothing from them is attributed to bench creators. IDs verified 2026-09-22 (research alternates table).",
+    "watchChannels": [
+      {
+        "name": "Believe in the Run",
+        "handle": "@Believeintherun",
+        "channelId": "UC2-2J_y_jpOYz8Rld5C6C5w"
+      },
+      {
+        "name": "The Run Testers",
+        "handle": "@TheRunTesters",
+        "channelId": "UCOBM9FasII4dKbyE_HKkbjw"
+      },
+      {
+        "name": "Ben Parkes",
+        "handle": "@BenParkes",
+        "channelId": "UCZPqG0yh_xPm2AyLjffbDvw"
+      }
+    ],
+    "_keywordTopicsComment": "Python regular expressions, matched case-insensitively against video titles in the RSS feeds.",
+    "keywordTopics": [
+      {
+        "id": "ghost-18",
+        "topic": "Brooks Ghost 18 on YouTube",
+        "pattern": "\\bghost\\s*18\\b",
+        "beat": "gear",
+        "kind": "brand"
+      },
+      {
+        "id": "brooks",
+        "topic": "Brooks shoes on YouTube (any model)",
+        "pattern": "\\bbrooks\\b",
+        "beat": "gear",
+        "kind": "brand"
+      },
+      {
+        "id": "alphafly-4",
+        "topic": "Nike Alphafly 4 launch (competitor)",
+        "pattern": "\\balphafly\\s*4\\b",
+        "beat": "gear",
+        "kind": "competitor"
+      },
+      {
+        "id": "adios-pro-5",
+        "topic": "adidas Adios Pro 5 launch (competitor)",
+        "pattern": "\\badios\\s*pro\\s*5\\b",
+        "beat": "gear",
+        "kind": "competitor"
+      },
+      {
+        "id": "clifton-11",
+        "topic": "HOKA Clifton 11 (competitor daily trainer)",
+        "pattern": "\\bclifton\\s*11\\b",
+        "beat": "gear",
+        "kind": "competitor"
+      },
+      {
+        "id": "super-shoes",
+        "topic": "Super shoes and carbon plates",
+        "pattern": "super\\s*shoe|carbon[- ]?plate",
+        "beat": "gear",
+        "kind": "category"
+      },
+      {
+        "id": "berlin-marathon",
+        "topic": "Berlin Marathon on YouTube",
+        "pattern": "\\bberlin\\b",
+        "beat": "marathon",
+        "kind": "race"
+      },
+      {
+        "id": "chicago-marathon",
+        "topic": "Chicago Marathon on YouTube",
+        "pattern": "\\bchicago\\b",
+        "beat": "marathon",
+        "kind": "race"
+      },
+      {
+        "id": "nyc-marathon",
+        "topic": "New York City Marathon on YouTube",
+        "pattern": "\\b(nyc|new york( city)?)\\s+marathon\\b",
+        "beat": "marathon",
+        "kind": "race"
+      },
+      {
+        "id": "run-club",
+        "topic": "Run clubs and parkrun",
+        "pattern": "\\brun(ning)?\\s*club\\b|\\bparkrun\\b",
+        "beat": "community",
+        "kind": "category"
+      },
+      {
+        "id": "beginner",
+        "topic": "Beginner running",
+        "pattern": "\\bbeginners?\\b|couch\\s*to\\s*5k|\\bfirst\\s+(5k|10k|half|marathon)\\b",
+        "beat": "beginner",
+        "kind": "category"
+      },
+      {
+        "id": "trail-ultra",
+        "topic": "Trail and ultra",
+        "pattern": "\\btrails?\\b|\\bultra[- ]?(marathon|running|runner|race|trail)s?\\b|\\bultras\\b|\\b(50|100) ?(k|km|mile|miler)s?\\b",
+        "beat": "trail",
+        "kind": "category"
+      },
+      {
+        "id": "injury-recovery",
+        "topic": "Injury, pain and recovery (health topic: claims register applies)",
+        "pattern": "\\binjur|\\bpain\\b|shin\\s*splints|plantar|\\bknee|achilles|hamstring|\\bglute|\\bstretch|\\bmobility\\b",
+        "beat": "recovery",
+        "kind": "health"
+      }
+    ]
+  },
+  "wikimedia": {
+    "_comment": "English Wikipedia daily pageviews (agent=user). Titles use underscores. Excluded on purpose: 'Running' (unexplained structural jump on 26-27 Aug 2026), 'Running_club' (~5 views/day), 'Sneakers' (redirect target of 'Running shoe', a weak proxy).",
+    "project": "en.wikipedia",
+    "daysBack": 63,
+    "minPrevWeekViews": 200,
+    "delaySeconds": 1.0,
+    "articles": [
+      {
+        "id": "hyrox",
+        "article": "Hyrox",
+        "topic": "Hyrox (fitness racing)",
+        "beat": "community",
+        "kind": "category",
+        "note": "Research on 2026-09-22 found the September 2026 spike was driven by a controversy (a red-list example, not a brief). Check the cause of any spike before briefing."
+      },
+      {
+        "id": "on-company",
+        "article": "On_(company)",
+        "topic": "On (competitor)",
+        "beat": "gear",
+        "kind": "competitor"
+      },
+      {
+        "id": "half-marathon",
+        "article": "Half_marathon",
+        "topic": "Half marathon",
+        "beat": "marathon",
+        "kind": "category"
+      },
+      {
+        "id": "marathon",
+        "article": "Marathon",
+        "topic": "Marathon (general)",
+        "beat": "marathon",
+        "kind": "category"
+      },
+      {
+        "id": "berlin-marathon",
+        "article": "Berlin_Marathon",
+        "topic": "Berlin Marathon",
+        "beat": "marathon",
+        "kind": "race"
+      },
+      {
+        "id": "chicago-marathon",
+        "article": "Chicago_Marathon",
+        "topic": "Chicago Marathon",
+        "beat": "marathon",
+        "kind": "race"
+      },
+      {
+        "id": "nyc-marathon",
+        "article": "New_York_City_Marathon",
+        "topic": "New York City Marathon",
+        "beat": "marathon",
+        "kind": "race"
+      },
+      {
+        "id": "boston-marathon",
+        "article": "Boston_Marathon",
+        "topic": "Boston Marathon",
+        "beat": "marathon",
+        "kind": "race"
+      },
+      {
+        "id": "trail-running",
+        "article": "Trail_running",
+        "topic": "Trail running",
+        "beat": "trail",
+        "kind": "category"
+      },
+      {
+        "id": "ultramarathon",
+        "article": "Ultramarathon",
+        "topic": "Ultramarathon",
+        "beat": "trail",
+        "kind": "category"
+      },
+      {
+        "id": "couch-to-5k",
+        "article": "Couch_to_5K",
+        "topic": "Couch to 5K",
+        "beat": "beginner",
+        "kind": "category"
+      },
+      {
+        "id": "5k-run",
+        "article": "5K_run",
+        "topic": "5K run",
+        "beat": "beginner",
+        "kind": "category"
+      },
+      {
+        "id": "parkrun",
+        "article": "Parkrun",
+        "topic": "parkrun",
+        "beat": "community",
+        "kind": "category"
+      },
+      {
+        "id": "strava",
+        "article": "Strava",
+        "topic": "Strava",
+        "beat": "community",
+        "kind": "category"
+      },
+      {
+        "id": "zone-2",
+        "article": "Zone_2_training",
+        "topic": "Zone 2 training",
+        "beat": "recovery",
+        "kind": "category",
+        "note": "This article's pageview series only starts on 2026-09-02."
+      },
+      {
+        "id": "plantar-fasciitis",
+        "article": "Plantar_fasciitis",
+        "topic": "Plantar fasciitis (health topic: claims register applies)",
+        "beat": "recovery",
+        "kind": "health"
+      },
+      {
+        "id": "shin-splints",
+        "article": "Shin_splints",
+        "topic": "Shin splints (health topic: claims register applies)",
+        "beat": "recovery",
+        "kind": "health"
+      },
+      {
+        "id": "super-shoes",
+        "article": "Super_shoes",
+        "topic": "Super shoes",
+        "beat": "gear",
+        "kind": "category"
+      },
+      {
+        "id": "brooks",
+        "article": "Brooks_Sports",
+        "topic": "Brooks (the brand)",
+        "beat": "gear",
+        "kind": "brand"
+      },
+      {
+        "id": "hoka",
+        "article": "Hoka",
+        "topic": "HOKA (competitor)",
+        "beat": "gear",
+        "kind": "competitor"
+      },
+      {
+        "id": "saucony",
+        "article": "Saucony",
+        "topic": "Saucony (competitor)",
+        "beat": "gear",
+        "kind": "competitor"
+      },
+      {
+        "id": "asics",
+        "article": "Asics",
+        "topic": "ASICS (competitor)",
+        "beat": "gear",
+        "kind": "competitor"
+      },
+      {
+        "id": "new-balance",
+        "article": "New_Balance",
+        "topic": "New Balance (competitor)",
+        "beat": "gear",
+        "kind": "competitor"
+      },
+      {
+        "id": "nike",
+        "article": "Nike,_Inc.",
+        "topic": "Nike (competitor)",
+        "beat": "gear",
+        "kind": "competitor"
+      },
+      {
+        "id": "adidas",
+        "article": "Adidas",
+        "topic": "adidas (competitor)",
+        "beat": "gear",
+        "kind": "competitor"
+      }
+    ]
+  },
+  "googleTrends": {
+    "_comment": "Unofficial Google Trends web endpoints (explore -> widgetdata/multiline). Best effort only: they rate-limit (HTTP 429) quickly and are untested from GitHub Actions IPs. On failure the last good values are kept and flagged stale. Values are a 0-100 index relative to each chart's own peak, so compare only within one chart.",
+    "enabled": true,
+    "geo": "US",
+    "tz": 240,
+    "timeBudgetSeconds": 240,
+    "delayBetweenCallsSeconds": 2,
+    "delayBetweenTermsSeconds": 4,
+    "stopAfterConsecutiveFailures": 2,
+    "terms": [
+      {
+        "id": "trail-running-shoes",
+        "keyword": "trail running shoes",
+        "topic": "Trail running shoes",
+        "beat": "trail",
+        "kind": "category",
+        "timeframe": "today 3-m"
+      },
+      {
+        "id": "run-club",
+        "keyword": "run club",
+        "topic": "Run clubs",
+        "beat": "community",
+        "kind": "category",
+        "timeframe": "today 3-m"
+      },
+      {
+        "id": "couch-to-5k",
+        "keyword": "couch to 5k",
+        "topic": "Couch to 5K",
+        "beat": "beginner",
+        "kind": "category",
+        "timeframe": "today 3-m"
+      },
+      {
+        "id": "zone-2-running",
+        "keyword": "zone 2 running",
+        "topic": "Zone 2 running",
+        "beat": "recovery",
+        "kind": "category",
+        "timeframe": "today 3-m"
+      },
+      {
+        "id": "half-marathon-training",
+        "keyword": "half marathon training",
+        "topic": "Half marathon training",
+        "beat": "marathon",
+        "kind": "category",
+        "timeframe": "today 3-m"
+      },
+      {
+        "id": "berlin-marathon",
+        "keyword": "berlin marathon",
+        "topic": "Berlin Marathon",
+        "beat": "marathon",
+        "kind": "race",
+        "timeframe": "today 3-m"
+      },
+      {
+        "id": "chicago-marathon",
+        "keyword": "chicago marathon",
+        "topic": "Chicago Marathon",
+        "beat": "marathon",
+        "kind": "race",
+        "timeframe": "today 3-m"
+      },
+      {
+        "id": "nyc-marathon",
+        "keyword": "nyc marathon",
+        "topic": "New York City Marathon",
+        "beat": "marathon",
+        "kind": "race",
+        "timeframe": "today 3-m"
+      },
+      {
+        "id": "brooks-running",
+        "keyword": "brooks running",
+        "topic": "Brooks Running (the brand)",
+        "beat": "gear",
+        "kind": "brand",
+        "timeframe": "today 3-m"
+      },
+      {
+        "id": "hoka",
+        "keyword": "hoka",
+        "topic": "HOKA (competitor)",
+        "beat": "gear",
+        "kind": "competitor",
+        "timeframe": "today 3-m"
+      }
+    ],
+    "comparisons": [
+      {
+        "id": "shoes",
+        "timeframe": "today 1-m",
+        "label": "five-shoe comparison chart",
+        "keywords": [
+          {
+            "keyword": "ghost 18",
+            "topic": "Brooks Ghost 18",
+            "beat": "gear",
+            "kind": "brand",
+            "caveat": "The bare keyword 'ghost 18' can also catch searches unrelated to the shoe; read it as an upper bound."
+          },
+          {
+            "keyword": "hyperion elite 6",
+            "topic": "Brooks Hyperion Elite 6",
+            "beat": "gear",
+            "kind": "brand"
+          },
+          {
+            "keyword": "clifton 11",
+            "topic": "HOKA Clifton 11 (competitor)",
+            "beat": "gear",
+            "kind": "competitor"
+          },
+          {
+            "keyword": "alphafly 4",
+            "topic": "Nike Alphafly 4 (competitor)",
+            "beat": "gear",
+            "kind": "competitor"
+          },
+          {
+            "keyword": "adios pro 5",
+            "topic": "adidas Adios Pro 5 (competitor)",
+            "beat": "gear",
+            "kind": "competitor"
+          }
+        ]
+      }
+    ]
+  },
+  "notes": [
+    "Trend signals are public stand-ins (Wikipedia pageviews, YouTube RSS, Google Trends web data). They are not Insights Finder or Brand Pulse output; in the pilot those products replace them.",
+    "Views are YouTube RSS counts (media:statistics). The feed is cached for up to 15 minutes and can lag the watch page.",
+    "Since 2026-08-24 YouTube counts a public view from the first frame (TeamYouTube, https://support.google.com/youtube/thread/433409976?hl=en, accessed 2026-09-22). Agentio measured that about 52% of new public views in Fitness are engaged views (https://www.agentio.com/blog/youtube-new-view-count-60-engaged-view-rate, accessed 2026-09-22). Views here are the public count.",
+    "Subscriber counts are YouTube's public abbreviated figures (3 significant figures). The number is the abbreviation expanded, not an exact count.",
+    "A value marked stale:true could not be refreshed on this run; it is the last good value, captured at lastSuccess."
+  ]
+}
