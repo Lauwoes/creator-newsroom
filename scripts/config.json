@@ -282,6 +282,55 @@
         "pattern": "\\binjur|\\bpain\\b|shin\\s*splints|plantar|\\bknee|achilles|hamstring|\\bglute|\\bstretch|\\bmobility\\b",
         "beat": "recovery",
         "kind": "health"
+      },
+      {
+        "id": "turkey-trot",
+        "topic": "Turkey trots on YouTube",
+        "pattern": "\\bturkey\\s*trot",
+        "beat": "community",
+        "kind": "category"
+      },
+      {
+        "id": "black-friday",
+        "topic": "Black Friday and Cyber Monday deals",
+        "pattern": "\\bblack\\s*friday\\b|\\bcyber\\s*monday\\b",
+        "beat": "gear",
+        "kind": "category"
+      },
+      {
+        "id": "gift-guide",
+        "topic": "Gift guides for runners",
+        "pattern": "\\bgift",
+        "beat": "gear",
+        "kind": "category"
+      },
+      {
+        "id": "winter",
+        "topic": "Winter and cold-weather running",
+        "pattern": "\\bwinter\\b|\\bcold\\b",
+        "beat": "womens",
+        "kind": "category"
+      },
+      {
+        "id": "indy-monumental",
+        "topic": "Indianapolis Monumental on YouTube",
+        "pattern": "\\bmonumental\\b",
+        "beat": "marathon",
+        "kind": "race"
+      },
+      {
+        "id": "cim",
+        "topic": "California International Marathon on YouTube",
+        "pattern": "\\bCIM\\b|\\bcalifornia international\\b",
+        "beat": "marathon",
+        "kind": "race"
+      },
+      {
+        "id": "marathon-recovery",
+        "topic": "Recovery after a marathon",
+        "pattern": "\\brecover(y|ing|ed)?\\b",
+        "beat": "recovery",
+        "kind": "health"
       }
     ]
   },
@@ -468,6 +517,43 @@
         "topic": "adidas (competitor)",
         "beat": "gear",
         "kind": "competitor"
+      },
+      {
+        "id": "turkey-trot",
+        "article": "Turkey_trot",
+        "topic": "Turkey trots (Thanksgiving races)",
+        "beat": "community",
+        "kind": "category",
+        "note": "Seasonal: Thanksgiving is 26 Nov 2026."
+      },
+      {
+        "id": "indy-monumental",
+        "article": "Indianapolis_Monumental_Marathon",
+        "topic": "Indianapolis Monumental Marathon",
+        "beat": "marathon",
+        "kind": "race",
+        "note": "Brooks is a presenting sponsor of this race (official footwear and apparel sponsor; monumentalmarathon.com and Running USA release, checked 23 Sep 2026)."
+      },
+      {
+        "id": "philadelphia-marathon",
+        "article": "Philadelphia_Marathon",
+        "topic": "Philadelphia Marathon",
+        "beat": "marathon",
+        "kind": "race"
+      },
+      {
+        "id": "jfk-50",
+        "article": "JFK_50_Mile",
+        "topic": "JFK 50 Mile",
+        "beat": "trail",
+        "kind": "race"
+      },
+      {
+        "id": "cim",
+        "article": "California_International_Marathon",
+        "topic": "California International Marathon",
+        "beat": "marathon",
+        "kind": "race"
       }
     ]
   },
@@ -476,7 +562,7 @@
     "enabled": true,
     "geo": "US",
     "tz": 240,
-    "timeBudgetSeconds": 240,
+    "timeBudgetSeconds": 420,
     "delayBetweenCallsSeconds": 2,
     "delayBetweenTermsSeconds": 4,
     "stopAfterConsecutiveFailures": 2,
@@ -522,22 +608,6 @@
         "timeframe": "today 3-m"
       },
       {
-        "id": "berlin-marathon",
-        "keyword": "berlin marathon",
-        "topic": "Berlin Marathon",
-        "beat": "marathon",
-        "kind": "race",
-        "timeframe": "today 3-m"
-      },
-      {
-        "id": "chicago-marathon",
-        "keyword": "chicago marathon",
-        "topic": "Chicago Marathon",
-        "beat": "marathon",
-        "kind": "race",
-        "timeframe": "today 3-m"
-      },
-      {
         "id": "nyc-marathon",
         "keyword": "nyc marathon",
         "topic": "New York City Marathon",
@@ -559,6 +629,54 @@
         "topic": "HOKA (competitor)",
         "beat": "gear",
         "kind": "competitor",
+        "timeframe": "today 3-m"
+      },
+      {
+        "id": "turkey-trot",
+        "keyword": "turkey trot",
+        "topic": "Turkey trots",
+        "beat": "community",
+        "kind": "category",
+        "timeframe": "today 3-m"
+      },
+      {
+        "id": "black-friday-running-shoes",
+        "keyword": "running shoes black friday",
+        "topic": "Black Friday running shoe deals",
+        "beat": "gear",
+        "kind": "category",
+        "timeframe": "today 3-m"
+      },
+      {
+        "id": "winter-running",
+        "keyword": "winter running",
+        "topic": "Winter running",
+        "beat": "womens",
+        "kind": "category",
+        "timeframe": "today 3-m"
+      },
+      {
+        "id": "gifts-for-runners",
+        "keyword": "gifts for runners",
+        "topic": "Gifts for runners",
+        "beat": "community",
+        "kind": "category",
+        "timeframe": "today 3-m"
+      },
+      {
+        "id": "marathon-recovery",
+        "keyword": "marathon recovery",
+        "topic": "Marathon recovery",
+        "beat": "recovery",
+        "kind": "category",
+        "timeframe": "today 3-m"
+      },
+      {
+        "id": "boston-marathon",
+        "keyword": "boston marathon",
+        "topic": "Boston Marathon",
+        "beat": "marathon",
+        "kind": "race",
         "timeframe": "today 3-m"
       }
     ],

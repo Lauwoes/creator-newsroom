@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Embed a slim copy of data/live.json into index.html as the page's fallback snapshot.
+"""Embed a slim copy of data/live.json into app.js as the page's fallback snapshot.
 
 The page loads data/live.json when it opens. If that fails (offline, file:// URL, a
 broken deploy), it uses the snapshot embedded between the /*SNAP*/ markers instead.
@@ -15,7 +15,7 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LIVE = os.path.join(ROOT, "data", "live.json")
-PAGE = os.path.join(ROOT, "index.html")
+PAGE = os.path.join(ROOT, "app.js")
 
 CREATOR_FIELDS = ["id", "beat", "name", "handle", "channelId", "url", "flags", "medianViews15", "uploads30d",
                   "uploads30dIsFloor", "shortsInLast15", "daysSinceLastUpload", "feedStale", "subscribers",
@@ -47,7 +47,7 @@ def main():
     blob = json.dumps(slim, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     new_page, n = re.subn(r"/\*SNAP\*/.*?/\*SNAP\*/", lambda m: "/*SNAP*/" + blob + "/*SNAP*/", page, count=1, flags=re.S)
     if n != 1:
-        print("error: /*SNAP*/ markers not found in index.html", file=sys.stderr)
+        print("error: /*SNAP*/ markers not found in app.js", file=sys.stderr)
         sys.exit(1)
     if new_page != page:
         open(PAGE, "w", encoding="utf-8").write(new_page)
