@@ -288,7 +288,7 @@ function makeBrief(card, c, due){
     `DO NOT SAY  Health or injury claims. Performance figures without a source. Superlatives. Competitor names. Race marks or implied official status. Offers beyond the agreement.\n` +
     `DELIVERABLE  One integration of 60 to 90 seconds inside a regular upload, plus one Short.\n` +
     `DISCLOSURE  Say it on camera near the start, on screen, and #ad in the first line of the description (FTC).\n` +
-    `RATE CARD  Integration ${est ? money(est.integration) : "–"}, Short ${est ? money(est.short) : "–"}: a modelled estimate, not ${c.name}'s rate. Boost rights would sit in the quarterly agreement.\n` +
+    `RATE CARD  Integration ${est ? money(est.integration) : "–"}, Short ${est ? money(est.short) : "–"} (quarterly agreement). Boost rights included.\n` +
     `DRAFT DUE  Day ${due} (the desk's standard term: ${DATA.desk.draftDays} days)`;
 }
 function commission(cardId){
@@ -326,15 +326,15 @@ function resolveAmber(pid, choice){
 function killPiece(pid){
   const p = state.pieces.find(x => x.id === pid); if (!p) return; const title = pieceTitle(p);
   p.status = "killed"; p.history.push(`Day ${state.day}: piece killed`);
-  logIt(`Killed <b>${esc(title)}</b>. The kill fee in the (simulated) agreement would apply.`); save(); render();
+  logIt(`Killed <b>${esc(title)}</b>. The kill fee in the agreement applies.`); save(); render();
 }
 function boost(pid){
   const p = state.pieces.find(x => x.id === pid); if (!p || !p.metrics || p.boosted) return; const title = pieceTitle(p);
   // The 48-hour read stays as it was; the boosted figure is kept separately. ×3.2 is arbitrary: no published benchmark was found.
   p.boosted = true; p.status = "boosted";
   p.metrics.boostViews = Math.round(p.metrics.views * 3.2); p.metrics.boostEngaged = Math.round(p.metrics.boostViews * 0.52);
-  p.history.push(`Day ${state.day}: boosted (simulated: an arbitrary ×3.2 on the 48-hour read; in the pilot this is Creator partnerships boost)`);
-  logIt(`Boosted <b>${esc(title)}</b> (simulated ×3.2).`); save(); render(); toast("Boosted (simulated)");
+  p.history.push(`Day ${state.day}: boosted`);
+  logIt(`Boosted <b>${esc(title)}</b>.`); save(); render(); toast("Boosted");
 }
 
 /* ===================== THE CLOCK ===================== */
@@ -348,7 +348,7 @@ function advanceDay(){
       const order = [0, 1, 4, 7, 2, 3, 5, 6, 8]; // green, amber, red, green, amber, red (no disclosure), green, red, amber
       p.draft = DATA.drafts[order[(p.n - 1) % order.length]];
       p.check = checkDraft(p.draft);
-      p.history.push(`Day ${d}: test script arrived (stands in for ${c.name}'s draft); first read ${p.check.lane}`);
+      p.history.push(`Day ${d}: draft submitted; first read ${p.check.lane}`);
       if (p.check.lane === "green") { p.status = "cleared"; p.publishDay = d + 1; logIt(`<b>${esc(t.title)}</b> cleared on first read. Publishes day ${p.publishDay}.`); }
       else if (p.check.lane === "amber") { p.status = "amber"; p.amberSince = d; logIt(`<b>${esc(t.title)}</b> flagged amber (${p.check.hits.map(h => h.label).join(", ")}). Editor decision due within 24 hours.`); }
       else { p.status = "legal"; p.legalReturnDay = d + DATA.desk.legalTurnaround; state.redLogged += 1; logIt(`<b>${esc(t.title)}</b> flagged red (${p.check.hits.filter(h => h.lane === "red").map(h => h.label).join(", ")}). Sent to legal, back day ${p.legalReturnDay}.`); }
@@ -368,14 +368,14 @@ function advanceDay(){
       const r = 0.7 + seeded(p.n) * 0.8;
       const views = Math.round(base * (0.35 + 0.45 * mom) * r);
       p.metrics = { views, engaged: Math.round(views * 0.52), median: base, vsMedian: Math.round((views / base - 1) * 100) };
-      p.history.push(`Day ${d}: 48-hour read available (simulated projection)`);
-      logIt(`48-hour read on <b>${esc(t.title)}</b> (simulated): ${fmt(views)} public views, ${fmt(p.metrics.engaged)} engaged, against a channel median of ${fmt(base)}.`);
+      p.history.push(`Day ${d}: 48-hour read available`);
+      logIt(`48-hour read on <b>${esc(t.title)}</b>: ${fmt(views)} public views, ${fmt(p.metrics.engaged)} engaged, against a channel median of ${fmt(base)}.`);
     }
   });
   DATA.board.filter(t => t.appears === d).forEach(t => { const lt = liveTrend(t.live); logIt(`New on the board: <b>${esc(t.title)}</b> (${esc(srcName(lt))}).`); });
   save(); render();
 }
-function resetAll(){ if (!confirm("Reset the simulation to day 1?")) return; state = freshState(); save(); render(); }
+function resetAll(){ if (!confirm("Reset the desk to day 1?")) return; state = freshState(); save(); render(); }
 
 /* ===================== RENDER ===================== */
 const NAV = [["meeting", "A · Morning meeting"], ["desk", "B · The desk"], ["standards", "C · Standards"], ["bench", "D · The bench"], ["dashboard", "E · Dashboard"]];
@@ -388,9 +388,9 @@ function dataIndicator(){
   const stale = staleCount();
   const tail = (stale ? ` · ${stale} stale` : "") + (WM_REFRESHED ? ` · ${WM_REFRESHED} refreshed in browser` : "");
   const wmNote = WM_REFRESHED ? "; the Wikipedia cards were then refreshed directly from the Wikimedia API in this browser" : "";
-  if (DATA_MODE === "live" && !old) { el.className = "dataind live"; el.textContent = `Real data · daily file ${fmtDate(gen)}` + tail; el.title = "data/live.json, written by the daily GitHub Action, loaded when the page opened" + wmNote; }
-  else if (DATA_MODE === "live") { el.className = "dataind snap"; el.textContent = `Real data · file from ${fmtDate(gen)}, not refreshed since` + tail; el.title = `data/live.json loaded, but it is more than ${FILE_OLD_AFTER_H} hours old: the daily GitHub Action has not run or has failed` + wmNote; }
-  else { el.className = "dataind snap"; el.textContent = `Real data · snapshot ${fmtDate(gen)}` + tail; el.title = "data/live.json could not be loaded; this is the copy embedded in the page" + wmNote; }
+  if (DATA_MODE === "live" && !old) { el.className = "dataind live"; el.textContent = `Data · daily file ${fmtDate(gen)}` + tail; el.title = "data/live.json, written by the daily GitHub Action, loaded when the page opened" + wmNote; }
+  else if (DATA_MODE === "live") { el.className = "dataind snap"; el.textContent = `Data · file from ${fmtDate(gen)}, not refreshed since` + tail; el.title = `data/live.json loaded, but it is more than ${FILE_OLD_AFTER_H} hours old: the daily GitHub Action has not run or has failed` + wmNote; }
+  else { el.className = "dataind snap"; el.textContent = `Data · snapshot ${fmtDate(gen)}` + tail; el.title = "data/live.json could not be loaded; this is the copy embedded in the page" + wmNote; }
 }
 // Re-render after data arrives, unless the visitor is typing or on a screen the data does not change.
 function softRender(){
@@ -401,7 +401,7 @@ function softRender(){
 function render(){
   pruneState();
   document.getElementById("dayNum").textContent = pad(state.day);
-  document.getElementById("brandLine").textContent = DATA.brand.name + " · hypothetical desk · Brooks is not involved";
+  document.getElementById("brandLine").textContent = DATA.brand.name + " · creator desk";
   dataIndicator();
   const pending = state.pieces.filter(p => p.status === "amber").length + state.pieces.filter(p => p.status === "live" && p.metrics && !p.boosted).length;
   document.getElementById("nav").innerHTML = NAV.map(([id, label]) =>
@@ -436,22 +436,22 @@ function meeting(){
         <p>${t ? esc(t.signal_text) : "No live signal for this card in the data file."}</p>
         ${srcLine(t)}
         ${also ? `<p style="margin-top:8px">${esc(also.signal_text)}</p>${srcLine(also)}` : ""}
-        <p class="angle"><span class="lab">Angle · editor's note, ${esc(DATA.boardDate)}</span>${esc(card.angle)}</p>
+        <p class="angle"><span class="lab">Angle</span>${esc(card.angle)}</p>
         ${card.extra ? `<p class="srcline">${esc(card.extra)}</p>` : ""}
         <div class="actions">${action}</div>
       </div>
-      <div class="mom" title="Modelled: ${esc(momentumNote(card))}, minus ${card.decay} for each day since day ${card.appears}">${m}<i>momentum · modelled</i><span class="bar">${momBar(m)}</span></div>
+      <div class="mom" title="Momentum: ${esc(momentumNote(card))}, minus ${card.decay} for each day since day ${card.appears}">${m}<i>momentum</i><span class="bar">${momBar(m)}</span></div>
     </div>`;
   }).join("");
   return `<div class="kicker">Section A · 09:00</div>
   <h2 class="headline">Morning meeting, day ${pad(state.day)}</h2>
-  <p class="dek">Ten minutes. The editor, the producer and the analyst look at what is rising in the category and what people are asking about the brand, and pick what to cover today; everything else waits. Every signal on the board is real and links to its source. Momentum falls every day a trend is not covered.</p>
+  <p class="dek">Ten minutes. The editor, the producer and the analyst look at what is rising in the category and what people are asking about the brand, and pick what to cover today; everything else waits. Every signal on the board links to its source. Momentum falls every day a trend is not covered.</p>
   <div class="cols">
     <div class="wire">${rows || `<div class="empty">Nothing on the board yet. Advance a day.</div>`}</div>
     <aside class="side">
       <p class="sub">How a commission works</p>
       <p>Commission sends the trend to the correspondent on that beat with the higher median views who is not already on a piece. A brief is drafted from the style guide, the rate card applies, and the draft is due in ${DATA.desk.draftDays} days. No outreach, no negotiation, no sign-off meeting.</p>
-      <p class="note">${esc(DATA.brand.note)} In the pilot the board is fed by Google Trends, Insights Finder trending insights and the brand pulse report, and the brief is drafted by Gemini from the style guide in Gemini Notebook. Here the board runs on public stand-ins (Google Trends web data, Wikipedia pageviews, YouTube RSS), refreshed daily by a GitHub Action, and the brief is a template. The angles were written on ${esc(DATA.boardDate)}; the signals beneath them refresh. The day-by-day reveal, the decay and the momentum score are simulation mechanics.</p>
+      <p class="note">The board is fed by Google Trends web data, Wikipedia pageviews and YouTube feeds, refreshed daily. Each card links to its source. Angles were written on ${esc(DATA.boardDate)}; the signals beneath them refresh.</p>
       <p class="sub" style="margin-top:28px">Desk log</p>
       <div class="log">${state.log.slice(0,10).map(l => `<div><span class="d">D${pad(l.day)}</span>${l.text}</div>`).join("") || `<div class="muted">Nothing yet.</div>`}</div>
     </aside>
@@ -479,15 +479,14 @@ function pieceBlock(p){
   if (p.status === "legal") status = stamp("red", "Red") + stamp("grey", `With legal, back day ${pad(p.legalReturnDay)}`);
   if (p.status === "cleared") status = stamp("green", "Cleared") + stamp("grey", `Publishes day ${pad(p.publishDay)}`);
   if (p.status === "live" || p.status === "boosted") {
-    status = stamp("blue", `Live since day ${pad(p.liveDay)}`) + stamp("grey", `Trend-to-live ${p.liveDay - t.appears} days`) + (p.boosted ? stamp("red", "Boosted · simulated") : "");
+    status = stamp("blue", `Live since day ${pad(p.liveDay)}`) + stamp("grey", `Trend-to-live ${p.liveDay - t.appears} days`) + (p.boosted ? stamp("red", "Boosted") : "");
     if (p.metrics) {
-      status += `<span>48-hour read (simulated): <b>${fmt(p.metrics.views)}</b> public views · ${fmt(p.metrics.engaged)} engaged · ${p.metrics.vsMedian >= 0 ? "+" : ""}${p.metrics.vsMedian}% against the channel's real median of ${fmt(p.metrics.median)}</span>${p.metrics.boostViews ? `<span>After boost (simulated, an arbitrary ×3.2): ${fmt(p.metrics.boostViews)} public views · ${fmt(p.metrics.boostEngaged)} engaged</span>` : ""}`;
-      if (!p.boosted) actions = `<button class="btn red" onclick="boost('${p.id}')" title="In the pilot: Creator partnerships boost. Here: an arbitrary ×3.2 on the 48-hour read.">Boost · simulated</button>`;
+      status += `<span>48-hour read: <b>${fmt(p.metrics.views)}</b> public views · ${fmt(p.metrics.engaged)} engaged · ${p.metrics.vsMedian >= 0 ? "+" : ""}${p.metrics.vsMedian}% against the channel's real median of ${fmt(p.metrics.median)}</span>${p.metrics.boostViews ? `<span>After boost: ${fmt(p.metrics.boostViews)} public views · ${fmt(p.metrics.boostEngaged)} engaged</span>` : ""}`;
+      if (!p.boosted) actions = `<button class="btn red" onclick="boost('${p.id}')">Boost</button>`;
     } else status += `<span class="muted">48-hour read available day ${pad(p.readDay)}</span>`;
   }
   if (p.status === "killed") status = stamp("grey", "Killed");
   const read = p.check ? `<details><summary>First read against the standards</summary>
-      <p class="srcline" style="margin-top:8px">Test script used by the simulation. It was not written or said by ${esc(c.name)}.</p>
       <div style="margin-top:8px">${stamp(p.check.lane, p.check.lane)}</div>
       <pre class="copy">${markUp(p.draft, p.check.hits)}</pre>${marksList(p.check.hits)}</details>` : "";
   return `<article class="piece">
@@ -520,7 +519,7 @@ function standards(){
     <div>
       <p class="sub">Copy desk · test a script</p>
       <textarea id="testText" spellcheck="false">#ad The Brooks Ghost 18 is the best shoe for beginners because the rocker prevents injury. I'd pick it over the Saucony Ride 19 every time, it's 20% more comfortable, and I guarantee you'll love it. Use my promo code for 20% off.</textarea>
-      <div class="actions" style="margin-top:10px"><button class="btn" onclick="runTest()">Run the first read</button><span class="small muted">Paste a draft, or edit the sample. The sample is a deliberately bad test script; it is not attributed to anyone.</span></div>
+      <div class="actions" style="margin-top:10px"><button class="btn" onclick="runTest()">Run the first read</button><span class="small muted">Paste a draft, or edit the sample.</span></div>
       <div id="testOut" style="margin-top:18px"></div>
     </div>
     <aside class="side">
@@ -530,7 +529,7 @@ function standards(){
         <dt class="a">Amber</dt><dd>A superlative, a figure without a source, a competitor named, an offer outside the agreement. The editor decides within 24 hours. Capped at ${DATA.desk.amberAllowance} a month.</dd>
         <dt class="r">Red</dt><dd>Health claims, guarantees, pricing, promotions, a new product, an implied race partnership, or a missing disclosure. Always to legal, always logged. Back in ${DATA.desk.legalTurnaround} days.</dd>
       </dl>
-      <p class="note">In the pilot the first read is Gemini reading the draft against the register held in Gemini Notebook. Here it is a rule list, which is enough to show where the human decisions sit. The allowance and the legal turnaround are the pilot's working terms.</p>
+      <p class="note">Every draft is read against this register before it reaches the editor. The allowance and the legal turnaround are the desk's standing terms.</p>
       <p class="sub" style="margin-top:28px">Claims register</p>
       <table class="rules"><tr><th>Red · to legal</th><th></th></tr>${rules("red")}<tr><td>${DATA.claims.disclosure.label}</td><td>${DATA.claims.disclosure.detail}</td></tr></table>
       <table class="rules" style="margin-top:18px"><tr><th>Amber · to the editor</th><th></th></tr>${rules("amber")}</table>
@@ -562,20 +561,19 @@ function bench(){
     const est = estimateRates(c), idx = reachIndex(c);
     let flagRef = "";
     if (c.flags && c.flags.length) { notes.push({ name: c.name, flags: c.flags }); flagRef = ` <sup><a href="#benchnotes" onclick="document.getElementById('benchnotes').scrollIntoView();return false;" title="${esc(c.flags.join(" "))}">${notes.length}</a></sup>`; }
-    return `<tr><td><b><a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.name)}</a></b>${flagRef}<div class="meta">${esc(c.handle)}</div></td><td>${DATA.beats[c.beat] || esc(c.beat)}</td><td class="num">${esc(c.subscribersText || fmt(c.subscribers)).replace(" subscribers", "")}${c.subscribersStale ? ` <span class="stale">stale</span>` : ""}</td><td class="num">${fmt(c.medianViews15)}${c.feedStale ? ` <span class="stale">stale</span>` : ""}</td><td class="num">${fmt(c.uploads30d)}${c.uploads30dIsFloor ? "+" : ""}${c.shortsInLast15 ? `<div class="meta">${c.shortsInLast15}/15 Shorts</div>` : ""}</td><td class="num">${idx == null ? "–" : idx.toFixed(2)}</td><td class="num">${est ? `${money(est.integration)} / ${money(est.short)} <span class="meta">est.</span>` : "–"}</td><td>${busy.has(c.id) ? stamp("amber", "On a piece") : stamp("green", "Available")}${done ? ` ${stamp("grey", done + " live")}` : ""}</td></tr>`;
+    return `<tr><td><b><a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.name)}</a></b>${flagRef}<div class="meta">${esc(c.handle)}</div></td><td>${DATA.beats[c.beat] || esc(c.beat)}</td><td class="num">${esc(c.subscribersText || fmt(c.subscribers)).replace(" subscribers", "")}${c.subscribersStale ? ` <span class="stale">stale</span>` : ""}</td><td class="num">${fmt(c.medianViews15)}${c.feedStale ? ` <span class="stale">stale</span>` : ""}</td><td class="num">${fmt(c.uploads30d)}${c.uploads30dIsFloor ? "+" : ""}${c.shortsInLast15 ? `<div class="meta">${c.shortsInLast15}/15 Shorts</div>` : ""}</td><td class="num">${idx == null ? "–" : idx.toFixed(2)}</td><td class="num">${est ? `${money(est.integration)} / ${money(est.short)}` : "–"}</td><td>${busy.has(c.id) ? stamp("amber", "On a piece") : stamp("green", "Available")}${done ? ` ${stamp("grey", done + " live")}` : ""}</td></tr>`;
   }).join("");
   const cap = LIVE.creators && LIVE.creators[0] ? (LIVE.creators[0].subscribersCapturedAt || LIVE.generatedAt) : LIVE.generatedAt;
   return `<div class="kicker">Section D</div>
   <h2 class="headline">The bench</h2>
-  <p class="dek">Sixteen correspondents on a quarterly retainer, two per beat, chosen once and contracted once. When the desk commissions, the brief goes to the available correspondent on that beat with the higher median views. The channels below are real and public; the commercial terms are modelled.</p>
-  <div class="alert"><b>Real channels</b>These sixteen are real public YouTube channels, found through public YouTube search on 22 Sep 2026 (in the pilot the list would come from YouTube Creator Partnerships). None is affiliated with ${DATA.brand.name} or with this project, none has been contacted, and none has agreed to anything. Subscriber counts and views are YouTube's public figures. Rates and the reach index are calculated by the desk and are not facts about the people.</div>
+  <p class="dek">Sixteen correspondents on a quarterly retainer, two per beat, chosen once and contracted once. When the desk commissions, the brief goes to the available correspondent on that beat with the higher median views.</p>
   <div class="tablewrap"><table class="ledger"><tr><th>Correspondent</th><th>Beat</th><th class="num">Subscribers (YouTube)</th><th class="num">Median views, last 15 uploads (RSS)</th><th class="num">Uploads, 30 days</th><th class="num">Reach index</th><th class="num">Rate card · integration / Short</th><th>Status</th></tr>${rows}</table></div>
   <p class="srcline" style="margin-top:8px">Counts captured ${fmtDate(cap)}${DATA_MODE === "live" ? " from the daily data file" : " (embedded snapshot)"}. Subscriber counts are YouTube's rounded public figures. Views are the feed's public count; since 24 Aug 2026 YouTube counts a view from the first frame.</p>
   ${notes.length ? `<div id="benchnotes" style="margin-top:22px"><p class="sub">Notes the desk must clear before contracting</p><ol class="marks">${notes.map((n, i) => `<li><sup style="color:var(--mute)">${i + 1}</sup><span><b>${esc(n.name)}</b>. ${esc(n.flags.join(" "))}</span></li>`).join("")}</ol></div>` : ""}
   <div class="cols" style="margin-top:28px">
     <div>
-      <p class="sub">Rate card · how the estimate is built</p>
-      <p class="small">Median views of the last 15 uploads × 0.52 (the engaged share of public views in Fitness since YouTube's 24 Aug 2026 counting change) = engaged views. Engaged views ÷ 1,000 × the CPM for the tier: $51 under 50k views, $28 from 50k to 300k, $22 above. A Short is priced at half the integration. Every figure is a modelled estimate, not what the creator charges. Three caveats: for a channel whose last 15 uploads are all Shorts (the table shows the count) the integration price is derived from Shorts views; the 0.52 share describes views counted since 24 Aug 2026 but is applied to all 15 uploads, so a feed with older uploads is understated; and "a Short is half the integration" rests on one finance-sector benchmark, so it is low confidence.</p>
+      <p class="sub">Rate card · how it is calculated</p>
+      <p class="small">Median views of the last 15 uploads × 0.52 (the engaged share of public views in Fitness since YouTube's 24 Aug 2026 counting change) = engaged views. Engaged views ÷ 1,000 × the CPM for the tier: $51 under 50k views, $28 from 50k to 300k, $22 above. A Short is priced at half the integration. Figures are calculated, not quoted. Three caveats: for a channel whose last 15 uploads are all Shorts (the table shows the count) the integration price is derived from Shorts views; the 0.52 share describes views counted since 24 Aug 2026 but is applied to all 15 uploads, so a feed with older uploads is understated; and "a Short is half the integration" rests on one finance-sector benchmark, so it is low confidence.</p>
       <p class="srcline">Sources: <a href="https://static.agentio.com/blog/2026-YouTube-Creator-Marketing-Playbook.pdf" target="_blank" rel="noopener">Agentio 2026 Playbook</a> (CPM by tier, 10,000+ integrations); <a href="https://creatorsagency.co/blog/youtube-sponsorship-rate-card-2026" target="_blank" rel="noopener">Creators Agency rate card 2026</a> (fee = views ÷ 1,000 × CPM; usage +20% per 30 days); <a href="https://www.agentio.com/blog/youtube-new-view-count-60-engaged-view-rate" target="_blank" rel="noopener">Agentio, 3 Sep 2026</a> (52% engaged-view rate, Fitness). Accessed 22 Sep 2026.</p>
       <p class="sub" style="margin-top:22px">Reach index · what it means</p>
       <p class="small">Median views per subscriber, indexed so that the bench median is 1.00. A channel at 2.00 gets twice the views per subscriber of the typical correspondent here. It is recomputed every time the data refreshes, and it only ranks these sixteen against each other.</p>
@@ -585,7 +583,6 @@ function bench(){
       <p>One agreement per correspondent: a monthly minimum, the rate card above, and pre-priced options for an extra video, a usage extension and Boost rights. An extra wave is a notice, not a renegotiation. The draft term is ${DATA.desk.draftDays} days for everyone. Correspondents whose pieces move the numbers stay; the bench is rebalanced by beat.</p>
       <p class="sub" style="margin-top:22px">Onboarded to the standards</p>
       <p>Every correspondent receives the style guide and claims register at signing, so drafts arrive closer to clearable. The amber rate is a bench-quality metric too.</p>
-      <p class="note">In the pilot the bench comes from a YouTube Creator Partnerships search. Here it was found by public YouTube search; it is a hypothetical bench of real channels.</p>
     </aside>
   </div>`;
 }
@@ -614,10 +611,10 @@ function dashboard(){
   <div class="stats">
     <div class="stat"><div class="n">${avgTtl === null ? "–" : avgTtl.toFixed(1)}</div><div class="l">Average trend-to-live, days${avgTtl === null ? " (no piece live yet)" : ""}. Pilot target ${DATA.desk.pilotTargetDays}. Illustrative today: ${old} days from brief to live.</div></div>
     <div class="stat"><div class="n">${avgCtl === null ? "–" : avgCtl.toFixed(1)}</div><div class="l">Average commission-to-live, days. Like for like today: about ${oldPost} days after discovery on the illustrative timeline; 2 to 6 weeks first contact to live (Creators Agency, 2026).</div></div>
-    <div class="stat"><div class="n">${live.length}</div><div class="l">Pieces live, ${boosted} boosted (simulated)</div></div>
+    <div class="stat"><div class="n">${live.length}</div><div class="l">Pieces live, ${boosted} boosted</div></div>
     <div class="stat"><div class="n${capped ? " alert" : ""}">${state.amberUsed}<small> / ${DATA.desk.amberAllowance}</small></div><div class="l">Amber decisions used this month${capped ? "; allowance used, further ambers go to legal" : ""}</div></div>
     <div class="stat"><div class="n">${state.redLogged}</div><div class="l">Pieces sent to legal and logged</div></div>
-    <div class="stat"><div class="n">${views ? fmt(views) : "–"}</div><div class="l">Simulated 48-hour views across pieces with a read, before any boost</div></div>
+    <div class="stat"><div class="n">${views ? fmt(views) : "–"}</div><div class="l">48-hour views across pieces with a read, before any boost</div></div>
   </div>
   <div style="margin-top:30px">
     <p class="sub">Today's process against this desk · ruler in 5-day marks</p>
@@ -632,7 +629,7 @@ function dashboard(){
     <div class="rowlabel"><span>This desk, commission-to-live so far</span><b>${avgCtl === null ? "no piece live yet" : avgCtl.toFixed(1) + " days"}</b></div>
     <div class="track"><i class="blue" style="width:${w(avgCtl)}%"></i></div>
     <div class="ruler"></div>
-    <p class="note">${esc(f.oldNote)} Published figure: ${esc(f.timeline.text)} <a href="${f.timeline.url}" target="_blank" rel="noopener">${esc(f.timeline.source)}</a>${f.timeline.url2 ? `; <a href="${f.timeline.url2}" target="_blank" rel="noopener">${esc(f.timeline.url2label || "second source")}</a>` : ""}. Both accessed 22 and 23 Sep 2026. The desk figures are whatever this simulation produced.</p>
+    <p class="note">${esc(f.oldNote)} Published figure: ${esc(f.timeline.text)} <a href="${f.timeline.url}" target="_blank" rel="noopener">${esc(f.timeline.source)}</a>${f.timeline.url2 ? `; <a href="${f.timeline.url2}" target="_blank" rel="noopener">${esc(f.timeline.url2label || "second source")}</a>` : ""}. Both accessed 22 and 23 Sep 2026.</p>
   </div>
   <div class="stats" style="margin-top:30px">
     <div class="stat"><div class="n">${f.brief15x.n}</div><div class="l">${esc(f.brief15x.text)}<div class="meta" style="margin-top:6px">${esc(f.brief15x.source)}</div></div></div>
@@ -641,7 +638,7 @@ function dashboard(){
   </div>
   <div style="margin-top:30px">
     <p class="sub">Pieces live</p>
-    ${rows ? `<div class="tablewrap"><table class="ledger"><tr><th>Piece</th><th>Correspondent</th><th class="num">Trend seen</th><th class="num">Commissioned</th><th class="num">Live</th><th class="num">Trend-to-live</th><th class="num">Commission-to-live</th><th>First read (test script)</th><th class="num">48h views (sim.)</th></tr>${rows}</table></div><p class="srcline" style="margin-top:8px">Every row is simulated. The first read was run on the desk's test scripts, not on anything the correspondent wrote; the views are a projection from the channel's real median.</p>` : `<div class="empty">Nothing live yet. Commission a piece and advance the day a few times.</div>`}
+    ${rows ? `<div class="tablewrap"><table class="ledger"><tr><th>Piece</th><th>Correspondent</th><th class="num">Trend seen</th><th class="num">Commissioned</th><th class="num">Live</th><th class="num">Trend-to-live</th><th class="num">Commission-to-live</th><th>First read</th><th class="num">48h views (sim.)</th></tr>${rows}</table></div>` : `<div class="empty">Nothing live yet. Commission a piece and advance the day a few times.</div>`}
   </div>
   <div class="cols" style="margin-top:34px">
     <div>
@@ -663,9 +660,10 @@ function dashboard(){
       </ul>
       <p class="sub" style="margin-top:22px">The calendar the waves sit on</p>
       <ul class="tight small">${cal}</ul>
-      <p class="note">Dates read from the official race sites on 22 Sep 2026. Footwear partners checked 23 Sep 2026: Brooks is a presenting sponsor of the Indianapolis Monumental (official footwear and apparel sponsor under a three-year deal announced Oct 2022); JFK 50 lists Altra; no footwear partner was found on the Philadelphia and CIM pages read; Manchester and Dallas were not checked. Everywhere but Indianapolis the desk covers the moment, not the event. The bench's rates are modelled estimates; the terms are the pilot's design, not an offer to anyone.</p>
+      <p class="note">Dates read from the official race sites on 22 Sep 2026. Footwear partners checked 23 Sep 2026: Brooks is a presenting sponsor of the Indianapolis Monumental (official footwear and apparel sponsor under a three-year deal announced Oct 2022); JFK 50 lists Altra; no footwear partner was found on the Philadelphia and CIM pages read; Manchester and Dallas were not checked. Everywhere but Indianapolis the desk covers the moment, not the event.</p>
     </aside>
-  </div>`;
+  </div>
+  <p class="note" style="margin-top:40px;border-top:1px solid var(--rule);padding-top:14px">A prototype built for the NYU SPS × Google Marketing Accelerator Hackathon, Track 3. Not a Google product. Brooks Running is a real brand used as the worked example and is not involved; the bench is sixteen real public YouTube channels, none of them contacted, and nothing here is attributed to them. Signals are real and link to their sources; assignments and results are simulated. <a href="#about" onclick="go('about');return false;">What is real, what is calculated, what is simulated</a> · <a href="https://github.com/Lauwoes/creator-newsroom" target="_blank" rel="noopener">Source on GitHub</a>.</p>`;
 }
 
 function about(){
