@@ -289,8 +289,7 @@ function makeBrief(card, c, due){
     `DELIVERABLE  One integration of 60 to 90 seconds inside a regular upload, plus one Short.\n` +
     `DISCLOSURE  Say it on camera near the start, on screen, and #ad in the first line of the description (FTC).\n` +
     `RATE CARD  Integration ${est ? money(est.integration) : "–"}, Short ${est ? money(est.short) : "–"}: a modelled estimate, not ${c.name}'s rate. Boost rights would sit in the quarterly agreement.\n` +
-    `DRAFT DUE  Day ${due} (the desk's standard term: ${DATA.desk.draftDays} days)\n` +
-    `NOTE  Simulation. This brief was not sent; ${c.name} has no relationship with ${DATA.brand.name} or this project.`;
+    `DRAFT DUE  Day ${due} (the desk's standard term: ${DATA.desk.draftDays} days)`;
 }
 function commission(cardId){
   const card = cardById(cardId);
@@ -304,10 +303,10 @@ function commission(cardId){
   const due = state.day + DATA.desk.draftDays;
   state.seq += 1;
   const p = { id:"p" + state.seq, n: state.seq, trendId: cardId, creatorId:c.id, commissionedDay: state.day, draftDueDay: due, status:"assigned",
-    brief: makeBrief(card, c, due), draft:null, check:null, publishDay:null, liveDay:null, readDay:null, metrics:null, boosted:false, legalReturnDay:null, history:[`Day ${state.day}: commissioned, assigned to ${c.name} (simulated; nothing is sent)`] };
+    brief: makeBrief(card, c, due), draft:null, check:null, publishDay:null, liveDay:null, readDay:null, metrics:null, boosted:false, legalReturnDay:null, history:[`Day ${state.day}: commissioned, assigned to ${c.name}`] };
   state.pieces.unshift(p);
   logIt(`Commissioned <b>${esc(card.title)}</b> to ${esc(c.name)}. Brief drafted from the style guide. Draft due day ${due}.`);
-  save(); render(); toast("Commissioned (simulated). Brief drafted for " + c.name + "; nothing is sent.");
+  save(); render(); toast("Commissioned. Brief drafted for " + c.name + ".");
 }
 function resolveAmber(pid, choice){
   const p = state.pieces.find(x => x.id === pid); if (!p || p.status !== "amber") return; const title = pieceTitle(p);
@@ -492,7 +491,7 @@ function pieceBlock(p){
       <div style="margin-top:8px">${stamp(p.check.lane, p.check.lane)}</div>
       <pre class="copy">${markUp(p.draft, p.check.hits)}</pre>${marksList(p.check.hits)}</details>` : "";
   return `<article class="piece">
-    <header><div><div class="meta">Piece ${pad(p.n)} · <a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.name)}</a> ${esc(c.handle)} · ${DATA.beats[c.beat] || esc(c.beat)} · commissioned day ${pad(p.commissionedDay)} · simulated assignment</div><h3>${esc(t.title)}</h3></div><div class="status">${status}</div></header>
+    <header><div><div class="meta">Piece ${pad(p.n)} · <a href="${esc(c.url)}" target="_blank" rel="noopener">${esc(c.name)}</a> ${esc(c.handle)} · ${DATA.beats[c.beat] || esc(c.beat)} · commissioned day ${pad(p.commissionedDay)}</div><h3>${esc(t.title)}</h3></div><div class="status">${status}</div></header>
     <div class="stages">${stages}</div>
     <div class="actions">${actions}</div>
     <details><summary>Brief</summary><pre class="copy">${esc(p.brief)}</pre></details>
