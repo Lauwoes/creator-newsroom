@@ -23,7 +23,7 @@ The channels are real public YouTube channels found through public search. None 
 ## Files
 
 - `index.html`: the shell (masthead, folio, section tabs, footer).
-- `style.css`: the design. Paper and ink, hairline rules, condensed headlines in Archivo, slugs and numerals in IBM Plex Mono, editor's marks on the script check, a dark scheme that follows the system setting.
+- `style.css`: the design. Paper and ink, hairline rules, condensed headlines in Archivo, slugs and numerals in IBM Plex Mono, editor's marks on the script check. Always light, whatever the system setting, so it projects the same everywhere.
 - `app.js`: all logic and content, including `DATA` (brand, desk terms, trend board, claims register, test scripts, calendar) and the embedded fallback snapshot of the data.
 - `data/live.json`: the daily data file. `scripts/fetch_data.py` writes it; `scripts/config.json` lists what it tracks.
 
