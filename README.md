@@ -62,7 +62,7 @@ All the content sits in one object, `DATA`, at the top of `app.js`:
 - `desk`: the pilot's working terms (amber allowance, legal turnaround, draft term, trend-to-live target).
 - `board`: the trend cards. Each points at a signal id in the data by `live:` (and optionally `also:`), with the day it appears, its decay, its beat and the editor's angle. `boardDate` is the day the angles were written.
 - `claims`: the red and amber rules the first read applies, plus the disclosure rule. A missing disclosure is a red check, because the brand is liable for it under the FTC Endorsement Guides.
-- `drafts`: the desk's test scripts. They are handed out in a fixed order so the first three pieces come back green, amber and red. They are not attributed to anyone.
+- `drafts`: the desk's test scripts. They are handed out in a fixed order so the first three pieces come back green, amber and red (the red is a missing disclosure). They are not attributed to anyone.
 - `calendar` and `products`: the race dates and the Google product table, with sources.
 
 The bench itself comes from the data file; edit `scripts/config.json` to change the channels, the Wikipedia articles or the Google Trends terms the fetcher tracks.

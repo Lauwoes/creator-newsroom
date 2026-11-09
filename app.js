@@ -345,7 +345,7 @@ function advanceDay(){
     const t = cardById(p.trendId), c = creatorById(p.creatorId);
     if (!t || !c) return;
     if (p.status === "assigned" && d >= p.draftDueDay) {
-      const order = [0, 1, 4, 7, 2, 3, 5, 6, 8]; // green, amber, red, green, amber, red (no disclosure), green, red, amber
+      const order = [0, 1, 3, 7, 2, 4, 5, 6, 8]; // green, amber, red (missing disclosure), green, amber, red (health claim), green, red, amber
       p.draft = DATA.drafts[order[(p.n - 1) % order.length]];
       p.check = checkDraft(p.draft);
       p.history.push(`Day ${d}: draft submitted; first read ${p.check.lane}`);
