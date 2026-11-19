@@ -1,6 +1,6 @@
 # The Creator Newsroom, a desk simulation on real data
 
-A single-page simulation of the Creator Newsroom operating model, built as the functional prototype behind an NYU SPS x Google Marketing Accelerator Hackathon submission (Track 3, Process and Go-To-Market Strategy). A student prototype, not a Google product.
+A simulation of the Creator Newsroom operating model, built as the functional prototype behind an NYU SPS x Google Marketing Accelerator Hackathon submission (Track 3, Process and Go-To-Market Strategy). A student prototype, not a Google product.
 
 It shows a morning on the desk, set like a newsroom: a trend board fed by real signals, one-click commissioning to a retained bench of real YouTube channels, a brief drafted from the style guide, a first read that sorts every draft into green, amber or red with editor's marks, a 48-hour read, boosting, and a dashboard that reports trend-to-live against the pilot target and today's published timelines.
 
@@ -16,7 +16,8 @@ Live at https://lauwoes.github.io/creator-newsroom/
 
 - **Real:** the brand (Brooks Running, Ghost 18, Hyperion Elite 6, Cascadia 20; read from brooksrunning.com on 22 Sep 2026), the sixteen channels on the bench with their public subscriber counts and feed views, every signal on the trend board (Google Trends, Wikipedia pageviews, YouTube feeds, each linked to its source with its capture time), the race calendar and sponsors, the FTC rules and footwear cases behind the standards, and the Google product names.
 - **Modelled, with the formula shown on the page:** the rate card, the reach index, momentum.
-- **Simulated:** the day-by-day reveal, every assignment, brief, draft and outcome, and the 48-hour read. The trend cards' angles are editor's notes dated on the page; the signals beneath them refresh daily.
+- **Real, and running on the page:** the first read on the Standards screen. A draft pasted there is checked by the page's rule list and then read by Gemini (gemini-3.5-flash-lite) against a copy of this claims register, through a Google Apps Script that keeps the API key off the page and saves each read to a Google Sheet the project team keeps. The stricter lane is shown. If Gemini cannot be reached the draft is never shown green: a draft the rule list passed is shown amber. What you paste is sent to Google and saved in that Sheet, so paste nothing private. Gemini can be wrong both ways, and how often has not been measured yet.
+- **Simulated:** the day-by-day reveal, every assignment, brief, draft and outcome, and the 48-hour read. On the desk, the first read of the test scripts is the rule list alone. The trend cards' angles are editor's notes dated on the page; the signals beneath them refresh daily.
 
 The channels are real public YouTube channels found through public search. None is affiliated with Brooks or with this project, none was contacted, and no draft script or quote is attributed to any of them. Brooks is not involved in the project. The `#about` screen lists every source with its access date.
 
@@ -24,10 +25,24 @@ The channels are real public YouTube channels found through public search. None 
 
 - `index.html`: the shell (masthead, folio, section tabs, footer).
 - `style.css`: the design. Paper and ink, hairline rules, condensed headlines in Archivo, slugs and numerals in IBM Plex Mono, editor's marks on the script check. Always light, whatever the system setting, so it projects the same everywhere.
-- `app.js`: all logic and content, including `DATA` (brand, desk terms, trend board, claims register, test scripts, calendar) and the embedded fallback snapshot of the data.
+- `app.js`: all the page's logic and content, including `DATA` (brand, desk terms, trend board, claims register, test scripts, calendar) and the embedded fallback snapshot of the data.
 - `data/live.json`: the daily data file. `scripts/fetch_data.py` writes it; `scripts/config.json` lists what it tracks.
+- `desk.html`, `desk.js`: the blank desk, a second page that shows any brand's own standards and bench (see "Start your own desk" below). It shares `style.css` with the example and nothing else.
+- `apps-script/Code.gs`: the Google Apps Script every desk runs, the example's included. Each brand's copy keeps its Gemini API key in a script property, never in this file. The script reads the brand's rules from a Google Sheet, asks Gemini to read a draft against them, and logs each read to that Sheet. It has no brand content in it.
+- `apps-script/Example.gs`: the Brooks Running claims register, in the form the script loads into a Sheet. Only the example's own script project uses it.
+- `apps-script/test-local.mjs`, `tests/desk.test.mjs`: offline checks for the script and the page (`node apps-script/test-local.mjs --offline`, `node tests/desk.test.mjs`). The first also fails if the register in `Example.gs` drifts from `claims` in `app.js`.
 
-No build step. Every change is a commit of these files.
+No build step. Every change is a commit of these files. A change to `apps-script/Code.gs` reaches a desk only when that desk's owner pastes it into their script project and deploys a new version.
+
+## Start your own desk
+
+`desk.html` is a blank copy of two parts of the example, the standards and the bench, for any brand.
+
+- The brand makes its own copy of `apps-script/Code.gs` in Google Apps Script, adds its own Gemini API key, and runs `setup`. That creates a Google Sheet with a Brand tab, a Standards tab holding starter headings, a Bench tab and a Log tab. The steps are on the page.
+- `desk.html?desk=<deployment id>` shows that desk: the brand's rules as typed in its Sheet, a box to test a draft, and the bench if the brand has switched it on.
+- **What is real on that page:** Gemini's read of a pasted draft, against the rules in that desk's Sheet. **What is typed by the desk's owner:** everything else (the brand name, the rules, the channels and their numbers). Nothing is looked up, refreshed or simulated, and this project checks none of it.
+- A draft sent from a desk page goes to that desk's owner (their Sheet keeps it) and to Google, on the owner's key.
+- Limits, also listed on the page: YouTube and English only; the starter headings follow United States advertising rules and are not legal advice; no sign-in; anyone with a desk link can read that desk's standards; the code does not update itself.
 
 ## How the data refreshes
 
@@ -61,7 +76,7 @@ All the content sits in one object, `DATA`, at the top of `app.js`:
 - `brand`: the real brand and products, with the date they were read.
 - `desk`: the pilot's working terms (amber allowance, legal turnaround, draft term, trend-to-live target).
 - `board`: the trend cards. Each points at a signal id in the data by `live:` (and optionally `also:`), with the day it appears, its decay, its beat and the editor's angle. `boardDate` is the day the angles were written.
-- `claims`: the red and amber rules the first read applies, plus the disclosure rule. A missing disclosure is a red check, because the brand is liable for it under the FTC Endorsement Guides.
+- `claims`: the red and amber rules the first read applies, plus the disclosure rule. A missing disclosure is a red check, because the brand is liable for it under the FTC Endorsement Guides. Gemini reads a copy of it: the rows in `apps-script/Example.gs`, loaded into the example desk's Google Sheet. After a change here, change `Example.gs` to match (the offline test says when they differ). Then paste the changed `Example.gs` into the example's script project, delete the rows under the headings in the Sheet's Standards tab, and run `loadBrooksExample` again; it will not overwrite rows that differ from the example.
 - `drafts`: the desk's test scripts. They are handed out in a fixed order so the first three pieces come back green, amber and red (the red is a missing disclosure). They are not attributed to anyone.
 - `calendar` and `products`: the race dates and the Google product table, with sources.
 
@@ -74,6 +89,6 @@ The bench itself comes from the data file; edit `scripts/config.json` to change 
 3. On the desk, decide any amber pieces. Watch a red one go to legal and come back.
 4. Advance until pieces are live and have a 48-hour read, then boost the strongest.
 5. Open the dashboard and compare trend-to-live with the 7-day target and today's published ranges.
-6. On standards, paste your own script and run the first read.
+6. On standards, paste your own script and run the first read. The text is sent to Google and saved, so paste nothing private.
 
 Progress is kept in the browser's local storage. Reset clears it.

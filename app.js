@@ -104,7 +104,7 @@ const DATA = {
     ["Trend board", "Google Trends (daily); Insights Finder trending insights (search and YouTube data refreshed monthly, audience data weekly) and the brand pulse report (refresh cadence not published)","https://support.google.com/google-ads/answer/11161206?hl=en", "Here: public stand-ins. Google Trends web data, Wikipedia pageviews and YouTube RSS, refreshed daily by a GitHub Action."],
     ["Bench", "YouTube Creator Partnerships in Google Ads (search across Partner Program creators; Gemini-assisted matching rolling out)", "https://blog.youtube/news-and-events/youtube-creator-partnerships-newfronts-2026/", "Here: 16 real public channels found by public YouTube search, not through Creator Partnerships."],
     ["Brief", "Gemini, drafting from the style guide held in Gemini Notebook (formerly NotebookLM, renamed 16 Jul 2026)", "https://blog.google/innovation-and-ai/products/gemini-notebook/notebooklm-gemini-notebook/", "Here: a template filled from the trend card and the correspondent's real channel data."],
-    ["First read", "Gemini reading the draft against the claims register in Gemini Notebook", "https://gemini.google/about/", "Here: a rule list with the same three lanes."],
+    ["First read", "Gemini reading the draft against the claims register in Gemini Notebook", "https://gemini.google/about/", "Here: a rule list with the same three lanes. On the Standards screen Gemini (gemini-3.5-flash-lite, through a Google Apps Script) reads the draft as well, and the stricter lane stands."],
     ["48-hour read", "The Analytics tab in YouTube Creator Partnerships (paid and organic views and engagement) plus the creator's own YouTube Studio realtime report; the brand pulse report and Brand Lift confirm over the wave", "https://support.google.com/google-ads/answer/16901705?hl=en", "Here: a projection from the channel's real median views, labelled simulated."],
     ["Boost", "Creator partnerships boost (formerly Partnership ads, renamed at the March 2026 NewFront): the linked creator video runs as an ad in Demand Gen, Video reach, Video view, Video action, App and Performance Max campaigns; YouTube describes the placements as Shorts and in-stream", "https://support.google.com/google-ads/answer/15223349?hl=en", "Here: an arbitrary ×3.2 multiplier, labelled simulated.", "https://blog.youtube/news-and-events/youtube-creator-partnerships-newfronts-2026/", "rename (NewFront post)"],
   ],
@@ -242,7 +242,7 @@ function viewsPerSub(c){ return (c.medianViews15 && c.subscribers) ? c.medianVie
 function benchMedianVps(){ const v = creatorList().map(viewsPerSub).filter(x => x != null).sort((a, b) => a - b); if (!v.length) return 1; const m = Math.floor(v.length / 2); return v.length % 2 ? v[m] : (v[m - 1] + v[m]) / 2; }
 function reachIndex(c){ const v = viewsPerSub(c); if (v == null) return null; return +(v / benchMedianVps()).toFixed(2); }
 
-/* ===================== STANDARDS CHECK (stands in for the Gemini first read) ===================== */
+/* ===================== STANDARDS CHECK (the rule list; on the Standards screen Gemini reads the draft too, see FIRST READER) ===================== */
 function checkDraft(text){
   const hits = [];
   DATA.claims.red.forEach(r => { const m = text.match(r.re); if (m) hits.push({ lane:"red", label:r.label, detail:r.detail, match:m[0] }); });
@@ -519,7 +519,7 @@ function standards(){
     <div>
       <p class="sub">Copy desk · test a script</p>
       <textarea id="testText" spellcheck="false">#ad The Brooks Ghost 18 is the best shoe for beginners because the rocker prevents injury. I'd pick it over the Saucony Ride 19 every time, it's 20% more comfortable, and I guarantee you'll love it. Use my promo code for 20% off.</textarea>
-      <div class="actions" style="margin-top:10px"><button class="btn" onclick="runTest()">Run the first read</button><span class="small muted">Paste a draft, or edit the sample.</span></div>
+      <div class="actions" style="margin-top:10px"><button class="btn" id="testBtn" onclick="runTest()">Run the first read</button><span class="small muted">Paste a draft, or edit the sample. Two readers check it: the page's own rule list, then Google's Gemini. The text is sent to Google and saved in a Google Sheet the project team keeps, so paste nothing private.</span></div>
       <div id="testOut" style="margin-top:18px"></div>
     </div>
     <aside class="side">
@@ -543,13 +543,114 @@ function standards(){
     </aside>
   </div>`;
 }
-function runTest(){
+/* ===================== FIRST READER (Gemini, through the desk's Google Apps Script) ===================== */
+// The script holds the API key. The claims register it reads is a copy of this one, kept in the example desk's Sheet
+// (loaded from apps-script/Example.gs). This page only sends the draft and reads the answer.
+// Used by the test box on the Standards screen. The desk's own test scripts are read by the rule list alone.
+const FIRST_READER_URL = "https://script.google.com/macros/s/AKfycbw9GoEn8VRaWH36IJlkrAG9Sp3LIoBmeZNWuI6lAuNqkWTNsSAiFHcfYSf6g85X6DzM/exec";
+const FIRST_READER_MAX = 6000;   // characters; the script refuses longer drafts
+const LANE_RANK = { green:0, amber:1, red:2 };
+const stricter = (a, b) => LANE_RANK[a] >= LANE_RANK[b] ? a : b;
+const READER_DOWN = { daily_limit:"Today's limit of Gemini reads is used up", too_long:"The draft is over 6,000 characters, more than Gemini is sent" };
+// Resolves to { ok:true, lane, flags } or { ok:false, why }. Anything unexpected counts as "not read", never as green.
+async function askFirstReader(text){
+  if (!text.trim()) return { ok:false, why:"empty" };
+  if (text.trim().length > FIRST_READER_MAX) return { ok:false, why:"too_long" };
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 45000);
+  try {
+    // No headers on purpose: a plain-text POST needs no preflight request, which Apps Script cannot answer.
+    const res = await fetch(FIRST_READER_URL, { method:"POST", body: JSON.stringify({ script:text.trim(), source:"site" }), signal: ctrl.signal });
+    if (!res.ok) return { ok:false, why:"unreachable" };
+    let d = null;
+    try { d = JSON.parse(await res.text()); } catch (e) { return { ok:false, why:"unreachable" }; }
+    if (!d || d.ok !== true) return { ok:false, why: d && typeof d.error === "string" ? d.error : "unreachable" };
+    if (typeof d.lane !== "string" || !Object.prototype.hasOwnProperty.call(LANE_RANK, d.lane) || !Array.isArray(d.flags)) return { ok:false, why:"unreachable" };
+    const flags = d.flags.filter(f => f && (f.lane === "amber" || f.lane === "red"))
+      .map(f => ({ lane:f.lane, label:String(f.label || ""), quote:String(f.quote || ""), reason:String(f.reason || ""), found: f.quoteFound !== false, byScript: f.label === "Hidden characters" && !f.quote }));
+    return { ok:true, lane: flags.reduce((l, f) => stricter(l, f.lane), d.lane), flags };
+  } catch (e) {
+    return { ok:false, why:"unreachable" };   // offline, blocked, or no answer in 45 seconds
+  } finally {
+    clearTimeout(timer);
+  }
+}
+// Finds a reader's words in the draft the way the script compares them: any case, any white space, straight or curly quotes.
+function findQuote(text, quote){
+  const q = String(quote || "").trim();
+  if (!q) return null;
+  const pattern = q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&").replace(/\s+/g, "\\s+").replace(/['‘’]/g, "['‘’]").replace(/["“”]/g, '["“”]');
+  const hit = new RegExp(pattern, "i").exec(text);
+  return hit && hit[0] ? { at: hit.index, end: hit.index + hit[0].length } : null;
+}
+// One list of marks from both readers. The stricter lane stands; a draft Gemini did not read cannot be green.
+function mergeReads(text, kw, fr){
+  const marks = kw.hits.map(h => ({ lane:h.lane, label:h.label, match:h.match, detail:h.detail, by:"rule list", trusted:true }));
+  if (!fr) return { lane:null, marks };   // still waiting for Gemini
+  if (!fr.ok) return { lane: stricter(kw.lane, "amber"), marks };
+  const samePlace = (quote, word) => {
+    const q = findQuote(text, quote), w = findQuote(text, word);
+    if (q && w) return q.at < w.end && w.at < q.end;
+    const ql = quote.toLowerCase(), wl = word.toLowerCase();
+    return ql.includes(wl) || wl.includes(ql);
+  };
+  fr.flags.forEach(f => {
+    // Gemini repeating a mark the rule list already made (same rule, same place in the draft) is shown once, credited to both.
+    const label = f.label.toLowerCase();
+    const same = f.byScript ? [] : marks.filter(m => m.trusted && m.label.toLowerCase() === label && (m.match ? !!f.quote && samePlace(f.quote, m.match) : !f.quote));
+    if (same.length) { same.forEach(m => { m.by = "rule list and Gemini"; m.lane = stricter(m.lane, f.lane); }); return; }
+    marks.push({ lane:f.lane, label:f.label, match:f.quote || null, detail:f.reason, by: f.byScript ? "before Gemini" : "Gemini", missing: !!f.quote && !f.found });   // byScript: the script strips invisible characters itself
+  });
+  return { lane: stricter(kw.lane, fr.lane), marks };
+}
+// Editor's marks for the merged list. Works on the raw text, so nothing a reader returns is ever treated as HTML.
+function markUpAll(text, marks){
+  const spans = [];
+  marks.forEach((m, i) => {
+    if (!m.match || m.missing) return;
+    const hit = findQuote(text, m.match);
+    if (!hit) return;
+    const at = hit.at, end = hit.end;
+    const over = spans.find(s => at < s.end && end > s.at);
+    if (over) { over.nums.push(i + 1); if (m.lane === "red") over.lane = "red"; }   // the same words flagged twice: one underline, both numbers
+    else spans.push({ at, end, lane:m.lane, nums:[i + 1] });
+  });
+  spans.sort((a, b) => a.at - b.at);
+  let out = "", pos = 0;
+  spans.forEach(s => { out += esc(text.slice(pos, s.at)) + `<mark class="${s.lane === "red" ? "r" : "a"}">${esc(text.slice(s.at, s.end))}<sup>${s.nums.join(",")}</sup></mark>`; pos = s.end; });
+  return out + esc(text.slice(pos));
+}
+function marksListAll(marks, fr){
+  if (!marks.length) return `<p class="small muted" style="margin:10px 0 0">${!(fr && fr.ok) ? "Nothing flagged by the rule list. Disclosure present." : fr.lane === "green" ? "Nothing flagged by the rule list or by Gemini. Disclosure present." : `Nothing flagged by the rule list. Gemini sorted it ${fr.lane} without giving a reason.`}</p>`;
+  return `<ol class="marks">${marks.map((m, i) => `<li class="${m.lane === "red" ? "r" : "a"}"><sup>${i + 1}</sup><span><b>${esc(m.label)}</b>${m.match ? ` ("${esc(m.match)}"${m.missing ? ", words not found in the draft" : ""})` : ""}. ${m.trusted ? m.detail : esc(m.detail)} <span class="by">${m.by}</span></span></li>`).join("")}</ol>`;
+}
+let testRun = 0, pendingRead = null;   // pendingRead: a read still in flight, so the same text is never sent twice at once
+function showTest(out, text, kw, fr){
+  const m = mergeReads(text, kw, fr);
+  const cls = m.lane ? { green:"g", amber:"a", red:"r" }[m.lane] : "p";
+  const verdict = !m.lane ? "The rule list has read it. Gemini is reading it now."
+    : m.lane === "green" ? "Cleared. Would publish tomorrow." : m.lane === "amber" ? "To the editor. Decision within 24 hours." : "To legal. Logged.";
+  const own = fr && fr.ok ? fr.flags.filter(f => !f.byScript) : [];
+  const hid = !!(fr && fr.ok) && own.length < fr.flags.length;   // the script removed invisible characters, so Gemini's own lane is not known
+  const who = !fr ? "" : fr.ok
+    ? (hid ? `<div class="small muted">Rule list: ${kw.lane}. Gemini: ${fr.lane === "red" ? "red" : own.length ? "amber" : "nothing flagged"}. Hidden characters were removed before Gemini read it, so it cannot be green.</div>`
+           : `<div class="small muted">Rule list: ${kw.lane}. Gemini: ${fr.lane}. The stricter lane stands.</div>`)
+    : `<div class="small muted">Rule list: ${kw.lane}. ${Object.prototype.hasOwnProperty.call(READER_DOWN, fr.why) ? READER_DOWN[fr.why] : "Gemini did not answer"}, so a person reads this one.</div>`;
+  out.innerHTML = `<div class="verdict"><div class="lane ${cls}">${m.lane || "Reading"}</div><div class="small muted">${verdict}</div>${who}
+    <pre class="copy">${markUpAll(text, m.marks)}</pre>${marksListAll(m.marks, fr)}</div>`;
+}
+async function runTest(){
   const text = document.getElementById("testText").value;
-  const r = checkDraft(text);
-  const cls = { green:"g", amber:"a", red:"r" }[r.lane];
-  const verdict = r.lane === "green" ? "Cleared. Would publish tomorrow." : r.lane === "amber" ? "To the editor. Decision within 24 hours." : "To legal. Logged.";
-  document.getElementById("testOut").innerHTML = `<div class="verdict"><div class="lane ${cls}">${r.lane}</div><div class="small muted">${verdict}</div>
-    <pre class="copy">${markUp(text, r.hits)}</pre>${marksList(r.hits)}</div>`;
+  const out = document.getElementById("testOut"), btn = document.getElementById("testBtn");
+  if (!text.trim()) { out.innerHTML = `<p class="small muted">Paste a draft first.</p>`; return; }
+  const kw = checkDraft(text), mine = ++testRun;
+  showTest(out, text, kw, null);
+  if (btn) btn.disabled = true;
+  const job = pendingRead && pendingRead.text === text ? pendingRead : (pendingRead = { text, promise: askFirstReader(text) });
+  const fr = await job.promise;
+  if (pendingRead === job) pendingRead = null;
+  if (btn) btn.disabled = false;
+  if (mine === testRun && out.isConnected) showTest(out, text, kw, fr);   // not if a newer read started or the visitor left the screen
 }
 
 function bench(){
@@ -663,7 +764,7 @@ function dashboard(){
       <p class="note">Dates read from the official race sites on 22 Sep 2026. Footwear partners checked 23 Sep 2026: Brooks is a presenting sponsor of the Indianapolis Monumental (official footwear and apparel sponsor under a three-year deal announced Oct 2022); JFK 50 lists Altra; no footwear partner was found on the Philadelphia and CIM pages read; Manchester and Dallas were not checked. Everywhere but Indianapolis the desk covers the moment, not the event.</p>
     </aside>
   </div>
-  <p class="note" style="margin-top:40px;border-top:1px solid var(--rule);padding-top:14px">A prototype built for the NYU SPS × Google Marketing Accelerator Hackathon, Track 3. Not a Google product. Brooks Running is a real brand used as the worked example and is not involved; the bench is sixteen real public YouTube channels, none of them contacted, and nothing here is attributed to them. Signals are real and link to their sources; assignments and results are simulated. <a href="#about" onclick="go('about');return false;">What is real, what is calculated, what is simulated</a> · <a href="https://github.com/Lauwoes/creator-newsroom" target="_blank" rel="noopener">Source on GitHub</a>.</p>`;
+  <p class="note" style="margin-top:40px;border-top:1px solid var(--rule);padding-top:14px">A prototype built for the NYU SPS × Google Marketing Accelerator Hackathon, Track 3. Not a Google product. Brooks Running is a real brand used as the worked example and is not involved; the bench is sixteen real public YouTube channels, none of them contacted, and nothing here is attributed to them. Signals are real and link to their sources; assignments and results are simulated. <a href="#about" onclick="go('about');return false;">What is real, what is calculated, what is simulated</a> · <a href="https://github.com/Lauwoes/creator-newsroom" target="_blank" rel="noopener">Source on GitHub</a> · <a href="./desk.html">Start your own desk</a>.</p>`;
 }
 
 function about(){
@@ -681,6 +782,7 @@ function about(){
         <li><b>The sixteen channels</b> on the bench, their handles, subscriber counts and the views of their last 15 uploads (YouTube's public feed and channel pages).</li>
         <li><b>Every signal on the trend board</b>: Google Trends US search interest, English Wikipedia pageviews and YouTube feed views, each linked to its source with the time it was captured. Google Trends rescales every pull to a 0 to 100 index, so its sums and change figures vary between refreshes and its day boundary is Google's own; treat them as direction, not counts.</li>
         <li><b>The race dates</b> and sponsors, from the official race sites; <b>the review findings</b> on the Ghost 18 fit; <b>the FTC rules</b> and footwear cases behind the standards; <b>the Google product names</b>, checked on Google's own pages.</li>
+        <li><b>The first read on the Standards screen.</b> A draft pasted there is checked by the page's rule list and then read by Gemini (gemini-3.5-flash-lite) against a copy of this claims register, through a Google Apps Script that keeps the Gemini API key off this page. The stricter of the two lanes is shown. If Gemini cannot be reached the draft is never shown green: a draft the rule list passed is shown amber. What is pasted is sent to Google and saved in a Google Sheet the project team keeps. Gemini can be wrong both ways: it can clear a draft it should flag, and flag one that is fine. How often has not been measured yet. The same reader can be set up for another brand, with its own rules and its own key: <a href="./desk.html">start your own desk</a>.</li>
         <li><b>The figures in the brief</b> (1.5×, 15%) are quoted from the hackathon brief; no public source was found for them. The IAB 4× figure is sourced.</li>
       </ul>
       <p class="sub" style="margin-top:22px">Modelled, formula shown</p>
@@ -693,14 +795,14 @@ function about(){
       <p class="sub" style="margin-top:22px">Simulated</p>
       <ul class="tight small">
         <li><b>The day-by-day reveal and decay</b> of trends, the ${DATA.desk.draftDays}-day draft term, the ${DATA.desk.legalTurnaround}-day legal turnaround, the amber allowance of ${DATA.desk.amberAllowance}.</li>
-        <li><b>Every assignment, brief, draft and outcome.</b> No correspondent was contacted. The draft scripts are the desk's test scripts and are not written or said by anyone on the bench. The trend-card angles are editor's notes written on ${esc(DATA.boardDate)}.</li>
+        <li><b>Every assignment, brief, draft and outcome.</b> No correspondent was contacted. The draft scripts are the desk's test scripts and are not written or said by anyone on the bench; on the desk their first read is the rule list alone. The trend-card angles are editor's notes written on ${esc(DATA.boardDate)}.</li>
         <li><b>The 48-hour read</b>: a projection from the channel's real median views (formula in the code), and the boost, an arbitrary ×3.2 multiplier: no published benchmark was found for Boost uplift in 48 hours, none gives the share of views arriving in 48 hours, and Brand Lift needs a 10-day study, so no brand-lift number is shown.</li>
       </ul>
     </div>
     <aside class="side">
       <p class="sub">Where Google products sit in the pilot desk</p>
       <dl class="kv">${prod}</dl>
-      <p class="note">Names as Google uses them in autumn 2026: YouTube Creator Partnerships (formerly BrandConnect, announced 23 Mar 2026), Creator partnerships boost, the brand pulse report (launched 9 Oct 2025), Insights Finder, Gemini, Gemini Notebook (NotebookLM was renamed on 16 Jul 2026). Insights Finder needs a Google account representative and its outputs are confidential, which is one reason the prototype uses public stand-ins. Naming a product here describes what the pilot would use; nothing on this site is integrated with, endorsed by or affiliated with Google.</p>
+      <p class="note">Names as Google uses them in autumn 2026: YouTube Creator Partnerships (formerly BrandConnect, announced 23 Mar 2026), Creator partnerships boost, the brand pulse report (launched 9 Oct 2025), Insights Finder, Gemini, Gemini Notebook (NotebookLM was renamed on 16 Jul 2026). Insights Finder needs a Google account representative and its outputs are confidential, which is one reason the prototype uses public stand-ins. Naming a product here describes what the pilot would use. Gemini is also used here: the first read on the Standards screen calls it through a Google Apps Script. Nothing on this site is endorsed by or affiliated with Google.</p>
       <p class="sub" style="margin-top:22px">How the data refreshes</p>
       <p class="small">A GitHub Action runs <code>scripts/fetch_data.py</code> once a day and commits <code>data/live.json</code> and, with the snapshot re-embedded, <code>app.js</code>. The script uses no API key: YouTube channel feeds and channel pages, the Wikimedia pageviews API and Google Trends' web endpoints. When a source fails, the last good value is kept and marked stale; nothing is estimated or invented. This page loads the file when it opens, falls back to the snapshot embedded in the page, and then refreshes the Wikipedia figures directly in your browser. The folio line reads "daily file" when the file loaded, "not refreshed since" when it is more than ${FILE_OLD_AFTER_H} hours old, and "snapshot" when it fell back to the embedded copy.</p>
       <ul class="tight small">${srcs || "<li>No source summary in the data file.</li>"}</ul>

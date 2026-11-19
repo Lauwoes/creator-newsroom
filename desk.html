@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; connect-src 'self' https://script.google.com https://script.googleusercontent.com; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex">
+<title>A creator desk · The Creator Newsroom</title>
+<meta name="description" content="A blank creator desk: your own standards and bench in a Google Sheet, with draft scripts read by Google's Gemini on your own key. A student prototype. Not a Google product. Not legal advice.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..100,400..900&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script src="desk.js"></script>
+</head>
+<body class="dk-page">
+<div class="wrap">
+  <p class="dk-frame dk-off" id="dkFrame">This desk was set up by the person who shared this link. The Creator Newsroom project has not checked it. A brand name on this page does not mean that brand is involved.</p>
+  <div class="folio">
+    <span>The Creator Newsroom</span>
+    <span>A creator desk</span>
+    <span>Student prototype</span>
+  </div>
+  <div class="mastrow">
+    <h1 class="wordmark">Creator desk<small>Standards and a bench, kept in a Google Sheet</small></h1>
+  </div>
+  <main id="main">
+
+    <!-- State A: no ?desk= in the address. The blank desk. -->
+    <section id="dkBlank">
+      <div class="kicker">Start your own desk</div>
+      <h2 class="headline">A creator desk for your own brand</h2>
+      <p class="dek">A blank copy of the standards and the bench. You type your rules and your creators into a Google Sheet. Google's Gemini reads draft scripts against your rules, on your own key. The worked example uses Brooks Running, a real brand that is not involved in this project. <a href="./index.html#standards">See the worked example</a></p>
+      <div class="cols">
+        <div>
+          <p class="sub">Open a desk</p>
+          <label class="small" for="dkPaste">Already set one up? Paste its web app address here. It ends in /exec.</label>
+          <div class="dk-open">
+            <input class="dk-input" id="dkPaste" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="https://script.google.com/macros/s/.../exec" aria-describedby="dkPasteErr">
+            <button class="btn" id="dkOpen" type="button">Open my desk</button>
+          </div>
+          <p class="dk-err" id="dkPasteErr" role="alert"></p>
+
+          <p class="sub dk-gap">What you fill in</p>
+          <h3 class="dk-h3">Standards</h3>
+          <p class="small">Starter headings, not legal advice. They follow United States advertising rules. Ask whoever signs off your adverts before you rely on them.</p>
+          <div class="tablewrap" id="dkStarter"></div>
+          <p class="small muted dk-off" id="dkStarterErr">The starter list could not be loaded.</p>
+          <h3 class="dk-h3">Bench</h3>
+          <div class="tablewrap">
+            <table class="ledger dk-ledger">
+              <tr><th>Channel</th><th>Link</th><th>Beat</th><th>Subscribers</th><th>Checked on</th><th>Private note</th></tr>
+              <tr><td>Example: channel name</td><td>the channel's YouTube address</td><td>Their topic</td><td>48.2K</td><td>19 Nov 2026</td><td>stays in your Sheet</td></tr>
+            </table>
+          </div>
+          <p class="small dk-after">You type these in from each channel's public page. Nothing is looked up for you. The bench stays off your desk page until you switch it on.</p>
+
+          <p class="sub dk-gap">Set it up · about 20 minutes</p>
+          <p class="small"><b>Before you start.</b> Use a computer, not a phone. Use a personal Google account, not a work or school one, in a browser window signed in to only that account. Anyone who has your desk link can read your rules, so type nothing secret.</p>
+          <ol class="dk-steps">
+            <li><b>Get a Gemini key.</b> Go to Google AI Studio (<a href="https://aistudio.google.com/" target="_blank" rel="noopener noreferrer">aistudio.google.com</a>), choose "Get API key", then "Create API key". Add prepaid credit when it asks; a few dollars is plenty. Never paste the key into an email, a chat or this page.</li>
+            <li><b>Copy the desk's code.</b> Press "Copy the code" below.
+              <div class="actions dk-row">
+                <button class="btn" id="dkCopy" type="button">Copy the code</button>
+                <span class="small" id="dkCopyNote" role="status"></span>
+              </div>
+              <div class="small dk-row"><a href="https://github.com/Lauwoes/creator-newsroom/blob/main/apps-script/Code.gs" target="_blank" rel="noopener noreferrer">Read the code on GitHub</a></div>
+              <textarea class="dk-codebox dk-off" id="dkCodeBox" readonly spellcheck="false" aria-label="The desk's code"></textarea>
+            </li>
+            <li><b>Open <a href="https://script.new/" target="_blank" rel="noopener noreferrer">script.new</a> in a new tab.</b> Click "Untitled project" at the top and name it, for example "Creator desk". Click in the code area, press Ctrl+A (Cmd+A on a Mac), paste, then press Ctrl+S (Cmd+S).</li>
+            <li><b>Add your key.</b> Click the gear on the left ("Project Settings"). Under "Script Properties" press "Add script property". Property: GEMINI_API_KEY. Value: your key. Press "Save script properties".</li>
+            <li><b>Run setup.</b> Click "&lt; &gt;" on the left to go back to the code. In the bar above the code, check the menu shows "setup", then press "Run".</li>
+            <li><b>Say yes to Google.</b> Google will say it has not verified this app. That is expected: this copy is yours, and Google has not reviewed it. Click "Advanced", then "Go to (your project name)". Tick every box and continue. One box lets the script edit your Google Sheets; it only opens the one Sheet it creates.</li>
+            <li><b>Wait for "Setup worked" in the log under the code.</b> The line above it is the link to your new Sheet. Open it and bookmark it. Running setup again never erases your work. If a red error appears instead, read it: it says what to fix. Then run setup again.</li>
+            <li><b>Put it online.</b> Top right: "Deploy", then "New deployment". Click the gear beside "Select type" and choose "Web app". Execute as: Me. Who has access: Anyone. Not "Anyone with a Google account". Not "Only myself". Press "Deploy" and copy the "Web app URL". It ends in /exec.</li>
+            <li><b>Open your desk.</b> Paste that address in the box at the top of this page and press "Open my desk". You should see the starter rules. Bookmark the page: that is your desk link. The page changes to your desk. To come back to these steps, press Start your own desk at the bottom.</li>
+            <li><b>Make it yours.</b> In your Sheet, fill in the Brand tab, edit the Standards tab, then add your creators to the Bench tab. Press Enter after each change, then reload your desk page. The page tells you if it could not read a row.</li>
+          </ol>
+          <p class="small"><b>Afterwards.</b> Share the desk link with creators. Share the Sheet only with your own team, and never share the script. To pause the desk, set "Desk is" to Off in the Brand tab. The "Read me" tab in your Sheet says how to take it down.</p>
+          <p class="small muted">(Button and menu names are Google's and may read slightly differently; pick the closest match.)</p>
+        </div>
+        <aside class="side">
+          <p class="sub">What this is not</p>
+          <ul class="tight">
+            <li>YouTube channels only. English only.</li>
+            <li>The starter headings follow United States advertising rules. They are not legal advice.</li>
+            <li>Two parts of the example: standards and bench. No trend board, no assignments, no dashboard.</li>
+            <li>No sign-in, no approvals, no record of who decided what. Anyone who can edit the Sheet can change the rules.</li>
+            <li>Anyone with a desk link can read that desk's standards, and its bench if the owner switched it on.</li>
+            <li>Gemini can be wrong both ways: it can clear a draft it should flag, and flag one that is fine. How often has not been measured.</li>
+            <li>The code does not update itself. Each desk runs the copy its owner pasted.</li>
+            <li>Each desk lives in one person's Google account and runs on that person's Gemini key.</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <!-- State B: ?desk=<ID>. Someone's desk. Everything the desk sends is put in by desk.js as text. -->
+    <section id="dkDesk" class="dk-off">
+      <div class="kicker">A creator desk</div>
+      <div id="dkStatus">
+        <p class="dk-status" id="dkStatusText" role="status">Opening the desk...</p>
+        <button class="btn dk-off" id="dkRetry" type="button">Try again</button>
+      </div>
+      <div id="dkBody" class="dk-off">
+        <div class="cols">
+          <div>
+            <h2 class="dk-brand" id="dkBrand"></h2>
+            <p class="dk-note dk-off" id="dkNote"></p>
+            <p class="small" id="dkSheet"></p>
+            <p class="small dk-off" id="dkNoKey">Gemini is not connected yet: this desk has no key.</p>
+            <div class="actions dk-row"><button class="btn ghost" id="dkReload" type="button">Read again</button></div>
+            <div class="dk-problems dk-off" id="dkProblems">
+              <p class="small" id="dkProblemsHead"></p>
+              <ul class="tight" id="dkProblemsList"></ul>
+            </div>
+            <p class="small muted dk-off" id="dkVersion"></p>
+          </div>
+          <aside class="side">
+            <p class="sub">The three lanes</p>
+            <dl class="lanes dk-lanes">
+              <dt class="g">Green</dt><dd>Nothing flagged. A person still decides.</dd>
+              <dt class="a">Amber</dt><dd>Flagged. Someone should look before this goes out.</dd>
+              <dt class="r">Red</dt><dd>Stop. Take this to whoever signs off legal questions for this brand.</dd>
+            </dl>
+          </aside>
+        </div>
+
+        <p class="sub dk-gap">Standards</p>
+        <div class="tablewrap" id="dkRegister"></div>
+        <p class="small dk-after" id="dkReviewed"></p>
+
+        <p class="sub dk-gap">Test a script</p>
+        <div class="dk-off" id="dkTestBox">
+          <textarea id="dkText" spellcheck="false" aria-label="Draft script to test"></textarea>
+          <div class="actions dk-row">
+            <button class="btn ghost" id="dkCheck" type="button">Check on this page</button>
+            <span class="small muted">Looks for the desk's words to catch and a disclosure. Nothing leaves your browser.</span>
+          </div>
+          <div class="actions dk-row">
+            <button class="btn" id="dkSend" type="button">Send to this desk's reader</button>
+            <span class="small muted">Sends your text to the person who runs this desk and to Google's Gemini on their account. They keep a copy. Paste nothing private.</span>
+          </div>
+          <div class="dk-out" id="dkOut"></div>
+        </div>
+        <p class="small dk-off" id="dkTestOff">This desk cannot read drafts until its Sheet is fixed.</p>
+
+        <p class="sub dk-gap">Bench</p>
+        <div id="dkBench"></div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <span class="dk-off" id="dkFootLinks"><a href="./desk.html">Start your own desk</a> · <a href="./index.html">The worked example</a></span>
+    <span>A student prototype from the NYU SPS and Google Marketing Accelerator Hackathon. Not a Google product. Not legal advice.</span>
+  </footer>
+</div>
+<noscript><p class="wrap small">This page needs JavaScript to open a desk or copy the code.</p></noscript>
+</body>
+</html>
